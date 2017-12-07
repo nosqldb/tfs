@@ -217,7 +217,9 @@ AC_ARG_WITH([release],
         CXXFLAGS="-O2 -finline-functions -fno-strict-aliasing -Wall -fPIC -D__STDC_LIMIT_MACROS -D_NO_EXCEPTION"
       fi
     ],
-    [CXXFLAGS="-g -D__STDC_LIMIT_MACROS -Wall -Werror -Wextra -Wunused-parameter -Wformat -Wconversion -Wdeprecated "]
+    #todo we should add warnings flag back later
+    [CXXFLAGS="-g -D__STDC_LIMIT_MACROS -fpermissive -std=c++11"] 
+    #[CXXFLAGS="-g -D__STDC_LIMIT_MACROS -Wall -Werror -Wextra -Wunused-parameter -Wformat -Wconversion -Wdeprecated "]
     #[CXXFLAGS="-g -Wall -fPIC -D__STDC_LIMIT_MACROS -DTFS_TEST -D_NO_EXCEPTION"]
 )
 
