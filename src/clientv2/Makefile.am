@@ -4,7 +4,7 @@ AM_CPPFLAGS=-I${top_srcdir}/src\
 			-I$(EASY_ROOT)/include/easy \
 			-I$(TAIR_CACHE_CPPFLAGS)
 
-AM_LDFLAGS=-lrt -lpthread -ldl -luuid -lssl $(TAIR_CACHE_LDFLAGS) 
+AM_LDFLAGS=-lrt -lpthread -ldl -luuid -lssl -lcrypto $(TAIR_CACHE_LDFLAGS) 
 
 if WITH_TAIR_CACHE
 tair_cache_source=tair_cache_helper.cpp tair_cache_helper.h

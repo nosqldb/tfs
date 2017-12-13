@@ -29,7 +29,7 @@ using namespace tfs::tools;
 using namespace std;
 
 #if defined(__DATE__) && defined(__TIME__) && defined(PACKAGE) && defined(VERSION)
-static const char g_build_description[] = "Taobao file system(TFS), Version: " VERSION ", Build time: "__DATE__ " "__TIME__;
+static const char g_build_description[] = "Taobao file system(TFS), Version: " VERSION ", Build time: " __DATE__ " " __TIME__;
 #else
 static const char _g_build_description[] = "unknown";
 #endif

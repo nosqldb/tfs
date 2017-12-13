@@ -5,7 +5,7 @@ AM_CPPFLAGS=-I$(top_srcdir)/src\
       $(READLINE_INCLUDE)\
 		  -I$(TREST_ROOT)/include
 
-AM_LDFLAGS=-lrt -lpthread -ldl $(READLINE_LIB) -ljson -lcurl -lssl
+AM_LDFLAGS=-lrt -lpthread -ldl $(READLINE_LIB) -ljson -lcurl -lssl -lcrypto
 
 bin_PROGRAMS = transfer split_item_tool transfer_from_filesystem
 LDADD = $(top_builddir)/src/tools/util/libtfstoolsutil.a\

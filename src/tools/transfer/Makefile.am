@@ -4,7 +4,7 @@ AM_CPPFLAGS=-I$(top_srcdir)/src\
 			-I$(EASY_ROOT)/include/easy\
 			-DUSE_NEW_CLIENT
 
-AM_LDFLAGS=-lrt -lpthread -ldl -luuid -lz -lssl
+AM_LDFLAGS=-lrt -lpthread -ldl -luuid -lz -lssl -lcrypto
 
 bin_PROGRAMS = #split_block_tool transfer_blockv2 compare_crcv2
 LDADD = $(top_builddir)/src/tools/util/libtfstoolsutil.a\

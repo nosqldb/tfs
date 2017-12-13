@@ -5,7 +5,7 @@ AM_CPPFLAGS=-Wall -I$(top_srcdir)/src\
 						-I$(TREST_ROOT)/include\
 						-I$(EASY_ROOT)/include/easy
 
-AM_LDFLAGS=-lz -lrt -lpthread -ldl -luuid -ljson -lcurl -lidn -lssl
+AM_LDFLAGS=-lz -lrt -lpthread -ldl -luuid -ljson -lcurl -lidn -lssl -lcrypto
 
 LDADD=$(top_builddir)/src/message/libtfsmessage.a \
       $(top_builddir)/src/common/libtfscommon.a\

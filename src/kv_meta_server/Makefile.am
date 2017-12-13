@@ -4,7 +4,7 @@ AM_CPPFLAGS=-Wall -I$(top_srcdir)/src\
 						-I$(EASY_ROOT)/include/easy \
 						$(MYSQL_CFLAGS)
 
-AM_LDFLAGS=-lz -lrt -lpthread -ldl -luuid -lssl
+AM_LDFLAGS=-lz -lrt -lpthread -ldl -luuid -lssl -lcrypto
 
 LDADD=$(top_builddir)/src/message/libtfsmessage.a \
       $(top_builddir)/src/common/mysql_cluster/libkvengine_mysql.a \

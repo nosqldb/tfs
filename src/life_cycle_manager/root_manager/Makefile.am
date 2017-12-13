@@ -6,7 +6,7 @@ AM_CPPFLAGS=-Wall -I$(top_srcdir)/src\
 						  $(MYSQL_CFLAGS)
 
 #AM_LDFLAGS=-lz -lrt -lpthread -ldl -lgcov
-AM_LDFLAGS=-lz -lrt -lpthread -ldl -lssl
+AM_LDFLAGS=-lz -lrt -lpthread -ldl -lssl -lcrypto
 LDADD=$(top_builddir)/src/message/libtfsmessage.a \
       $(top_builddir)/src/common/libtfscommon.a\
 			$(top_builddir)/src/common/mysql_cluster/libkvengine_mysql.a \

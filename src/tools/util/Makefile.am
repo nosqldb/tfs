@@ -4,7 +4,7 @@ AM_CPPFLAGS=-I$(top_srcdir)/src\
 			-I$(EASY_ROOT)/include/easy\
 	    -fpic
 
-AM_LDFLAGS=-lrt -lpthread -ldl -lssl
+AM_LDFLAGS=-lrt -lpthread -ldl -lssl -lcrypto
 
 noinst_LIBRARIES = libtfstoolsutil.a
 

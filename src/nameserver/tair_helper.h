@@ -19,8 +19,7 @@
 #include <Timer.h>
 #include <Mutex.h>
 #include "ns_define.h"
-#include "tair_mc_client_api.hpp"
-#include "data_entry.hpp"
+#include "tair_client_api.hpp"
 
 #ifdef TFS_GTEST
 #include <gtest/gtest.h>
@@ -39,7 +38,8 @@ namespace tfs
       FRIEND_TEST(TairHelperTest, scan);
       #endif
     public:
-      TairHelper(const std::string& key_prefix, const std::string& config_id, const int32_t area);
+      TairHelper(const std::string& key_prefix,  const std::string& master_ipaddr, const std::string& slave_ipaddr,
+        const std::string& group_name, const int32_t area);
       virtual ~TairHelper();
       int initialize();
       int destroy();
@@ -49,7 +49,7 @@ namespace tfs
       int query_family(common::FamilyInfo& family_info);
       int update_global_block_id(const uint64_t block_id);
       int query_global_block_id(uint64_t& block_id);
-      int scan(std::vector<common::FamilyInfo>& family_infos, const int64_t start_family_id,
+      int scan(std::vector<common::FamilyInfo>& family_infos, const int64_t start_family_id, 
           const int32_t chunk, const bool del, const uint64_t peer_ipport, const int32_t limit);
     private:
       int put_(const char* pkey, const char* skey, const char* value, const int32_t value_len);
@@ -61,9 +61,11 @@ namespace tfs
     private:
       DISALLOW_COPY_AND_ASSIGN(TairHelper);
       tbutil::Mutex mutex_;
-      tair::tair_mc_client_api tair_client_;
+      tair::tair_client_api tair_client_;
       std::string key_prefix_;
-      std::string config_id_;
+      std::string master_ipaddr_;
+      std::string slave_ipaddr_;
+      std::string group_name_;
       int32_t area_;
     };
   }/** end namespace nameserver **/

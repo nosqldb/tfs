@@ -3,7 +3,7 @@ AM_CPPFLAGS=-I$(top_srcdir)/src\
 	    -I$(TBLIB_ROOT)/include/tbnet\
 			-I$(EASY_ROOT)/include/easy
 
-AM_LDFLAGS=-lrt -lpthread -ldl -luuid -lz -lssl
+AM_LDFLAGS=-lrt -lpthread -ldl -luuid -lz -lssl -lcrypto
 
 bin_PROGRAMS = get_all_files_in_block save_file_map_between_cluster
 

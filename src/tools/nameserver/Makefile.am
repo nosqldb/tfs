@@ -5,7 +5,7 @@ AM_CPPFLAGS=-I$(top_srcdir)/src\
 			-I$(EASY_ROOT)/include/easy\
 	    $(READLINE_INCLUDE)
 
-AM_LDFLAGS=-lrt -lpthread -ldl $(READLINE_LIB) -luuid -lz -lssl
+AM_LDFLAGS=-lrt -lpthread -ldl $(READLINE_LIB) -luuid -lz -lssl -lcrypto
 
 bin_PROGRAMS = admintool tfstool ssm repair_file_tool stat_tool gen_compact_blk_order ns_meta_tool # import_family_info export_family_info
 

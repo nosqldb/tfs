@@ -3,7 +3,7 @@ AM_CPPFLAGS=-I$(top_srcdir)/src\
       -I$(TBLIB_ROOT)/include/tbnet\
 			-I$(EASY_ROOT)/include/easy
 
-AM_LDFLAGS=-lz -lrt -lpthread -ldl  -luuid -lssl
+AM_LDFLAGS=-lz -lrt -lpthread -ldl  -luuid -lssl -lcrypto
 
 bin_PROGRAMS = parse gene rcstat
 

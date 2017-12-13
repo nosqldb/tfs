@@ -5,7 +5,7 @@ AM_CPPFLAGS=-I$(top_srcdir)/src\
 						-I$(EASY_ROOT)/include/easy\
 	    			$(TAIR_STORE_CPPFLAGS)
 
-AM_LDFLAGS=-lz -lrt -lpthread -ldl -rdynamic -lssl $(TAIR_STORE_LDFLAGS) ${TCMALLOC_LDFLAGS}
+AM_LDFLAGS=-lz -lrt -lpthread -ldl -rdynamic -lssl -lcrypto  $(TAIR_STORE_LDFLAGS) ${TCMALLOC_LDFLAGS}
 
 LDADD=$(top_builddir)/src/message/libtfsmessage.a \
       $(top_builddir)/src/common/libtfscommon.a\

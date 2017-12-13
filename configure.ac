@@ -110,23 +110,8 @@ if ! test -d "${TAIR_ROOT}/include" -a -d "${TBLIB_ROOT}/lib"; then
   exit 1;
 fi
 
-AC_ARG_WITH([diamond-root],
-           AS_HELP_STRING([--with-diamond-root],
-           [Diamond installation path, need by tair mc client]),
-           DIAMOND_ROOT=${withval})
-AC_SUBST([DIAMOND_ROOT])
-if  test -z "${DIAMOND_ROOT}"; then
-   DIAMOND_ROOT="/usr/local"
-fi
-
-if ! test -d "${DIAMOND_ROOT}/include" -a -d "${DIAMOND_ROOT}/lib"; then
-  AC_MSG_ERROR([DIAMOND_ROOT is not work! expect DIAMOND_ROOT/include and DIAMOND_ROOT/lib directory])
-  exit 1;
-fi
-
-
 TAIR_STORE_CPPFLAGS=" -I${TAIR_ROOT}/include -I${DIAMOND_ROOT}/include -I${EASY_ROOT}/include/easy"
-TAIR_STORE_LDFLAGS="${TAIR_ROOT}/lib/libtairmcclientapi.a ${DIAMOND_ROOT}/lib/libdiamond.a ${EASY_ROOT}/lib64/libeasy.a -lssl -lcurl -lz -lsnappy"
+TAIR_STORE_LDFLAGS="${TAIR_ROOT}/lib/libtairclientapi.a  ${EASY_ROOT}/lib64/libeasy.a -lssl -lcurl -lz -lsnappy"
 AC_SUBST([TAIR_STORE_CPPFLAGS])
 AC_SUBST([TAIR_STORE_LDFLAGS])
 

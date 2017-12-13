@@ -4,7 +4,7 @@ AM_CPPFLAGS=-I$(top_srcdir)/src\
 			-I$(EASY_ROOT)/include/easy\
             $(READLINE_INCLUDE)
 
-AM_LDFLAGS=-lrt -lpthread -ldl -lssl $(READLINE_LIB)
+AM_LDFLAGS=-lrt -lpthread -ldl -lssl -lcrypto $(READLINE_LIB)
 
 bin_PROGRAMS = #adminservertool
 
