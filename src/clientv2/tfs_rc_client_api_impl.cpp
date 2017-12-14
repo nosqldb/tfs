@@ -76,9 +76,11 @@ namespace tfs
 #ifdef WITH_TAIR_CACHE
           std::vector<std::string> ns_cache_info;
           common::Func::split_string(rc_client_.base_info_.ns_cache_info_.c_str(), ';', ns_cache_info);
-          if (ns_cache_info.size() == 2)
+          if (ns_cache_info.size() == 4)
           {
-            TfsClientImplV2::Instance()->set_remote_cache_info(ns_cache_info[0].c_str(), atoi(ns_cache_info[1].c_str()));
+            TfsClientImplV2::Instance()->set_remote_cache_info(ns_cache_info[0].c_str(),
+                ns_cache_info[1].c_str(), ns_cache_info[2].c_str(),
+                atoi(ns_cache_info[3].c_str()));
             TfsClientImplV2::Instance()->set_use_remote_cache(rc_client_.base_info_.use_remote_cache_);
           }
           else
@@ -226,9 +228,11 @@ namespace tfs
 #ifdef WITH_TAIR_CACHE
           std::vector<std::string> ns_cache_info;
           common::Func::split_string(base_info_.ns_cache_info_.c_str(), ';', ns_cache_info);
-          if (ns_cache_info.size() == 2)
+          if (ns_cache_info.size() == 4)
           {
-            TfsClientImplV2::Instance()->set_remote_cache_info(ns_cache_info[0].c_str(), atoi(ns_cache_info[1].c_str()));
+            TfsClientImplV2::Instance()->set_remote_cache_info(ns_cache_info[0].c_str(),
+                ns_cache_info[1].c_str(), ns_cache_info[2].c_str(),
+                atoi(ns_cache_info[3].c_str()));
             TfsClientImplV2::Instance()->set_use_remote_cache(base_info_.use_remote_cache_);
           }
           else
@@ -277,9 +281,11 @@ namespace tfs
     {
       std::vector<std::string> tair_addr;
       common::Func::split_string(remote_cache_info, ';', tair_addr);
-      if (tair_addr.size() == 2)
+      if (tair_addr.size() == 4)
       {
-        TfsClientImplV2::Instance()->set_remote_cache_info(tair_addr[0].c_str(), atoi(tair_addr[1].c_str()));
+        TfsClientImplV2::Instance()->set_remote_cache_info(tair_addr[0].c_str(),
+            tair_addr[1].c_str(), tair_addr[2].c_str(),
+            atoi(tair_addr[3].c_str()));
         TfsClientImplV2::Instance()->set_use_remote_cache(true);
       }
     }

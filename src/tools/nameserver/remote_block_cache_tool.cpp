@@ -97,7 +97,9 @@ int cmd_lookup_block_cache(const VSTRING& param);
 int cmd_remove_block_cache(const VSTRING& param);
 
 const char* g_ns_addr = NULL;
-const char* g_config_id = NULL;
+const char* g_tair_master_addr = NULL;
+const char* g_tair_slave_addr = NULL;
+const char* g_tair_group_name = NULL;
 int g_tair_area = 0;
 
 int main(int argc, char* argv[])
@@ -142,12 +144,15 @@ int main(int argc, char* argv[])
 
   TBSYS_CONFIG.load(conf_file);
   g_ns_addr = TBSYS_CONFIG.getString("public", "ns_addr", NULL);
-  g_config_id = TBSYS_CONFIG.getString("public", "tair_config_id", NULL);
+  g_tair_master_addr = TBSYS_CONFIG.getString("public", "tair_master_addr", NULL);
+  g_tair_slave_addr = TBSYS_CONFIG.getString("public", "tair_slave_addr", NULL);
+  g_tair_group_name = TBSYS_CONFIG.getString("public", "tair_group_name", NULL);
   g_tair_area = TBSYS_CONFIG.getInt("public", "tair_area", 0);
   //file_list = TBSYS_CONFIG.getString("public", "file_list", "./file_to_invalid_remote_cache.list");
 
   if (NULL == g_ns_addr ||
-      NULL == g_config_id || g_tair_area < 0)
+      NULL == g_tair_master_addr || NULL == g_tair_slave_addr ||
+      NULL == g_tair_group_name || g_tair_area < 0)
   {
      fprintf(stderr, "error! must config ns addr and remote cache info!\n");
      return ret;
@@ -173,7 +178,9 @@ int main(int argc, char* argv[])
   }
 
   // set remote cache info
-  ClientConfig::remote_cache_config_id_ = g_config_id;
+  ClientConfig::remote_cache_master_addr_ = g_tair_master_addr;
+  ClientConfig::remote_cache_slave_addr_ = g_tair_slave_addr;
+  ClientConfig::remote_cache_group_name_ = g_tair_group_name;
   ClientConfig::remote_cache_area_ = g_tair_area;
 
   ClientConfig::use_cache_ |= USE_CACHE_FLAG_LOCAL;

@@ -17,6 +17,7 @@
 #define TFS_TOOLS_METACMP_H_
 
 #include <stdio.h>
+#include <typeinfo>
 #include <map>
 #include "cmp_factory.h"
 

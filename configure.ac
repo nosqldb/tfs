@@ -203,7 +203,7 @@ AC_ARG_WITH([release],
       fi
     ],
     #todo we should add warnings flag back later
-    [CXXFLAGS="-g -D__STDC_LIMIT_MACROS -fpermissive -std=c++11"] 
+    [CXXFLAGS="-g -std=c++11 -D__STDC_LIMIT_MACROS -fpermissive"]
     #[CXXFLAGS="-g -D__STDC_LIMIT_MACROS -Wall -Werror -Wextra -Wunused-parameter -Wformat -Wconversion -Wdeprecated "]
     #[CXXFLAGS="-g -Wall -fPIC -D__STDC_LIMIT_MACROS -DTFS_TEST -D_NO_EXCEPTION"]
 )
