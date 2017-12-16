@@ -6,7 +6,7 @@ AM_CPPFLAGS=-I$(top_srcdir)/src\
 
 AM_LDFLAGS=-lrt -lpthread -ldl $(READLINE_LIB) -ljson -lcurl
 
-bin_PROGRAMS = transfer split_item_tool transfer_from_filesystem
+bin_PROGRAMS = transfer split_item_tool
 LDADD = $(top_builddir)/src/tools/util/libtfstoolsutil.a\
   $(top_builddir)/src/requester/libtfssyncutil.a\
   $(top_builddir)/src/clientv2/.libs/libtfsclientv2.a\
@@ -15,8 +15,7 @@ LDADD = $(top_builddir)/src/tools/util/libtfstoolsutil.a\
 	$(top_builddir)/src/common/libtfscommon.a\
 	$(TAIR_CACHE_LDFLAGS)\
 	$(TBLIB_ROOT)/lib/libtbnet.a\
-	$(TBLIB_ROOT)/lib/libtbsys.a\
-	$(TREST_ROOT)/lib/libtfs_cpp_restful_client.a
+	$(TBLIB_ROOT)/lib/libtbsys.a
 
 transfer_SOURCES=transfer.cpp transfer.h
 
@@ -24,4 +23,5 @@ split_item_tool_SOURCES=split_item_tool.cpp
 
 #block_toolv2_SOURCES=block_tool_v2.cpp
 
-transfer_from_filesystem_SOURCES = transfer_from_filesystem.cpp
+#can't compile transfer_from_filesystem.cpp as lack of libtfs_cpp_restful_client.a
+#transfer_from_filesystem_SOURCES = transfer_from_filesystem.cpp

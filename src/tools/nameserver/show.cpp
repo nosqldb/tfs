@@ -395,7 +395,7 @@ namespace tfs
                 machine.machine_id_ = machine_id;
                 machine.init(server, old_server);
                 machine.add(server, old_server);
-                machine_map_.insert(make_pair<uint64_t, MachineShow> (machine_id, machine));
+                machine_map_.insert(make_pair(machine_id, machine));
               }
             }
           }
