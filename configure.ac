@@ -94,7 +94,7 @@ if ! test -d "${TAIR_ROOT}/include" -a -d "${TBLIB_ROOT}/lib"; then
   exit 1;
 fi
 TAIR_STORE_CPPFLAGS="-DWITH_UNIQUE_STORE -I${TAIR_ROOT}/include"
-TAIR_STORE_LDFLAGS="${TAIR_ROOT}/lib/libtairclientapi.a  -L/usr/lib64/boost1.46.1 -lboost_thread -lz -lsnappy"
+TAIR_STORE_LDFLAGS="${TAIR_ROOT}/lib/libtairclientapi.a -lz -lsnappy"
 AC_SUBST([TAIR_STORE_CPPFLAGS])
 AC_SUBST([TAIR_STORE_LDFLAGS])
 
@@ -109,7 +109,7 @@ if test "${enable_uniquestore}" = "yes"; then
                 exit 1;
         fi
         UNIQUE_STORE_CPPFLAGS="-DWITH_UNIQUE_STORE -I${TAIR_ROOT}/include"
-        UNIQUE_STORE_LDFLAGS="${TAIR_ROOT}/lib/libtairclientapi.a -lboost_thread -lz -lsnappy"
+        UNIQUE_STORE_LDFLAGS="${TAIR_ROOT}/lib/libtairclientapi.a -lz -lsnappy"
 fi
 AM_CONDITIONAL([WITH_UNIQUE_STORE],[test x$enable_uniquestore = xyes])
 AC_SUBST([UNIQUE_STORE_CPPFLAGS])
@@ -128,7 +128,7 @@ if test "${enable_taircache}" = "yes"; then
                 exit 1;
         fi
         TAIR_CACHE_CPPFLAGS="-DWITH_TAIR_CACHE -I${TAIR_ROOT}/include"
-        TAIR_CACHE_LDFLAGS="${TAIR_ROOT}/lib/libtairclientapi.a -lboost_thread -lz -lsnappy"
+        TAIR_CACHE_LDFLAGS="${TAIR_ROOT}/lib/libtairclientapi.a -lz -lsnappy"
 fi
 AM_CONDITIONAL([WITH_TAIR_CACHE],[test x$enable_taircache = xyes])
 AC_SUBST([TAIR_CACHE_CPPFLAGS])
@@ -145,7 +145,7 @@ if test "${enable_kvmeta}" = "yes"; then
                 exit 1;
         fi
         TAIR_META_CPPFLAGS="-DWITH_TAIR_META -I${TAIR_ROOT}/include"
-        TAIR_META_LDFLAGS="${TAIR_ROOT}/lib/libtairclientapi.a -lboost_thread -lz -lsnappy"
+        TAIR_META_LDFLAGS="${TAIR_ROOT}/lib/libtairclientapi.a -lz -lsnappy"
 fi
 AM_CONDITIONAL([WITH_KV_META],[test x$enable_kvmeta = xyes])
 AC_SUBST([TAIR_META_CPPFLAGS])
@@ -191,7 +191,9 @@ AC_ARG_WITH([release],
         CXXFLAGS="-O2 -finline-functions -fno-strict-aliasing -Wall -fPIC -D__STDC_LIMIT_MACROS -D_NO_EXCEPTION"
       fi
     ],
-    [CXXFLAGS="-g -D__STDC_LIMIT_MACROS -Wall -Werror -Wextra -Wunused-parameter -Wformat -Wconversion -Wdeprecated "]
+    #todo we should add warnings flag back later
+    [CXXFLAGS="-g -D__STDC_LIMIT_MACROS -fpermissive -std=c++11"] 
+    #[CXXFLAGS="-g -D__STDC_LIMIT_MACROS -Wall -Werror -Wextra -Wunused-parameter -Wformat -Wconversion -Wdeprecated "]
     #[CXXFLAGS="-g -Wall -fPIC -D__STDC_LIMIT_MACROS -DTFS_TEST -D_NO_EXCEPTION"]
 )
 

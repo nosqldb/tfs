@@ -271,7 +271,7 @@ namespace tfs
       int tair_ret = 0;
       tair_ret = tair_client_->get(area, pkey, pvalue);
 
-      if(TAIR_RETURN_DATA_NOT_EXIST == tair_ret || TAIR_RETURN_DATA_EXPIRED == tair_ret)
+      if(TAIR_RETURN_DATA_NOT_EXIST == tair_ret)
       {
         ret = EXIT_KV_RETURN_DATA_NOT_EXIST;
       }
@@ -468,7 +468,7 @@ namespace tfs
       if (TAIR_RETURN_SUCCESS != tair_ret)
       {
         ret = EXIT_KV_RETURN_ERROR;
-        if (TAIR_RETURN_DATA_NOT_EXIST == tair_ret || TAIR_RETURN_DATA_EXPIRED == tair_ret)
+        if (TAIR_RETURN_DATA_NOT_EXIST == tair_ret)
         {
           TBSYS_LOG(WARN, "del data noesxit.");
           ret = EXIT_KV_RETURN_DATA_NOT_EXIST;
@@ -610,7 +610,7 @@ namespace tfs
         tair_ret = tair_client_->prefix_get(area, pkey, skey, value);
       } while (TAIR_RETURN_TIMEOUT == tair_ret && --retry_count > 0);
 
-      if (TAIR_RETURN_DATA_NOT_EXIST == tair_ret || TAIR_RETURN_DATA_EXPIRED == tair_ret)
+      if (TAIR_RETURN_DATA_NOT_EXIST == tair_ret)
       {
         ret = EXIT_KV_RETURN_DATA_NOT_EXIST;
       }
@@ -640,7 +640,7 @@ namespace tfs
       if (TAIR_RETURN_SUCCESS != tair_ret)
       {
         ret = EXIT_KV_RETURN_ERROR;
-        if (TAIR_RETURN_DATA_NOT_EXIST == tair_ret || TAIR_RETURN_DATA_EXPIRED == tair_ret)
+        if (TAIR_RETURN_DATA_NOT_EXIST == tair_ret)
         {
           TBSYS_LOG(WARN, "del data noesxit.");
           ret = EXIT_KV_RETURN_DATA_NOT_EXIST;
@@ -664,7 +664,7 @@ namespace tfs
       if (TAIR_RETURN_SUCCESS != tair_ret)
       {
         ret = EXIT_KV_RETURN_ERROR;
-        if (TAIR_RETURN_DATA_NOT_EXIST == tair_ret || TAIR_RETURN_DATA_EXPIRED == tair_ret)
+        if (TAIR_RETURN_DATA_NOT_EXIST == tair_ret)
         {
           TBSYS_LOG(WARN, "del data noesxit.");
           ret = EXIT_KV_RETURN_DATA_NOT_EXIST;
@@ -686,7 +686,7 @@ namespace tfs
         tair_ret = tair_client_->get_range(area, pkey, start_key, end_key, offset, limit, values, type);
       } while (TAIR_RETURN_TIMEOUT == tair_ret && --retry_count > 0);
 
-      if (TAIR_RETURN_DATA_NOT_EXIST == tair_ret || TAIR_RETURN_DATA_EXPIRED == tair_ret)
+      if (TAIR_RETURN_DATA_NOT_EXIST == tair_ret)
       {
         ret = EXIT_KV_RETURN_DATA_NOT_EXIST;
       }
