@@ -182,10 +182,10 @@ int TfsClientTestCXX::op_readv2(const int extra_flag)
   EXPECT_EQ(stat_info.size_, OP_SIZE);
   printf("stat tfs file success:\n"
          "filename: %s\n"
-         "fileid: %"PRI64_PREFIX"u\n"
+         "fileid: %" PRI64_PREFIX "u\n"
          "offset: %d\n"
-         "size: %"PRI64_PREFIX"d\n"
-         "usize: %"PRI64_PREFIX"d\n"
+         "size: %" PRI64_PREFIX "d\n"
+         "usize: %" PRI64_PREFIX "d\n"
          "modify_time: %d\n"
          "create_time: %d\n"
          "status: %d\n"
@@ -230,7 +230,7 @@ int TfsClientTestCXX::op_write(const int extra_flag)
 
   if ((len = tfs_client_->write(fd, buf, OP_SIZE)) != OP_SIZE)
   {
-    printf("write data to tfs fail, ret: %"PRI64_PREFIX"d\n", len);
+    printf("write data to tfs fail, ret: %" PRI64_PREFIX "d\n", len);
     // write fail, just close fd
     tfs_client_->close(fd);
     return ret;
@@ -269,7 +269,7 @@ int TfsClientTestCXX::op_update(const int extra_flag)
   EXPECT_EQ((len = tfs_client_->write(fd, buf, OP_SIZE)), OP_SIZE);
   if (len != OP_SIZE)
   {
-    printf("write data to tfs fail, ret: %"PRI64_PREFIX"d\n", len);
+    printf("write data to tfs fail, ret: %" PRI64_PREFIX "d\n", len);
     // write fail, just close fd
     EXPECT_TRUE(tfs_client_->close(fd) != TFS_SUCCESS);
     return ret;
@@ -292,10 +292,10 @@ int TfsClientTestCXX::op_stat(const int extra_flag)
   EXPECT_TRUE(stat_info.usize_ > OP_SIZE);
   printf("stat tfs file success:\n"
          "filename: %s\n"
-         "fileid: %"PRI64_PREFIX"u\n"
+         "fileid: %" PRI64_PREFIX "u\n"
          "offset: %d\n"
-         "size: %"PRI64_PREFIX"d\n"
-         "usize: %"PRI64_PREFIX"d\n"
+         "size: %" PRI64_PREFIX "d\n"
+         "usize: %" PRI64_PREFIX "d\n"
          "modify_time: %d\n"
          "create_time: %d\n"
          "status: %d\n"

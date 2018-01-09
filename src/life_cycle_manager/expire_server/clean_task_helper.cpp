@@ -342,11 +342,11 @@ namespace tfs
                         int64_t appid = atoll(t_file_name.c_str());
                         int64_t uid = atoll(t_file_name.c_str() + uid_pos + 1);
                         //string meta_name = t_file_name.substr(metaname_pos, file_len - metaname_pos);
-                        TBSYS_LOG(INFO, "appid: %"PRI64_PREFIX"d, uid: %"PRI64_PREFIX"d, meta_name: %s",
+                        TBSYS_LOG(INFO, "appid: %" PRI64_PREFIX "d, uid: %" PRI64_PREFIX "d, meta_name: %s",
                                   appid, uid, t_file_name.c_str() + metaname_pos);
                         if (appid < 0 || uid < 0)
                         {
-                            TBSYS_LOG(ERROR, "error appid: %"PRI64_PREFIX"d, uid: %"PRI64_PREFIX"d, meta_name: %s",
+                            TBSYS_LOG(ERROR, "error appid: %" PRI64_PREFIX "d, uid: %" PRI64_PREFIX "d, meta_name: %s",
                                       appid, uid, t_file_name.c_str() + metaname_pos);
                             continue;
                         }

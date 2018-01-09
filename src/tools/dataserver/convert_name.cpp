@@ -36,6 +36,6 @@ int main(int argc, char** argv)
     //printf("prefix : %s\n", argv[3]);
     fs_name.set_suffix(argv[3]);
   }
-  printf("blockid: %d, fileid: %" PRI64_PREFIX "u, name: %s\n", block_id, file_id, fs_name.get_name());
+  printf("blockid: %d, fileid: %"  PRI64_PREFIX  "u, name: %s\n", block_id, file_id, fs_name.get_name());
   return 0;
 }

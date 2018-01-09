@@ -97,7 +97,7 @@ namespace tfs
           if (TFS_SUCCESS != ret)//只有发送的读消息没有收到回应才需要重试
           {
             --remainder_retrys;//need to retry
-            TBSYS_LOG(WARN, "read raw data from ds: %s failed, blockid: %"PRI64_PREFIX"u, offset: %d, remainder_retrys: %"PRI64_PREFIX"d, ret: %d",
+            TBSYS_LOG(WARN, "read raw data from ds: %s failed, blockid: %" PRI64_PREFIX "u, offset: %d, remainder_retrys: %" PRI64_PREFIX "d, ret: %d",
                 tbsys::CNetUtil::addrToString(server).c_str(), block, cur_offset, remainder_retrys, ret);
           }
           else
@@ -114,25 +114,25 @@ namespace tfs
               if (len < read_size || cur_offset == total_size)
               {
                 eof_flag = true;
-                TBSYS_LOG(INFO, "read raw data from ds: %s finish, blockid: %"PRI64_PREFIX"u, offset: %d, remainder_retrys: %"PRI64_PREFIX"d, ret: %d, read_size:%ld, len: %d",
+                TBSYS_LOG(INFO, "read raw data from ds: %s finish, blockid: %" PRI64_PREFIX "u, offset: %d, remainder_retrys: %" PRI64_PREFIX "d, ret: %d, read_size:%ld, len: %d",
                     tbsys::CNetUtil::addrToString(server).c_str(), block, cur_offset, remainder_retrys, ret, read_size, len);
               }
               else
               {
-                TBSYS_LOG(DEBUG, "read raw data from ds: %s succ, blockid: %"PRI64_PREFIX"u, offset: %d, len: %d, data: %p",
+                TBSYS_LOG(DEBUG, "read raw data from ds: %s succ, blockid: %" PRI64_PREFIX "u, offset: %d, len: %d, data: %p",
                     tbsys::CNetUtil::addrToString(server).c_str(), block, cur_offset, len, rsp_rrd_msg->get_data());
               }
             }
             else if (STATUS_MESSAGE == rsp->getPCode())
             {
               StatusMessage* sm = dynamic_cast<StatusMessage*>(rsp);
-              TBSYS_LOG(ERROR, "read raw data from ds: %s failed, blockid: %"PRI64_PREFIX"u, offset: %d, remainder_retrys: %"PRI64_PREFIX"d, error msg:%s, ret: %d",
+              TBSYS_LOG(ERROR, "read raw data from ds: %s failed, blockid: %" PRI64_PREFIX "u, offset: %d, remainder_retrys: %" PRI64_PREFIX "d, error msg:%s, ret: %d",
                   tbsys::CNetUtil::addrToString(server).c_str(), block, cur_offset, remainder_retrys, sm->get_error(), sm->get_status());
               ret = sm->get_status();
             }
             else //unknow type
             {
-              TBSYS_LOG(ERROR, "read raw data from ds: %s failed, blockid: %"PRI64_PREFIX"u, offset: %d, remainder_retrys: %"PRI64_PREFIX"d, unknow msg type: %d",
+              TBSYS_LOG(ERROR, "read raw data from ds: %s failed, blockid: %" PRI64_PREFIX "u, offset: %d, remainder_retrys: %" PRI64_PREFIX "d, unknow msg type: %d",
                   tbsys::CNetUtil::addrToString(server).c_str(), block, cur_offset, remainder_retrys, rsp->getPCode());
               ret = EXIT_READ_FILE_ERROR;
             }
@@ -155,7 +155,7 @@ namespace tfs
           speed = read_size * 1000 * 1000 / TIMER_DURATION();
         }
 
-        TBSYS_LOG(DEBUG, "read data, cost time: %"PRI64_PREFIX"d, read size: %"PRI64_PREFIX"d, speed: %"PRI64_PREFIX"d byte/s, need sleep time: %"PRI64_PREFIX"d",
+        TBSYS_LOG(DEBUG, "read data, cost time: %" PRI64_PREFIX "d, read size: %" PRI64_PREFIX "d, speed: %" PRI64_PREFIX "d byte/s, need sleep time: %" PRI64_PREFIX "d",
             TIMER_DURATION(), read_size, speed, d_value);
       }
       return ret;
@@ -305,7 +305,7 @@ namespace tfs
 
         if (INVALID_FILE_ID == finfo.id_)
         {
-          TBSYS_LOG(WARN, "file id illegal, skip it. block: %"PRI64_PREFIX"u, statu: %d, size: %d, offset: %d",
+          TBSYS_LOG(WARN, "file id illegal, skip it. block: %" PRI64_PREFIX "u, statu: %d, size: %d, offset: %d",
             sindex.header_.info_.block_id_, finfo.status_, finfo.size_, finfo.offset_);
           nosync_files.push_back(finfo);
           continue;
@@ -330,7 +330,7 @@ namespace tfs
       dindex.header_.seq_no_ = sindex.header_.seq_no_;//last file id sequence
       dindex.header_.used_file_info_bucket_size_ = dindex.finfos_.size();
       dindex.header_.file_info_bucket_size_ = dindex.finfos_.size();
-      TBSYS_LOG(INFO, "recombine raw data success. blockid: %"PRI64_PREFIX"u, file count: %d, block size: %d",
+      TBSYS_LOG(INFO, "recombine raw data success. blockid: %" PRI64_PREFIX "u, file count: %d, block size: %d",
                   sindex.header_.info_.block_id_, dindex.header_.info_.file_count_, dindex.header_.info_.size_);
       return TFS_SUCCESS;
     }
@@ -361,7 +361,7 @@ namespace tfs
             ret = send_msg_to_server(server, client, &req, rsp);
             if (TFS_SUCCESS != ret)
             {
-              TBSYS_LOG(WARN, "write raw data to %s failed, ret: %d, block: %"PRI64_PREFIX"u, offset: %d, length: %d",
+              TBSYS_LOG(WARN, "write raw data to %s failed, ret: %d, block: %" PRI64_PREFIX "u, offset: %d, length: %d",
                   tbsys::CNetUtil::addrToString(server).c_str(),ret, block, offset, length);
             }
           }
@@ -370,7 +370,7 @@ namespace tfs
             ret = STATUS_MESSAGE == rsp->getPCode() ? TFS_SUCCESS : EXIT_UNKNOWN_MSGTYPE;
             if (TFS_SUCCESS != ret)
             {
-              TBSYS_LOG(WARN, "write raw data to %s failed, ret: %d, block: %"PRI64_PREFIX"u, offset: %d, length: %d",
+              TBSYS_LOG(WARN, "write raw data to %s failed, ret: %d, block: %" PRI64_PREFIX "u, offset: %d, length: %d",
                   tbsys::CNetUtil::addrToString(server).c_str(),ret, block, offset, length);
             }
           }
@@ -382,7 +382,7 @@ namespace tfs
             if (STATUS_MESSAGE_OK != sm->get_status())
             {
               ret =  sm->get_status();
-              TBSYS_LOG(WARN, "write raw data to %s failed, ret: %d, block: %"PRI64_PREFIX"u, offset: %d, length: %d",
+              TBSYS_LOG(WARN, "write raw data to %s failed, ret: %d, block: %" PRI64_PREFIX "u, offset: %d, length: %d",
                   tbsys::CNetUtil::addrToString(server).c_str(),ret, block, offset, length);
             }
             else
@@ -414,7 +414,7 @@ namespace tfs
         ret = send_msg_to_server(server, client, &req, rsp);
         if (TFS_SUCCESS != ret)
         {
-          TBSYS_LOG(WARN, "write raw index to %s failed, ret: %d, block: %"PRI64_PREFIX"u, files: %zd",
+          TBSYS_LOG(WARN, "write raw index to %s failed, ret: %d, block: %" PRI64_PREFIX "u, files: %zd",
               tbsys::CNetUtil::addrToString(server).c_str(),ret, block, index_data.finfos_.size());
         }
       }
@@ -423,7 +423,7 @@ namespace tfs
         ret = STATUS_MESSAGE == rsp->getPCode() ? TFS_SUCCESS : EXIT_UNKNOWN_MSGTYPE;
         if (TFS_SUCCESS != ret)
         {
-          TBSYS_LOG(WARN, "write raw index to %s failed, ret: %d, block: %"PRI64_PREFIX"u, files: %zd",
+          TBSYS_LOG(WARN, "write raw index to %s failed, ret: %d, block: %" PRI64_PREFIX "u, files: %zd",
               tbsys::CNetUtil::addrToString(server).c_str(),ret, block, index_data.finfos_.size());
         }
       }
@@ -435,7 +435,7 @@ namespace tfs
         if (STATUS_MESSAGE_OK != sm->get_status())
         {
           ret =  sm->get_status();
-          TBSYS_LOG(WARN, "write raw index to %s failed, ret: %d, block: %"PRI64_PREFIX"u, files: %zd",
+          TBSYS_LOG(WARN, "write raw index to %s failed, ret: %d, block: %" PRI64_PREFIX "u, files: %zd",
               tbsys::CNetUtil::addrToString(server).c_str(),ret, block, index_data.finfos_.size());
         }
       }
@@ -454,7 +454,7 @@ namespace tfs
       int32_t ret = send_msg_to_server(Func::get_host_ip(addr.c_str()), client, &req, rsp);
       if (TFS_SUCCESS != ret)
       {
-        TBSYS_LOG(INFO, "send remove block: %"PRI64_PREFIX"u command to %s failed,ret: %d", block, addr.c_str(), ret);
+        TBSYS_LOG(INFO, "send remove block: %" PRI64_PREFIX "u command to %s failed,ret: %d", block, addr.c_str(), ret);
       }
       else
       {
@@ -464,18 +464,18 @@ namespace tfs
           StatusMessage* sm = dynamic_cast<StatusMessage*>(rsp);
           if (STATUS_MESSAGE_OK == sm->get_status())
           {
-            TBSYS_LOG(INFO, "remove block: %"PRI64_PREFIX"u from %s successful", block, addr.c_str());
+            TBSYS_LOG(INFO, "remove block: %" PRI64_PREFIX "u from %s successful", block, addr.c_str());
           }
           else
           {
             ret = sm->get_status();
-            TBSYS_LOG(INFO, "remove block: %"PRI64_PREFIX"u from %s fail, ret: %d", block, addr.c_str(), ret);
+            TBSYS_LOG(INFO, "remove block: %" PRI64_PREFIX "u from %s fail, ret: %d", block, addr.c_str(), ret);
           }
         }
         else
         {
           ret = EXIT_UNKNOWN_MSGTYPE;
-          TBSYS_LOG(INFO, "remove block: %"PRI64_PREFIX"u from %s fail, ret: %d", block, addr.c_str(), ret);
+          TBSYS_LOG(INFO, "remove block: %" PRI64_PREFIX "u from %s fail, ret: %d", block, addr.c_str(), ret);
         }
       }
       NewClientManager::get_instance().destroy_client(client);

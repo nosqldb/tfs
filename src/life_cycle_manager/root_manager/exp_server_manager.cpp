@@ -127,7 +127,7 @@ namespace tfs
       EXP_SERVER_MAPS_ITER iter = servers_.begin();
       for (; iter != servers_.end(); )
       {
-        TBSYS_LOG(INFO, "%s now time: %ld, lease_id: %"PRI64_PREFIX"u, lease_expired_time: %"PRI64_PREFIX"d",
+        TBSYS_LOG(INFO, "%s now time: %ld, lease_id: %" PRI64_PREFIX "u, lease_expired_time: %" PRI64_PREFIX "d",
             tbsys::CNetUtil::addrToString(iter->first).c_str(), (int64_t)now.toSeconds(),
             iter->second.lease_.lease_id_, iter->second.lease_.lease_expired_time_);
         if (!iter->second.lease_.has_valid_lease(now.toSeconds()))
@@ -164,7 +164,7 @@ namespace tfs
           pserver->base_info_.last_update_time_ = now.toSeconds();
           std::pair<EXP_SERVER_MAPS_ITER, bool> res =
             servers_.insert(EXP_SERVER_MAPS::value_type(base_info.id_, *pserver));
-          TBSYS_LOG(INFO, "new join %s now time: %ld, lease_id: %"PRI64_PREFIX"u, lease_expired_time: %"PRI64_PREFIX"d",
+          TBSYS_LOG(INFO, "new join %s now time: %ld, lease_id: %" PRI64_PREFIX "u, lease_expired_time: %" PRI64_PREFIX "d",
               tbsys::CNetUtil::addrToString(iter->first).c_str(), (int64_t)now.toSeconds(),
               iter->second.lease_.lease_id_, iter->second.lease_.lease_expired_time_);
           delete pserver;

@@ -46,7 +46,7 @@ void dump_super_block(const SuperBlockInfo& info)
 {
   printf("%-25s%s\n", "mount_tag:", info.mount_tag_);
   printf("%-25s%s\n", "mount_path:", info.mount_point_);
-  printf("%-25s%"PRI64_PREFIX"d\n", "mount_space:", info.mount_point_use_space_);
+  printf("%-25s%" PRI64_PREFIX "d\n", "mount_space:", info.mount_point_use_space_);
   printf("%-25s%d\n", "mount fs type:", info.mount_fs_type_);
   printf("%-25s%d\n", "sb reserve offset:", info.superblock_reserve_offset_);
   printf("%-25s%d\n", "index reserve offset:", info.block_index_offset_);
@@ -96,7 +96,7 @@ bool check_super_block(BlockManager& block_manager)
           if (current.physical_block_id_ == 0)
           {
             valid = false;
-            TBSYS_LOG(WARN, "logic_block %"PRI64_PREFIX"u ==> extend block %d no allocated.",
+            TBSYS_LOG(WARN, "logic_block %" PRI64_PREFIX "u ==> extend block %d no allocated.",
                 curr_logic_block_id, current.physical_block_id_);
             continue;
           }
@@ -104,8 +104,8 @@ bool check_super_block(BlockManager& block_manager)
           if (current.logic_block_id_ != curr_logic_block_id)
           {
             valid = false;
-            TBSYS_LOG(WARN, "logic_block %"PRI64_PREFIX"u ==> extend block %d belongs to"
-                "another logic block %"PRI64_PREFIX"u.",
+            TBSYS_LOG(WARN, "logic_block %" PRI64_PREFIX "u ==> extend block %d belongs to"
+                "another logic block %" PRI64_PREFIX "u.",
                 curr_logic_block_id, current.physical_block_id_, current.logic_block_id_);
             continue;
           }
@@ -114,7 +114,7 @@ bool check_super_block(BlockManager& block_manager)
           if (alloc.physical_block_id_ == 0)
           {
             valid = false;
-            TBSYS_LOG(WARN, "logic_block %"PRI64_PREFIX"u ==> alloc block %d not allocated, extend block: %d",
+            TBSYS_LOG(WARN, "logic_block %" PRI64_PREFIX "u ==> alloc block %d not allocated, extend block: %d",
                 curr_logic_block_id, current.physical_file_name_id_, current.physical_block_id_);
             continue;
           }
@@ -122,7 +122,7 @@ bool check_super_block(BlockManager& block_manager)
           if (alloc.split_flag_ != BLOCK_SPLIT_FLAG_YES)
           {
             valid = false;
-            TBSYS_LOG(WARN, "logic_block %"PRI64_PREFIX"u ==> alloc block %d not splited, extend block: %d",
+            TBSYS_LOG(WARN, "logic_block %" PRI64_PREFIX "u ==> alloc block %d not splited, extend block: %d",
                 curr_logic_block_id, current.physical_file_name_id_, current.physical_block_id_);
             continue;
           }
@@ -132,8 +132,8 @@ bool check_super_block(BlockManager& block_manager)
           if (iter != extend_used_map.end())
           {
             valid = false;
-            TBSYS_LOG(WARN, "logic_block %"PRI64_PREFIX"u ==> alloc block %d index %d is linked to "
-                "another logic block %"PRI64_PREFIX"u",
+            TBSYS_LOG(WARN, "logic_block %" PRI64_PREFIX "u ==> alloc block %d index %d is linked to "
+                "another logic block %" PRI64_PREFIX "u",
                 curr_logic_block_id, alloc.physical_file_name_id_, current.index_, iter->second);
           }
           else
@@ -193,7 +193,7 @@ bool check_block(BlockManager& block_manager, const uint64_t block_id)
   if (TFS_SUCCESS != ret)
   {
     valid = false;
-    TBSYS_LOG(WARN, "check block fail. blockid: %"PRI64_PREFIX"u, ret: %d",
+    TBSYS_LOG(WARN, "check block fail. blockid: %" PRI64_PREFIX "u, ret: %d",
         block_id, ret);
   }
   else
@@ -204,7 +204,7 @@ bool check_block(BlockManager& block_manager, const uint64_t block_id)
       valid = check_file(block_manager, block_id, *iter);
     }
   }
-  TBSYS_LOG(DEBUG, "check block %"PRI64_PREFIX"u, ret: %d", block_id, ret);
+  TBSYS_LOG(DEBUG, "check block %" PRI64_PREFIX "u, ret: %d", block_id, ret);
   return valid;
 }
 
@@ -230,14 +230,14 @@ bool check_file(BlockManager& block_manager, const uint64_t block_id, const File
 
   if (TFS_SUCCESS != ret)
   {
-    TBSYS_LOG(WARN, "check file fail. blockid: %"PRI64_PREFIX"u, fileid: %"PRI64_PREFIX"u, ret: %d",
+    TBSYS_LOG(WARN, "check file fail. blockid: %" PRI64_PREFIX "u, fileid: %" PRI64_PREFIX "u, ret: %d",
       block_id, finfo.id_, ret);
   }
   else
   {
     if (data_crc != finfo.crc_)
     {
-      TBSYS_LOG(WARN, "crc error. blockid: %"PRI64_PREFIX"u, fileid: %"PRI64_PREFIX"u, "
+      TBSYS_LOG(WARN, "crc error. blockid: %" PRI64_PREFIX "u, fileid: %" PRI64_PREFIX "u, "
         "data_crc: %u, index_crc: %u",
         block_id, finfo.id_, data_crc, finfo.crc_);
     }

@@ -189,7 +189,7 @@ namespace tfs
         int64_t consume = Func::get_monotonic_time_us() - begin;
         if (consume >= MAX_WARN_CONSUME_TIME_US)
         {
-          TBSYS_LOG(WARN, "write data warning, physical block id : %d, offfset: %d, length: %d, consume: %"PRI64_PREFIX"d",
+          TBSYS_LOG(WARN, "write data warning, physical block id : %d, offfset: %d, length: %d, consume: %" PRI64_PREFIX "d",
             physical_block_id_, offset, nbytes, consume);
         }
       }
@@ -211,7 +211,7 @@ namespace tfs
         int64_t consume = Func::get_monotonic_time_us() - begin;
         if (consume >= MAX_WARN_CONSUME_TIME_US)
         {
-          TBSYS_LOG(WARN, "read data warning, physical block id : %d, offfset: %d, length: %d, consume: %"PRI64_PREFIX"d",
+          TBSYS_LOG(WARN, "read data warning, physical block id : %d, offfset: %d, length: %d, consume: %" PRI64_PREFIX "d",
             physical_block_id_, offset, nbytes, consume);
         }
       }

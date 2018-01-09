@@ -447,7 +447,7 @@ namespace tfs
               read_count = real_read(fd, raw_tfs_fd, buf, count, fd_info, tfs_stat_buf);
               if (read_count < 0)
               {
-                TBSYS_LOG(WARN, "read file from ns %s error ret is %"PRI64_PREFIX"d",
+                TBSYS_LOG(WARN, "read file from ns %s error ret is %" PRI64_PREFIX "d",
                     ns_addr.c_str(), read_count);
                 if (raw_tfs_fd >= 0)
                 {
@@ -528,7 +528,7 @@ namespace tfs
               write_count = TfsClientImplV2::Instance()->write(raw_tfs_fd, buf, count);
               if (write_count < 0)
               {
-                TBSYS_LOG(WARN, "write file to ns %s error ret is %"PRI64_PREFIX"d",
+                TBSYS_LOG(WARN, "write file to ns %s error ret is %" PRI64_PREFIX "d",
                     ns_addr.c_str(), write_count);
                 if (raw_tfs_fd >= 0)
                 {
@@ -575,7 +575,7 @@ namespace tfs
             case T_SEEK_SET:
               if (offset < 0)
               {
-                TBSYS_LOG(ERROR, "wrong offset seek_set, %"PRI64_PREFIX"d", offset);
+                TBSYS_LOG(ERROR, "wrong offset seek_set, %" PRI64_PREFIX "d", offset);
                 ret_offset = EXIT_PARAMETER_ERROR;
               }
               else
@@ -587,7 +587,7 @@ namespace tfs
             case T_SEEK_CUR:
               if (fd_info.offset_ + offset < 0)
               {
-                TBSYS_LOG(ERROR, "wrong offset seek_cur, %"PRI64_PREFIX"d", offset);
+                TBSYS_LOG(ERROR, "wrong offset seek_cur, %" PRI64_PREFIX "d", offset);
                 ret_offset = EXIT_PARAMETER_ERROR;
               }
               else

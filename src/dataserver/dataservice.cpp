@@ -533,7 +533,7 @@ namespace tfs
         DataServerStatInfo& info = DsRuntimeGlobalInformation::instance().information_;
         char buf[1024];
         const char header_fmt[] = "\t%-12s%12s%18s%12s%18s\n";
-        const char fmt[] = "\t%-12s%12"PRI64_PREFIX"d%18"PRI64_PREFIX"d%12"PRI64_PREFIX"d%18"PRI64_PREFIX"d\n";
+        const char fmt[] = "\t%-12s%12" PRI64_PREFIX "d%18" PRI64_PREFIX "d%12" PRI64_PREFIX "d%18" PRI64_PREFIX "d\n";
         int pos = 0;
         pos += sprintf(buf + pos, header_fmt,
             "Oper-Type", "Succ-Count", "Succ-Bytes(KB)", "Fail-Count", "Fail-Bytes(KB)");
@@ -817,7 +817,7 @@ namespace tfs
       if (TFS_SUCCESS != ret)
       {
         ret = message->reply_error_packet(TBSYS_LOG_LEVEL(ERROR), ret,
-            "block is not exist, blockid: %"PRI64_PREFIX"u, ret: %d", block_id, ret);
+            "block is not exist, blockid: %" PRI64_PREFIX "u, ret: %d", block_id, ret);
       }
       else
       {
@@ -851,7 +851,7 @@ namespace tfs
         {
           tbsys::gDelete(resp_bfi_msg);
           ret = message->reply_error_packet(TBSYS_LOG_LEVEL(ERROR), ret,
-              "GSS_BLOCK_FILE_INFO fail, blockid: %"PRI64_PREFIX"u, ret: %d", block_id, ret);
+              "GSS_BLOCK_FILE_INFO fail, blockid: %" PRI64_PREFIX "u, ret: %d", block_id, ret);
         }
         else
         {
@@ -872,7 +872,7 @@ namespace tfs
         {
           tbsys::gDelete(resp_bfi_msg);
           ret = message->reply_error_packet(TBSYS_LOG_LEVEL(ERROR), ret,
-              "GSS_BLOCK_FILE_INFO fail, blockid: %"PRI64_PREFIX"u, ret: %d", block_id, ret);
+              "GSS_BLOCK_FILE_INFO fail, blockid: %" PRI64_PREFIX "u, ret: %d", block_id, ret);
         }
         else
         {
@@ -929,7 +929,7 @@ namespace tfs
         {
           uint32_t block_id = message->get_value3();
           uint64_t server_id = message->get_value1();
-          TBSYS_LOG(DEBUG, "set run param block_id: %u, server: %" PRI64_PREFIX "u, from: %s", block_id, server_id,
+          TBSYS_LOG(DEBUG, "set run param block_id: %u, server: %"  PRI64_PREFIX  "u, from: %s", block_id, server_id,
               tbsys::CNetUtil::addrToString(from_server_id).c_str());
         }
       }

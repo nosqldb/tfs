@@ -238,14 +238,14 @@ int GcWorker::do_gc(const GcType gc_type)
     {
       int64_t file_size = 0;
       string addr = tbsys::CNetUtil::addrToString(atoll(file_name.substr(id_pos + 1).c_str()));
-      //TBSYS_LOG(DEBUG, "id: %s, %"PRI64_PREFIX"d, server address %s",
+      //TBSYS_LOG(DEBUG, "id: %s, %" PRI64_PREFIX "d, server address %s",
       //          file_name.substr(id_pos).c_str(), atoll(file_name.substr(id_pos + 1)), addr.c_str());
       // expired local key
       if (GC_EXPIRED_LOCAL_KEY == gc_type)
       {
         if ((ret = do_gc_ex(local_key_, file_name.c_str(), addr.c_str(), file_size)) != TFS_SUCCESS)
         {
-          TBSYS_LOG(ERROR, "gc local key fail, file name: %s, ret: %d, file size: %"PRI64_PREFIX"d", file_name.c_str(), ret, file_size);
+          TBSYS_LOG(ERROR, "gc local key fail, file name: %s, ret: %d, file size: %" PRI64_PREFIX "d", file_name.c_str(), ret, file_size);
         }
       }
       // garbage file
@@ -253,7 +253,7 @@ int GcWorker::do_gc(const GcType gc_type)
       {
         if ((ret = do_gc_ex(gc_file_, file_name.c_str(), addr.c_str(), file_size)) != TFS_SUCCESS)
         {
-          TBSYS_LOG(ERROR, "gc garbage file fail, file name: %s, ret: %d, file size: %"PRI64_PREFIX"d", file_name.c_str(), ret, file_size);
+          TBSYS_LOG(ERROR, "gc garbage file fail, file name: %s, ret: %d, file size: %" PRI64_PREFIX "d", file_name.c_str(), ret, file_size);
         }
       }
     }

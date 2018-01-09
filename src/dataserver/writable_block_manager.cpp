@@ -63,7 +63,7 @@ namespace tfs
         if ((*iter)->get_type() == BLOCK_UPDATE)
         {
           expire_one_block_(*iter);
-          TBSYS_LOG(INFO, "expire block %"PRI64_PREFIX"u because update",
+          TBSYS_LOG(INFO, "expire block %" PRI64_PREFIX "u because update",
               (*iter)->get_block_id());
         }
       }
@@ -250,7 +250,7 @@ namespace tfs
         for ( ;iter != expires.end(); iter++)
         {
           expire_one_block(*iter);
-          TBSYS_LOG(INFO, "expire block %"PRI64_PREFIX"u because block full", *iter);
+          TBSYS_LOG(INFO, "expire block %" PRI64_PREFIX "u because block full", *iter);
         }
       }
 
@@ -260,7 +260,7 @@ namespace tfs
       }
       else
       {
-        TBSYS_LOG(DEBUG, "alloc writable block %"PRI64_PREFIX"u",
+        TBSYS_LOG(DEBUG, "alloc writable block %" PRI64_PREFIX "u",
             block->get_block_id());
       }
 
@@ -321,7 +321,7 @@ namespace tfs
         target->set_use_flag(true);
       }
 
-      TBSYS_LOG_DW(ret, "alloc update block %"PRI64_PREFIX"u, ret: %d", block_id, ret);
+      TBSYS_LOG_DW(ret, "alloc update block %" PRI64_PREFIX "u, ret: %d", block_id, ret);
 
       return ret;
     }
@@ -336,7 +336,7 @@ namespace tfs
         {
           block->set_use_flag(false);
         }
-        TBSYS_LOG(DEBUG, "free writable block %"PRI64_PREFIX"u", block_id);
+        TBSYS_LOG(DEBUG, "free writable block %" PRI64_PREFIX "u", block_id);
       }
     }
 
@@ -389,7 +389,7 @@ namespace tfs
         NewClientManager::get_instance().destroy_client(new_client);
       }
 
-      TBSYS_LOG_DW(ret, "apply update block %"PRI64_PREFIX"u, ret: %d", block_id, ret);
+      TBSYS_LOG_DW(ret, "apply update block %" PRI64_PREFIX "u, ret: %d", block_id, ret);
 
       return ret;
     }
@@ -409,7 +409,7 @@ namespace tfs
       {
         ret = post_msg_to_server(ds_info.ns_vip_port_, &req_msg, ds_async_callback);
       }
-      TBSYS_LOG_DW(ret, "giveup block, count: %"PRI64_PREFIX"d, ret: %d", blocks.get_array_index(), ret);
+      TBSYS_LOG_DW(ret, "giveup block, count: %" PRI64_PREFIX "d, ret: %d", blocks.get_array_index(), ret);
       return ret;
     }
 
@@ -538,7 +538,7 @@ namespace tfs
           insert(block_lease[index].block_id_,
               servers, BLOCK_WRITABLE);
         }
-        TBSYS_LOG(INFO, "apply block %"PRI64_PREFIX"u, replica: %d, ret %d",
+        TBSYS_LOG(INFO, "apply block %" PRI64_PREFIX "u, replica: %d, ret %d",
             block_lease[index].block_id_, block_lease[index].size_, block_lease[index].result_);
       }
     }
@@ -552,7 +552,7 @@ namespace tfs
       {
         uint64_t block_id = block_lease[index].block_id_;
         remove(block_id, BLOCK_EXPIRED);
-        TBSYS_LOG(INFO, "giveup block %"PRI64_PREFIX"u, ret %d",
+        TBSYS_LOG(INFO, "giveup block %" PRI64_PREFIX "u, ret %d",
             block_lease[index].block_id_, block_lease[index].result_);
       }
     }

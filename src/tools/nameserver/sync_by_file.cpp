@@ -44,7 +44,7 @@ struct StatParam
 
   void dump(void)
   {
-    fprintf(stderr, "[copy] total: %"PRI64_PREFIX"d, success: %d, fail: %d, none: %d\n", total_, atomic_read(&copy_success_), atomic_read(&copy_failure_), atomic_read(&copy_none_));
+    fprintf(stderr, "[copy] total: %" PRI64_PREFIX "d, success: %d, fail: %d, none: %d\n", total_, atomic_read(&copy_success_), atomic_read(&copy_failure_), atomic_read(&copy_none_));
   }
 };
 
@@ -198,7 +198,7 @@ class WorkThread : public tbutil::Thread
           if (src_file_info.crc_ != crc
               || src_file_info.size_ != offset)
           {
-            fprintf(stderr, "read tfsfile(src) fail: old crc(%u) != new crc(%u) or old size(%"PRI64_PREFIX"d) != new size(%d)\n", src_file_info.crc_, crc, src_file_info.size_, offset);
+            fprintf(stderr, "read tfsfile(src) fail: old crc(%u) != new crc(%u) or old size(%" PRI64_PREFIX "d) != new size(%d)\n", src_file_info.crc_, crc, src_file_info.size_, offset);
             tbsys::gDeleteA(data);
             errors_.push_back(file);
             atomic_inc(&gstat.copy_failure_);

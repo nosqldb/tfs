@@ -246,7 +246,7 @@ namespace tfs
           ret = clean_task_helper_.do_clean_task(local_ipport_id_, total_es, num_es, note_interval, task_time);
         }
         //tbutil::Time end = tbutil::Time::now();
-        //TBSYS_LOG(INFO, "put_object cost: %"PRI64_PREFIX"d", (int64_t)(end - start).toMilliSeconds());
+        //TBSYS_LOG(INFO, "put_object cost: %" PRI64_PREFIX "d", (int64_t)(end - start).toMilliSeconds());
 
         // send finish msg
         ReqFinishTaskFromEsMessage req_finish_task_msg;

@@ -46,7 +46,7 @@ namespace tfs
       int64_t new_count = 0;
       int64_t old_count = 0;
       tables.get_difference(new_count, old_count);
-      TBSYS_LOG(INFO, "build table complete: new count: %"PRI64_PREFIX"d, old count: %"PRI64_PREFIX"d", new_count, old_count);
+      TBSYS_LOG(INFO, "build table complete: new count: %" PRI64_PREFIX "d, old count: %" PRI64_PREFIX "d", new_count, old_count);
     }
 
     const int32_t BuildTableTest::SERVER_COUNT = 35;

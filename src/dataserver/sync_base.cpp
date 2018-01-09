@@ -48,8 +48,8 @@ namespace tfs
         uint64_t dest_ns_id = Func::get_host_ip(dest_addr);
         char queue_name[20];
         char fail_queue_name[32];
-        sprintf(queue_name, "queue_%"PRI64_PREFIX"u", dest_ns_id);
-        sprintf(fail_queue_name, "queue_%"PRI64_PREFIX"u_fail", dest_ns_id);
+        sprintf(queue_name, "queue_%" PRI64_PREFIX "u", dest_ns_id);
+        sprintf(fail_queue_name, "queue_%" PRI64_PREFIX "u_fail", dest_ns_id);
         file_queue_ = new (std::nothrow) FileQueue(mirror_dir_, queue_name);
         assert(NULL != file_queue_);
         fail_file_queue_ = new (std::nothrow) FileQueue(mirror_dir_, fail_queue_name);
@@ -282,7 +282,7 @@ namespace tfs
       {
         if (stop_ || 0 == need_sync_)
         {
-          TBSYS_LOG(INFO, "process mybe stop or need_sync == 0, no need write sync log, block_id: %"PRI64_PREFIX"u,file_id: %"PRI64_PREFIX"u, need_sync: %d", block_id, file_id, need_sync_);
+          TBSYS_LOG(INFO, "process mybe stop or need_sync == 0, no need write sync log, block_id: %" PRI64_PREFIX "u,file_id: %" PRI64_PREFIX "u, need_sync: %d", block_id, file_id, need_sync_);
         }
         else
         {
@@ -369,7 +369,7 @@ namespace tfs
         SyncData* sf = reinterpret_cast<SyncData*>(const_cast<char*>(data));
         FSName fsname(sf->block_id_, sf->file_id_, 0);
         ret = backup_->do_sync(sf);
-        TBSYS_LOG_IW(ret, "sync file %s to dest %s %s. blockid: %"PRI64_PREFIX"u, fileid: %"PRI64_PREFIX"u, action: %d, ret: %d",
+        TBSYS_LOG_IW(ret, "sync file %s to dest %s %s. blockid: %" PRI64_PREFIX "u, fileid: %" PRI64_PREFIX "u, action: %d, ret: %d",
           fsname.get_name(), dest_addr_.c_str(), TFS_SUCCESS == ret ? "successful" : "fail", sf->block_id_, sf->file_id_, sf->cmd_, ret);
       }
       return ret;

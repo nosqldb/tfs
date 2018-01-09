@@ -147,7 +147,7 @@ namespace tfs
           ret = supber_block_manager.flush();
         }
       }
-      TBSYS_LOG(INFO, "free physical block: %d %s %d, logic block id: %"PRI64_PREFIX"u",
+      TBSYS_LOG(INFO, "free physical block: %d %s %d, logic block id: %" PRI64_PREFIX "u",
           index.physical_block_id_, TFS_SUCCESS == ret ? "successful" : "failed", ret, index.logic_block_id_);
       return ret;
     }
@@ -203,7 +203,7 @@ namespace tfs
         }
         while (TFS_SUCCESS != ret && retry_times-- > 0);
       }
-      TBSYS_LOG(INFO, "alloc physical block: %d %s %d, logic block id: %"PRI64_PREFIX"u",
+      TBSYS_LOG(INFO, "alloc physical block: %d %s %d, logic block id: %" PRI64_PREFIX "u",
           index.physical_block_id_, TFS_SUCCESS == ret ? "successful" : "failed", ret, index.logic_block_id_);
       return ret;
     }
@@ -328,7 +328,7 @@ namespace tfs
         }
         while (TFS_SUCCESS != ret && retry_times-- > 0);
       }
-      TBSYS_LOG(INFO, "alloc physical extend block: %d %s %d, physical block file name id: %d, logic block id: %"PRI64_PREFIX"u",
+      TBSYS_LOG(INFO, "alloc physical extend block: %d %s %d, physical block file name id: %d, logic block id: %" PRI64_PREFIX "u",
           ext_index.physical_block_id_, TFS_SUCCESS == ret ? "successful" : "failed", ret, ext_index.physical_file_name_id_, ext_index.logic_block_id_);
       return ret;
     }
@@ -398,7 +398,7 @@ namespace tfs
           }
         }
       }
-      TBSYS_LOG(INFO, "free physical extend block: %d %s %d, physical block file name id: %d, logic block id: %"PRI64_PREFIX"u",
+      TBSYS_LOG(INFO, "free physical extend block: %d %s %d, physical block file name id: %d, logic block id: %" PRI64_PREFIX "u",
           index.physical_block_id_, TFS_SUCCESS == ret ? "successful" : "failed", ret, index.physical_file_name_id_, index.logic_block_id_);
       return ret;
     }

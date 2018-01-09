@@ -339,7 +339,7 @@ namespace tfs
         }
         while (retry_times-- > 0 && TFS_SUCCESS != ret);
       }
-      TBSYS_LOG(INFO, "send migrate message %s, ret: %d, error msg: %s, block: %"PRI64_PREFIX"u, source: %s, dest: %s , ns_vip: %s",
+      TBSYS_LOG(INFO, "send migrate message %s, ret: %d, error msg: %s, block: %" PRI64_PREFIX "u, source: %s, dest: %s , ns_vip: %s",
           TFS_SUCCESS == ret ? "successful" : "failed", ret, msg, current.block_id_, tbsys::CNetUtil::addrToString(current.source_addr_).c_str(),
           tbsys::CNetUtil::addrToString(current.dest_addr_).c_str(), tbsys::CNetUtil::addrToString(ns_vip_port_).c_str());
       return ret;

@@ -174,8 +174,8 @@ namespace tfs
       std::vector<FragMeta>::const_iterator iter = v_frag_meta_.begin();
       for (; iter != v_frag_meta_.end(); iter++)
       {
-        TBSYS_LOG(DEBUG, "offset: %"PRI64_PREFIX"d  ", (*iter).offset_);
-        TBSYS_LOG(DEBUG, "file_id: %"PRI64_PREFIX"u  ", (*iter).file_id_);
+        TBSYS_LOG(DEBUG, "offset: %" PRI64_PREFIX "d  ", (*iter).offset_);
+        TBSYS_LOG(DEBUG, "file_id: %" PRI64_PREFIX "u  ", (*iter).file_id_);
         TBSYS_LOG(DEBUG, "size: %d  ", (*iter).size_);
         TBSYS_LOG(DEBUG, "block_id: %u\n", (*iter).block_id_);
       }

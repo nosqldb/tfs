@@ -380,7 +380,7 @@ namespace tfs
         {
           if (NULL != msg)
             msg->free();
-          TBSYS_LOG(INFO, "deserialize error, data: %s, length: %"PRI64_PREFIX"d offset: %"PRI64_PREFIX"d", data, data_len, pos);
+          TBSYS_LOG(INFO, "deserialize error, data: %s, length: %" PRI64_PREFIX "d offset: %" PRI64_PREFIX "d", data, data_len, pos);
         }
       }
       return ret;
@@ -398,13 +398,13 @@ namespace tfs
         if (TFS_SUCCESS != ret)
         {
           oplog.dump(TBSYS_LOG_LEVEL_INFO);
-          TBSYS_LOG(INFO, "deserialize error, data: %s, length: %"PRI64_PREFIX"d, offset: %"PRI64_PREFIX"d", data, data_len, pos);
+          TBSYS_LOG(INFO, "deserialize error, data: %s, length: %" PRI64_PREFIX "d, offset: %" PRI64_PREFIX "d", data, data_len, pos);
         }
         if (TFS_SUCCESS == ret)
         {
           ret = oplog.server_num_ > 0 ? TFS_SUCCESS : EXIT_PLAY_LOG_ERROR;
           if (TFS_SUCCESS != ret)
-            TBSYS_LOG(INFO, "play log error, data: %s, length: %"PRI64_PREFIX"d, offset: %"PRI64_PREFIX"d", data, data_len, pos);
+            TBSYS_LOG(INFO, "play log error, data: %s, length: %" PRI64_PREFIX "d, offset: %" PRI64_PREFIX "d", data, data_len, pos);
         }
         if (TFS_SUCCESS == ret)
         {
@@ -415,14 +415,14 @@ namespace tfs
             if (TFS_SUCCESS == ret)
               manager_.get_block_manager().update_block_info(oplog.info_, block);
             else
-              TBSYS_LOG(INFO, "update block information error, block: %"PRI64_PREFIX"u, server: %s",
+              TBSYS_LOG(INFO, "update block information error, block: %" PRI64_PREFIX "u, server: %s",
                   oplog.info_.block_id_, CNetUtil::addrToString(oplog.servers_[0]).c_str());
           }
           else if (OPLOG_INSERT == oplog.cmd_)
           {
             int32_t result  = id_factory_.update(oplog.info_.block_id_);
             if (TFS_SUCCESS != result)
-              TBSYS_LOG(INFO, "update block id: %"PRI64_PREFIX"u failed, result: %d", oplog.info_.block_id_, result);
+              TBSYS_LOG(INFO, "update block id: %" PRI64_PREFIX "u failed, result: %d", oplog.info_.block_id_, result);
 
             BlockCollect* block = manager_.get_block_manager().get(oplog.info_.block_id_);
             if (NULL == block)
@@ -452,7 +452,7 @@ namespace tfs
             {
               int32_t result = manager_.relieve_relation(oplog.info_.block_id_, oplog.servers_[index], now, true);
               if (TFS_SUCCESS != result)
-                TBSYS_LOG(INFO, "relieve relation between block: %"PRI64_PREFIX"u and server: %s failed",
+                TBSYS_LOG(INFO, "relieve relation between block: %" PRI64_PREFIX "u and server: %s failed",
                     oplog.info_.block_id_, CNetUtil::addrToString(oplog.servers_[index]).c_str());
             }
           }
@@ -721,7 +721,7 @@ namespace tfs
           if (EXIT_ELEMENT_EXIST == rt)
             rt = TFS_SUCCESS;
           if (TFS_SUCCESS != rt)
-            TBSYS_LOG(WARN, "load family information error,family id: %"PRI64_PREFIX"d, ret: %d", family.family_id_, ret);
+            TBSYS_LOG(WARN, "load family information error,family id: %" PRI64_PREFIX "d, ret: %d", family.family_id_, ret);
           TBSYS_LOG(DEBUG, "FAMILY: %s, rt: %d", str.str().c_str(), rt);
         }
         if (!infos.empty())
@@ -754,7 +754,7 @@ namespace tfs
           if (EXIT_NO_FAMILY == ret)
             ret = TFS_SUCCESS;
           if (TFS_SUCCESS != rt)
-            TBSYS_LOG(WARN, "del family information error,family id: %"PRI64_PREFIX"d, ret: %d", family.family_id_, rt);
+            TBSYS_LOG(WARN, "del family information error,family id: %" PRI64_PREFIX "d, ret: %d", family.family_id_, rt);
           else
             rt = dbhelper_->del_family(family.family_id_, true, false, GFactory::get_runtime_info().owner_ip_port_);
 

@@ -256,7 +256,7 @@ int copy_file(TfsClientImplV2* tfsclient, char* tfsname, int local_fd)
   tfsclient->close(fd);
   if (crc != fstat.crc_ || total_size != fstat.size_)
   {
-    fprintf(stderr, "crc error: %u <> %u, size: %"PRI64_PREFIX"d <> %"PRI64_PREFIX"d\n",
+    fprintf(stderr, "crc error: %u <> %u, size: %" PRI64_PREFIX "d <> %" PRI64_PREFIX "d\n",
         crc, fstat.crc_, total_size, fstat.size_);
     return EXIT_FAILURE;
   }
@@ -398,7 +398,7 @@ int copy_file_v2(TfsClientImplV2* tfsclient, char* tfsname, int local_fd)
   tfsclient->close(fd);
   if (crc != fstat.crc_ || total_size != fstat.size_)
   {
-    fprintf(stderr, "crc error: %u <> %u, size: %"PRI64_PREFIX"d <> %"PRI64_PREFIX"d\n",
+    fprintf(stderr, "crc error: %u <> %u, size: %" PRI64_PREFIX "d <> %" PRI64_PREFIX "d\n",
         crc, fstat.crc_, total_size, fstat.size_);
     return EXIT_FAILURE;
   }
@@ -537,7 +537,7 @@ void TimeConsumed::display()
    printf("TYPE   | SUCCCOUNT  | FAILCOUNT | AVG       | MIN       | MAX      \n");
    printf("------ | ---------  | --------- | --------- | --------- | ---------\n");
    */
-  printf("%-6s | %-9d | %-9d | %-9" PRI64_PREFIX "d | %-9" PRI64_PREFIX "d | %-9" PRI64_PREFIX "d\n", consume_name_.c_str(), succ_count(), fail_count_, avg(),
+  printf("%-6s | %-9d | %-9d | %-9"  PRI64_PREFIX  "d | %-9"  PRI64_PREFIX  "d | %-9"  PRI64_PREFIX  "d\n", consume_name_.c_str(), succ_count(), fail_count_, avg(),
       min_time_consumed_, max_time_consumed_);
   //	printf("------ | ---------  | --------- | --------- | --------- | ---------\n");
   return;
@@ -590,7 +590,7 @@ void Stater::dump_time_stat()
   printf("--------- | -----------  | ----\n");
   for (; mit != time_stat_map_.end(); mit++)
   {
-    printf("%-9s | %-12s | %-10" PRI64_PREFIX "u\n", stat_name_.c_str(), time_category_desc(mit->first).c_str(), mit->second);
+    printf("%-9s | %-12s | %-10"  PRI64_PREFIX  "u\n", stat_name_.c_str(), time_category_desc(mit->first).c_str(), mit->second);
   }
   printf("--------- | -----------  | ----\n\n");
   //	printf("-----END DUMP_TIME_STAT-------\n\n");

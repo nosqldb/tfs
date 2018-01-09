@@ -215,7 +215,7 @@ namespace tfs
         const int32_t size = servers_.size();
         if (size <= 0)
         {
-          TBSYS_LOG(WARN, "block: %"PRI64_PREFIX"u has been lost, do not replicate", info_.block_id_);
+          TBSYS_LOG(WARN, "block: %" PRI64_PREFIX "u has been lost, do not replicate", info_.block_id_);
         }
         else
         {
@@ -253,7 +253,7 @@ namespace tfs
               || (update_file_num_ratio >  SYSPARAM_NAMESERVER.compact_update_ratio_)
               || (update_size_ratio > SYSPARAM_NAMESERVER.compact_update_ratio_))
           {
-            TBSYS_LOG(DEBUG, "block: %"PRI64_PREFIX"u need compact", info_.block_id_);
+            TBSYS_LOG(DEBUG, "block: %" PRI64_PREFIX "u need compact", info_.block_id_);
             ret = true;
           }
         }
@@ -622,10 +622,10 @@ namespace tfs
         }
         int64_t now = Func::get_monotonic_time();
         TBSYS_LOGGER.logMessage(level, file, line, function,thid,
-            "dump block information: family id: %"PRI64_PREFIX"d, block_id: %"PRI64_PREFIX"u, version: %d, file_count: %d,\
+            "dump block information: family id: %" PRI64_PREFIX "d, block_id: %" PRI64_PREFIX "u, version: %d, file_count: %d,\
             size: %d, del_file_count: %d, del_size: %d, update_file_count: %d, update_file_size: %d, is_creating: %s,\
-            in_replicate_queue: %s, has_lease: %s, expire time: %"PRI64_PREFIX"d, has_valild_lease: %s, servers: %s, \
-            server_size: %zd, last_leave_time: %"PRI64_PREFIX"d, choose_master: %d, now: %"PRI64_PREFIX"d",
+            in_replicate_queue: %s, has_lease: %s, expire time: %" PRI64_PREFIX "d, has_valild_lease: %s, servers: %s, \
+            server_size: %zd, last_leave_time: %" PRI64_PREFIX "d, choose_master: %d, now: %" PRI64_PREFIX "d",
             info_.family_id_, info_.block_id_, info_.version_, info_.file_count_,
             info_.size_, info_.del_file_count_, info_.del_size_,info_.update_file_count_,
             info_.update_size_,is_creating() ? "yes" : "no", in_replicate_queue() ? "yes" : "no",

@@ -117,7 +117,7 @@ class StatTimerTask : public tbutil::TimerTask
     virtual void runTimerTask()
     {
       tbutil::Mutex::Lock lock(mutex_);
-      TBSYS_LOG(INFO, "[read] success: %"PRI64_PREFIX"d fail: %"PRI64_PREFIX"d, [write] success: %"PRI64_PREFIX"d fail : %"PRI64_PREFIX"d",
+      TBSYS_LOG(INFO, "[read] success: %" PRI64_PREFIX "d fail: %" PRI64_PREFIX "d, [write] success: %" PRI64_PREFIX "d fail : %" PRI64_PREFIX "d",
           (gstat_.read_success_count_/ interval_) * 1000,
           (gstat_.read_fail_count_/ interval_) *1000,
           (gstat_.write_success_count_/ interval_) * 1000,
@@ -272,7 +272,7 @@ int write_file(string& tfs_file_name, const char* data, int32_t length ,StatPara
   int ret = write_data(tfs_fd, const_cast<char*>(data), length);
   if (ret < 0)
   {
-    fprintf(stderr, "tfswrite failed(%u), (%" PRI64_PREFIX "u)\n", block_id, file_id);
+    fprintf(stderr, "tfswrite failed(%u), (%"  PRI64_PREFIX  "u)\n", block_id, file_id);
     TfsClient::Instance()->close(tfs_fd);
     stat_param.write_fail_count_++;
     return ret;
@@ -744,7 +744,7 @@ int main(int argc, char* argv[])
 
     tbsys::gDeleteA(gworks);
 
-    TBSYS_LOG(INFO, "[read] success: %"PRI64_PREFIX"d fail: %"PRI64_PREFIX"d, [write] success: %"PRI64_PREFIX"d fail : %"PRI64_PREFIX"d",
+    TBSYS_LOG(INFO, "[read] success: %" PRI64_PREFIX "d fail: %" PRI64_PREFIX "d, [write] success: %" PRI64_PREFIX "d fail : %" PRI64_PREFIX "d",
         gtotal_stat_.read_success_count_,
         gtotal_stat_.read_fail_count_,
         gtotal_stat_.write_success_count_,

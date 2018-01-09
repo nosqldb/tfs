@@ -9,7 +9,7 @@ template<class T> void print_segment_ex(T& container)
   for (typename T::iterator it = container.begin();
        it != container.end(); it++)
   {
-    printf("blockid: %"PRI64_PREFIX"u, fileid: %"PRI64_PREFIX"u, offset: %"PRI64_PREFIX"d, size: %d, crc: %d\n",
+    printf("blockid: %" PRI64_PREFIX "u, fileid: %" PRI64_PREFIX "u, offset: %" PRI64_PREFIX "d, size: %d, crc: %d\n",
            it->block_id_, it->file_id_, it->offset_, it->size_, it->crc_);
   }
 }
@@ -20,7 +20,7 @@ template<class T> int print_segment(T& meta, const char* file)
   if ((ret = meta.load_file(file)) == TFS_SUCCESS &&
       (ret = meta.validate()) == TFS_SUCCESS)
   {
-    printf("segment head. meta size: %d, count: %d, size: %"PRI64_PREFIX"d\n",
+    printf("segment head. meta size: %d, count: %d, size: %" PRI64_PREFIX "d\n",
            meta.get_data_size(), meta.get_segment_size(), meta.get_file_size());
     printf("segment info: \n");
     print_segment_ex(meta.get_seg_info());

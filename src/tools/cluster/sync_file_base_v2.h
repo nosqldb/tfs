@@ -81,8 +81,8 @@ struct SyncStat
   }
   void dump(FILE* fp)
   {
-    fprintf(fp, "total file count: %"PRI64_PREFIX"d, "
-        "succ_count: %"PRI64_PREFIX"d, fail_count: %"PRI64_PREFIX"d, unsync_count: %"PRI64_PREFIX"d\n",
+    fprintf(fp, "total file count: %" PRI64_PREFIX "d, "
+        "succ_count: %" PRI64_PREFIX "d, fail_count: %" PRI64_PREFIX "d, unsync_count: %" PRI64_PREFIX "d\n",
         total_count_, success_count_, fail_count_, unsync_count_);
   }
   int64_t total_count_;

@@ -298,21 +298,21 @@ namespace tfs
       int b = 0;
       if (type & BLOCK_CMP_PART_INFO)
       {
-        printf("%-10"PRI64_PREFIX"u %6d%c %10d%c %10d%c %5Zd%c\n",
+        printf("%-10" PRI64_PREFIX "u %6d%c %10d%c %10d%c %5Zd%c\n",
           info_.block_id_, info_.version_, suffix(flag_[b]), info_.file_count_, suffix(flag_[b+1]),
           info_.size_, suffix(flag_[b+2]), server_list_.size(), suffix(flag_[b+3])
           );
       }
       if (type & BLOCK_CMP_ALL_INFO)
       {
-        printf("%-10"PRI64_PREFIX"u %6d%c %10d%c %10d%c %8d%c %10d%c %5Zd%c\n",
+        printf("%-10" PRI64_PREFIX "u %6d%c %10d%c %10d%c %8d%c %10d%c %5Zd%c\n",
           info_.block_id_, info_.version_, suffix(flag_[b]), info_.file_count_, suffix(flag_[b+1]),
           info_.size_,  suffix(flag_[b+2]), info_.del_file_count_, suffix(flag_[b+3]),
           info_.del_size_, suffix(flag_[b+4]), server_list_.size(), suffix(flag_[b+6]));
       }
       if (type & BLOCK_CMP_SERVER)
       {
-        printf("%-10"PRI64_PREFIX"u", info_.block_id_);
+        printf("%-10" PRI64_PREFIX "u", info_.block_id_);
         print_container(server_list_, flag_, false, true);
       }
     }
@@ -341,7 +341,7 @@ namespace tfs
 
       //TBSYS_LOG(DEBUG, "block size: %d", more_block_.size());
       diff_count_ += (type & BLOCK_TYPE)? more_block_.size() : more_server_.size();
-      printf("\n\n!!!!!!(MasterNs VS SlaveNs) %s Diff Count :  %"PRI64_PREFIX"d / %"PRI64_PREFIX"d = %.2lf%%\n\n", title, diff_count_, total_count_,
+      printf("\n\n!!!!!!(MasterNs VS SlaveNs) %s Diff Count :  %" PRI64_PREFIX "d / %" PRI64_PREFIX "d = %.2lf%%\n\n", title, diff_count_, total_count_,
           get_percent(diff_count_, total_count_));
     }
   }

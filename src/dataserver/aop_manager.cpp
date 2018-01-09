@@ -361,7 +361,7 @@ namespace tfs
               EXIT_BLOCK_SIZE_OUT_OF_RANGE == status)
           {
             get_lease_manager().expire_block(block_id);
-            TBSYS_LOG(INFO, "expire block %"PRI64_PREFIX"u because write error, ret: %d", block_id, status);
+            TBSYS_LOG(INFO, "expire block %" PRI64_PREFIX "u because write error, ret: %d", block_id, status);
           }
         }
       }
@@ -391,7 +391,7 @@ namespace tfs
           ret = get_block_manager().check_block_version(local, remote_version, block_id, attach_block_id);
           if (TFS_SUCCESS != ret)
           {
-            TBSYS_LOG(WARN, "write version conflict. blockid: %"PRI64_PREFIX"u, version: %d<>%d",
+            TBSYS_LOG(WARN, "write version conflict. blockid: %" PRI64_PREFIX "u, version: %d<>%d",
                 block_id, remote_version, local.version_);
           }
         }
@@ -441,8 +441,8 @@ namespace tfs
           DataFile& data_file = dynamic_cast<WriteOpMeta* >(op_meta)->get_data_file();
           if (crc != data_file.crc())
           {
-            TBSYS_LOG(WARN, "crc error. blockid: %"PRI64_PREFIX"u, "
-                "attach_blockid: %"PRI64_PREFIX"u, fileid: %"PRI64_PREFIX"u, crc: %u<>%u",
+            TBSYS_LOG(WARN, "crc error. blockid: %" PRI64_PREFIX "u, "
+                "attach_blockid: %" PRI64_PREFIX "u, fileid: %" PRI64_PREFIX "u, crc: %u<>%u",
                 block_id, attach_block_id, file_id, crc, data_file.crc());
             ret = EXIT_CHECK_CRC_ERROR;
           }
@@ -523,7 +523,7 @@ namespace tfs
           {
             StatusMessage* smsg = dynamic_cast<StatusMessage*>(ret_msg);
             ret = smsg->get_status();
-            TBSYS_LOG(DEBUG, "update block info. blockid: %"PRI64_PREFIX"u, status: %d %s",
+            TBSYS_LOG(DEBUG, "update block info. blockid: %" PRI64_PREFIX "u, status: %d %s",
                 block_info.block_id_, smsg->get_status(), smsg->get_error());
           }
           else
@@ -593,7 +593,7 @@ namespace tfs
       }
 
       TBSYS_LOG_DW(ret, "resolve block version conflict."
-          "blockid: %"PRI64_PREFIX"u, fileid: %"PRI64_PREFIX"u, leaseid: %"PRI64_PREFIX"u, ret: %d",
+          "blockid: %" PRI64_PREFIX "u, fileid: %" PRI64_PREFIX "u, leaseid: %" PRI64_PREFIX "u, ret: %d",
           block_id, file_id, op_id, ret);
 
       return ret;

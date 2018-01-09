@@ -662,20 +662,20 @@ namespace tfs
           }
           pos += snprintf(sql + pos, 1024, "insert into t_session_info "
               "(session_id,cache_size,cache_time,client_version,log_out_time,create_time,modify_time) "
-              "values ('%s',%"PRI64_PREFIX"d,%"PRI64_PREFIX"d,'%s',%s,now(),now())",
+              "values ('%s',%" PRI64_PREFIX "d,%" PRI64_PREFIX "d,'%s',%s,now(),now())",
               session.session_id_.c_str(), session.cache_size_, session.cache_time_,
               session.client_version_.c_str(), log_out_time);
           if (session.is_logout_)
           {
             pos += snprintf(sql + pos, 256, " on duplicate key update log_out_time=now(),modify_time=now(),"
-                "cache_size=%"PRI64_PREFIX"d, cache_time=%"PRI64_PREFIX"d,"
+                "cache_size=%" PRI64_PREFIX "d, cache_time=%" PRI64_PREFIX "d,"
                 "client_version='%s';",
                 session.cache_size_, session.cache_time_, session.client_version_.c_str());
           }
           else
           {
             pos += snprintf(sql + pos, 256, " on duplicate key update modify_time=now(),"
-                "cache_size=%"PRI64_PREFIX"d, cache_time=%"PRI64_PREFIX"d,"
+                "cache_size=%" PRI64_PREFIX "d, cache_time=%" PRI64_PREFIX "d,"
                 "client_version='%s';",
                 session.cache_size_, session.cache_time_, session.client_version_.c_str());
           }
@@ -706,14 +706,14 @@ namespace tfs
 
           pos += snprintf(sql + pos, 1024, "insert into t_session_stat "
               "(session_id,oper_type,oper_times,file_size,response_time,succ_times,create_time,modify_time) "
-              "values ('%s',%d,%"PRI64_PREFIX"d,%"PRI64_PREFIX"d,%"PRI64_PREFIX"d,%"PRI64_PREFIX"d,now(),now())",
+              "values ('%s',%d,%" PRI64_PREFIX "d,%" PRI64_PREFIX "d,%" PRI64_PREFIX "d,%" PRI64_PREFIX "d,now(),now())",
               it->first.c_str(), inner_it->first,
               inner_it->second.oper_times_, inner_it->second.oper_size_,
               inner_it->second.oper_rt_, inner_it->second.oper_succ_);
 
           pos += snprintf(sql + pos, 1024, " on duplicate key update "
-              "oper_times=oper_times+%"PRI64_PREFIX"d,file_size=file_size+%"PRI64_PREFIX"d,"
-              "response_time=response_time+%"PRI64_PREFIX"d,succ_times=succ_times+%"PRI64_PREFIX"d,"
+              "oper_times=oper_times+%" PRI64_PREFIX "d,file_size=file_size+%" PRI64_PREFIX "d,"
+              "response_time=response_time+%" PRI64_PREFIX "d,succ_times=succ_times+%" PRI64_PREFIX "d,"
               "modify_time=now();",
               inner_it->second.oper_times_, inner_it->second.oper_size_,
               inner_it->second.oper_rt_, inner_it->second.oper_succ_);
@@ -753,10 +753,10 @@ namespace tfs
         {
           pos += snprintf(sql + pos, 512, "insert into t_app_stat"
               "(app_id, used_capacity, file_count, create_time, modify_time) "
-              "values (%d,%"PRI64_PREFIX"d,%"PRI64_PREFIX"d,now(),now())",
+              "values (%d,%" PRI64_PREFIX "d,%" PRI64_PREFIX "d,now(),now())",
               it->first, it->second.used_capacity_, it->second.file_count_);
           pos += snprintf(sql + pos, 512, " on duplicate key update "
-              "used_capacity=used_capacity+%"PRI64_PREFIX"d,file_count=file_count+%"PRI64_PREFIX"d, modify_time=now();",
+              "used_capacity=used_capacity+%" PRI64_PREFIX "d,file_count=file_count+%" PRI64_PREFIX "d, modify_time=now();",
               it->second.used_capacity_, it->second.file_count_);
           it++;
         }

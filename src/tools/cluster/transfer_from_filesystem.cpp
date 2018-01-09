@@ -156,7 +156,7 @@ int TransferFileWorker::transfer_file(const char* localfile, const char* filenam
       int64_t rsize = ::pread(local_fd, buf_, BUFFER_SIZE, offset);
       if (-1 == rsize)
       {
-        TBSYS_LOG(ERROR, "read local file: %s failed, offset: %"PRI64_PREFIX"d, wsize: %d, error: %s", localfile, offset, BUFFER_SIZE, strerror(errno));
+        TBSYS_LOG(ERROR, "read local file: %s failed, offset: %" PRI64_PREFIX "d, wsize: %d, error: %s", localfile, offset, BUFFER_SIZE, strerror(errno));
         ret = EXIT_READ_FILE_ERROR;
         break;
       }
@@ -168,7 +168,7 @@ int TransferFileWorker::transfer_file(const char* localfile, const char* filenam
       int64_t wsize = g_tfs_client->pwrite(tfs_fd, buf_, rsize, offset);
       if (wsize != rsize)
       {
-        TBSYS_LOG(ERROR, "write tfs file: %s failed, offset: %"PRI64_PREFIX"d, wsize: %"PRI64_PREFIX"d, ret: %d", filename, offset, rsize, (int)wsize);
+        TBSYS_LOG(ERROR, "write tfs file: %s failed, offset: %" PRI64_PREFIX "d, wsize: %" PRI64_PREFIX "d, ret: %d", filename, offset, rsize, (int)wsize);
         ret = EXIT_WRITE_FILE_ERROR;
         break;
       }
@@ -252,7 +252,7 @@ int TransferFileWorker::transfer_file(const char* localfile, const char* filenam
   {
     if (offset != file_meta_info.size_ || offset != total_size || ret_crc != crc)
     {
-      TBSYS_LOG(ERROR, "tfs file: %s crc diff, %"PRI64_PREFIX"d, %"PRI64_PREFIX"d, %"PRI64_PREFIX"d, crc %u:%u", filename,
+      TBSYS_LOG(ERROR, "tfs file: %s crc diff, %" PRI64_PREFIX "d, %" PRI64_PREFIX "d, %" PRI64_PREFIX "d, crc %u:%u", filename,
           offset, file_meta_info.size_, total_size, ret_crc, crc);
       ret = EXIT_CHECK_CRC_ERROR;
     }

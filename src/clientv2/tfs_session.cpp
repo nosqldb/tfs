@@ -293,11 +293,11 @@ namespace tfs
           ret = remote_cache_helper_->put(block_cache_key, block_cache_value);
           if (TFS_SUCCESS == ret)
           {
-            TBSYS_LOG(DEBUG, "remote cache insert, blockid: %"PRI64_PREFIX"u", block_id);
+            TBSYS_LOG(DEBUG, "remote cache insert, blockid: %" PRI64_PREFIX "u", block_id);
           }
           else
           {
-            TBSYS_LOG(WARN, "remote cache insert fail, blockid: %"PRI64_PREFIX"u, ret: %d", block_id, ret);
+            TBSYS_LOG(WARN, "remote cache insert fail, blockid: %" PRI64_PREFIX "u, ret: %d", block_id, ret);
           }
         }
       }
@@ -323,7 +323,7 @@ namespace tfs
           {
             ds = block_cache_value.ds_;
             info = block_cache_value.info_;
-            TBSYS_LOG(DEBUG, "query remote cache, blockid: %"PRI64_PREFIX"u", block_id);
+            TBSYS_LOG(DEBUG, "query remote cache, blockid: %" PRI64_PREFIX "u", block_id);
           }
         }
       }
@@ -350,7 +350,7 @@ namespace tfs
           int ret = remote_cache_helper_->remove(block_cache_key);
           if (TFS_SUCCESS == ret)
           {
-            TBSYS_LOG(DEBUG, "remote cache remove, blockid: %"PRI64_PREFIX"u", block_id);
+            TBSYS_LOG(DEBUG, "remote cache remove, blockid: %" PRI64_PREFIX "u", block_id);
           }
         }
       }
@@ -394,11 +394,11 @@ namespace tfs
           if (local_cache_hit)
           {
             cache_hit = CACHE_HIT_LOCAL;
-            TBSYS_LOG(DEBUG, "local cache hit, blockid: %"PRI64_PREFIX"u", block_id);
+            TBSYS_LOG(DEBUG, "local cache hit, blockid: %" PRI64_PREFIX "u", block_id);
           }
           else
           {
-            TBSYS_LOG(DEBUG, "local cache miss, blockid: %"PRI64_PREFIX"u", block_id);
+            TBSYS_LOG(DEBUG, "local cache miss, blockid: %" PRI64_PREFIX "u", block_id);
           }
           update_stat(ST_LOCAL_CACHE, cache_hit);
         }
@@ -415,7 +415,7 @@ namespace tfs
             if (remote_cache_hit)
             {
               cache_hit = CACHE_HIT_REMOTE;
-              TBSYS_LOG(DEBUG, "remote cache hit, blockid: %"PRI64_PREFIX"u", block_id);
+              TBSYS_LOG(DEBUG, "remote cache hit, blockid: %" PRI64_PREFIX "u", block_id);
               if (ClientConfig::use_cache_ & USE_CACHE_FLAG_LOCAL)
               {
                 insert_local_block_cache(block_id, ds, info);
@@ -423,7 +423,7 @@ namespace tfs
             }
             else
             {
-              TBSYS_LOG(DEBUG, "remote cache miss, blockid: %"PRI64_PREFIX"u", block_id);
+              TBSYS_LOG(DEBUG, "remote cache miss, blockid: %" PRI64_PREFIX "u", block_id);
             }
             update_stat(ST_REMOTE_CACHE, cache_hit);
           }
@@ -473,7 +473,7 @@ namespace tfs
           hit = true;
           ds = block_cache->ds_;
           info = block_cache->info_;
-          TBSYS_LOG(DEBUG, "query local cache, blockid: %"PRI64_PREFIX"u", block_id);
+          TBSYS_LOG(DEBUG, "query local cache, blockid: %" PRI64_PREFIX "u", block_id);
         }
       }
       return hit;
@@ -490,7 +490,7 @@ namespace tfs
          block_cache.info_ = info;
          tbutil::Mutex::Lock lock(mutex_);
          block_cache_map_.insert(block_id, block_cache);
-         TBSYS_LOG(DEBUG, "local cache insert, blockid: %"PRI64_PREFIX"u", block_id);
+         TBSYS_LOG(DEBUG, "local cache insert, blockid: %" PRI64_PREFIX "u", block_id);
        }
      }
 
@@ -500,7 +500,7 @@ namespace tfs
        {
          tbutil::Mutex::Lock lock(mutex_);
          block_cache_map_.remove(block_id);
-         TBSYS_LOG(DEBUG, "local cache remove, blockid: %"PRI64_PREFIX"u", block_id);
+         TBSYS_LOG(DEBUG, "local cache remove, blockid: %" PRI64_PREFIX "u", block_id);
        }
      }
 
@@ -542,7 +542,7 @@ namespace tfs
      int TfsSession::get_block_info_ex(const int32_t flag, uint64_t& block_id,
         int32_t& version, VUINT64& ds, FamilyInfoExt& info)
      {
-       TBSYS_LOG(DEBUG, "query block from ns %s, blockid: %"PRI64_PREFIX"u, mode: %d",
+       TBSYS_LOG(DEBUG, "query block from ns %s, blockid: %" PRI64_PREFIX "u, mode: %d",
            ns_addr_.c_str(), block_id, flag);
        int ret = TFS_SUCCESS;
        GetBlockInfoMessageV2 gbi_message;
@@ -570,7 +570,7 @@ namespace tfs
          {
            StatusMessage* resp_msg = dynamic_cast<StatusMessage*>(rsp);
            ret = resp_msg->get_status();
-           TBSYS_LOG(WARN, "get block %"PRI64_PREFIX"u info fail, ret: %d, error: %s",
+           TBSYS_LOG(WARN, "get block %" PRI64_PREFIX "u info fail, ret: %d, error: %s",
                block_id, ret, resp_msg->get_error());
          }
          else

@@ -217,19 +217,19 @@ int check_family(const int64_t family_id, const uint64_t ns_id, const uint64_t d
     {
       StatusMessage* sm = dynamic_cast<StatusMessage*>(rsp);
       ret = sm->get_status();
-      TBSYS_LOG(WARN, "get family info fail, blockid: %"PRI64_PREFIX"u, familyid: %"PRI64_PREFIX"d, error msg: %s, ret: %d",
+      TBSYS_LOG(WARN, "get family info fail, blockid: %" PRI64_PREFIX "u, familyid: %" PRI64_PREFIX "d, error msg: %s, ret: %d",
         block_id, family_id, sm->get_error(), ret);
     }
     else
     {
       ret = EXIT_UNKNOWN_MSGTYPE;
-      TBSYS_LOG(WARN, "get family info fail, blockid: %"PRI64_PREFIX"u, familyid: %"PRI64_PREFIX"d, unknown msg, pcode: %d",
+      TBSYS_LOG(WARN, "get family info fail, blockid: %" PRI64_PREFIX "u, familyid: %" PRI64_PREFIX "d, unknown msg, pcode: %d",
         block_id, family_id, rsp->getPCode());
     }
   }
   else
   {
-    TBSYS_LOG(WARN, "send GetFamilyInfoMessage fail, blockid: %"PRI64_PREFIX"u, familyid: %"PRI64_PREFIX"d, ret: %d",
+    TBSYS_LOG(WARN, "send GetFamilyInfoMessage fail, blockid: %" PRI64_PREFIX "u, familyid: %" PRI64_PREFIX "d, ret: %d",
             block_id, family_id, ret);
   }
 
@@ -255,32 +255,32 @@ int check_family(const int64_t family_id, const uint64_t ns_id, const uint64_t d
     if ( !is_include )
     {
       ret = EXIT_FAMILY_MEMBER_INFO_ERROR;
-      TBSYS_LOG(WARN, "ns family member info error, blockid: %"PRI64_PREFIX"u, familyid: %"PRI64_PREFIX"d", block_id, family_id);
+      TBSYS_LOG(WARN, "ns family member info error, blockid: %" PRI64_PREFIX "u, familyid: %" PRI64_PREFIX "d", block_id, family_id);
     }
     else
     {
       if (index > data_num)// family can reinstate stil if ds close down
       {
         is_safe = true;
-        TBSYS_LOG(DEBUG, "ds: %s close down, family can restore by itself, blockid: %"PRI64_PREFIX"u, familyid: %"PRI64_PREFIX"d",
+        TBSYS_LOG(DEBUG, "ds: %s close down, family can restore by itself, blockid: %" PRI64_PREFIX "u, familyid: %" PRI64_PREFIX "d",
                   tbsys::CNetUtil::addrToString(ds_id).c_str(), block_id, family_id);
       }
       else if (index == data_num)// family just can't reinstate if ds close down
       {
         is_safe =  false;
-        TBSYS_LOG(WARN, "if ds: %s close down, family will break down, blockid: %"PRI64_PREFIX"u, familyid: %"PRI64_PREFIX"d",
+        TBSYS_LOG(WARN, "if ds: %s close down, family will break down, blockid: %" PRI64_PREFIX "u, familyid: %" PRI64_PREFIX "d",
           tbsys::CNetUtil::addrToString(ds_id).c_str(), block_id, family_id);
       }
       else if ( !IS_VERFIFY_BLOCK(block_id) )// data block should't lost when family already can't reinstate, waiting for dissolving
       {
         is_safe = false;
-        TBSYS_LOG(WARN, "family already broken down, but now data block(blockid: %"PRI64_PREFIX"u) has only one copy in ds: %s, familyid: %"PRI64_PREFIX"d",
+        TBSYS_LOG(WARN, "family already broken down, but now data block(blockid: %" PRI64_PREFIX "u) has only one copy in ds: %s, familyid: %" PRI64_PREFIX "d",
           block_id, tbsys::CNetUtil::addrToString(ds_id).c_str(), family_id);
       }
       else// check block is useless when family can't reinstate
       {
         is_safe = true;
-        TBSYS_LOG(WARN, "family already broken down, check block(blockid: %"PRI64_PREFIX"u) is useless already in ds: %s, familyid: %"PRI64_PREFIX"d",
+        TBSYS_LOG(WARN, "family already broken down, check block(blockid: %" PRI64_PREFIX "u) is useless already in ds: %s, familyid: %" PRI64_PREFIX "d",
           block_id, tbsys::CNetUtil::addrToString(ds_id).c_str(), family_id);
       }
     }
@@ -300,7 +300,7 @@ int check_blocks_copy(const uint64_t ns_id, const uint64_t ds_id, vector<BlockMe
     {// 一般不发生，但是某一短暂可能发生, 只能重新再做检查
       ret = EXIT_TFS_ERROR;
       result_blocks.push_back(iter->block_id_);// unkown block status
-      TBSYS_LOG(ERROR, "block no exist or ds list is empty in nameserver, blockid: %"PRI64_PREFIX"u.\n", iter->block_id_);
+      TBSYS_LOG(ERROR, "block no exist or ds list is empty in nameserver, blockid: %" PRI64_PREFIX "u.\n", iter->block_id_);
       break;
     }
 
@@ -309,7 +309,7 @@ int check_blocks_copy(const uint64_t ns_id, const uint64_t ds_id, vector<BlockMe
       if ((iter->size_ == 1) && (iter->ds_[0] == ds_id))// dangerous block
       {
         result_blocks.push_back(iter->block_id_);
-        TBSYS_LOG(WARN, "data block only left one copy in ds: %s, blockid: %"PRI64_PREFIX"u", tbsys::CNetUtil::addrToString(ds_id).c_str(), iter->block_id_);
+        TBSYS_LOG(WARN, "data block only left one copy in ds: %s, blockid: %" PRI64_PREFIX "u", tbsys::CNetUtil::addrToString(ds_id).c_str(), iter->block_id_);
       }
     }
     else
@@ -327,7 +327,7 @@ int check_blocks_copy(const uint64_t ns_id, const uint64_t ds_id, vector<BlockMe
       else
       {
         result_blocks.push_back(iter->block_id_);
-        TBSYS_LOG(ERROR, "check family fail, familyid: %"PRI64_PREFIX"d, blockid:%"PRI64_PREFIX"u.", iter->family_info_.family_id_, iter->block_id_);
+        TBSYS_LOG(ERROR, "check family fail, familyid: %" PRI64_PREFIX "d, blockid:%" PRI64_PREFIX "u.", iter->family_info_.family_id_, iter->block_id_);
         break;
       }
     }
@@ -341,6 +341,6 @@ void print_block(const vector<uint64_t>& result_blocks)
   vector<uint64_t>::const_iterator vit = result_blocks.begin();
   for (; vit != result_blocks.end(); vit++)
   {
-    fprintf(g_fp, "%"PRI64_PREFIX"u\n", (*vit));
+    fprintf(g_fp, "%" PRI64_PREFIX "u\n", (*vit));
   }
 }

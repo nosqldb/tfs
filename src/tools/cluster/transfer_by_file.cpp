@@ -325,7 +325,7 @@ int main(int argc, char* argv[])
     fclose(*g_log_fp[i].fp_);
   }
 
-  fprintf(stdout, "TOTAL COUNT: %"PRI64_PREFIX"d, ACTUAL_COUNT: %"PRI64_PREFIX"d, SUCCESS COUNT: %"PRI64_PREFIX"d, FAIL COUNT: %"PRI64_PREFIX"d, DEL COUNT: %"PRI64_PREFIX"d\n",
+  fprintf(stdout, "TOTAL COUNT: %" PRI64_PREFIX "d, ACTUAL_COUNT: %" PRI64_PREFIX "d, SUCCESS COUNT: %" PRI64_PREFIX "d, FAIL COUNT: %" PRI64_PREFIX "d, DEL COUNT: %" PRI64_PREFIX "d\n",
       g_sync_stat_.total_count_, g_sync_stat_.actual_count_, g_sync_stat_.success_count_, g_sync_stat_.fail_count_, g_sync_stat_.del_count_);
   fprintf(stdout, "LOG FILE: %s\n", log_path);
 
@@ -671,7 +671,7 @@ int sync_file(const string& src_ns_addr, const string& dest_ns_addr, VEC_FILE_NA
       }
       else
       {
-        TBSYS_LOG(INFO, "source crc: %u is not the same as dest crc: %u or source_size: %"PRI64_PREFIX"d is not the same as dest size: %"PRI64_PREFIX"d ", source_crc, dest_crc, source_size, dest_size);
+        TBSYS_LOG(INFO, "source crc: %u is not the same as dest crc: %u or source_size: %" PRI64_PREFIX "d is not the same as dest size: %" PRI64_PREFIX "d ", source_crc, dest_crc, source_size, dest_size);
         TBSYS_LOG(INFO, "sync file(%s) failed.", file_name.c_str());
         {
           tbutil::Mutex::Lock lock(g_mutex_);

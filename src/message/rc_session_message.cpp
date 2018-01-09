@@ -112,7 +112,7 @@ namespace tfs
 
     void ReqRcLoginMessage::dump() const
     {
-      TBSYS_LOG(DEBUG, "app_key: %s, app_ip: %"PRI64_PREFIX"d", app_key_, app_ip_);
+      TBSYS_LOG(DEBUG, "app_key: %s, app_ip: %" PRI64_PREFIX "d", app_key_, app_ip_);
     }
 
     const char* ReqRcLoginMessage::get_app_key() const

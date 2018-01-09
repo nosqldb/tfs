@@ -222,8 +222,8 @@ namespace tfs
 
         if (ret != TFS_SUCCESS)
         {
-          TBSYS_LOG(ERROR, "open tfsfile fail, blockid: %"PRI64_PREFIX"u, "
-              "fileid: %"PRI64_PREFIX"u, mode: %d, ret: %d",
+          TBSYS_LOG(ERROR, "open tfsfile fail, blockid: %" PRI64_PREFIX "u, "
+              "fileid: %" PRI64_PREFIX "u, mode: %d, ret: %d",
               block_id, file_id, mode, ret);
         }
         else if ((ret = insert_file(ret_fd, tfs_file)) != TFS_SUCCESS)
@@ -680,7 +680,7 @@ namespace tfs
               per_io_size = io_size > left_len ? left_len : io_size;
               if ((read_len = read(tfs_fd, buf + (count - left_len), per_io_size)) < 0)
               {
-                TBSYS_LOG(ERROR, "read tfs file fail. tfsname: %s, suffix: %s, ret: %"PRI64_PREFIX"d",
+                TBSYS_LOG(ERROR, "read tfs file fail. tfsname: %s, suffix: %s, ret: %" PRI64_PREFIX "d",
                           file_name, suffix, read_len);
                 ret = read_len;
                 break;
@@ -998,11 +998,11 @@ namespace tfs
       if (timeout_ms > 0)
       {
         ClientConfig::wait_timeout_ = timeout_ms;
-        TBSYS_LOG(INFO, "set wait timeout: %" PRI64_PREFIX "d ms", ClientConfig::wait_timeout_);
+        TBSYS_LOG(INFO, "set wait timeout: %"  PRI64_PREFIX  "d ms", ClientConfig::wait_timeout_);
       }
       else
       {
-        TBSYS_LOG(WARN, "set wait timeout %"PRI64_PREFIX"d <= 0", timeout_ms);
+        TBSYS_LOG(WARN, "set wait timeout %" PRI64_PREFIX "d <= 0", timeout_ms);
       }
     }
 

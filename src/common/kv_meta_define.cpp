@@ -47,8 +47,8 @@ namespace tfs
 
     void TfsFileInfo::dump() const
     {
-      TBSYS_LOG(DEBUG, "TfsFileInfo: [block_id: %"PRI64_PREFIX"d, file_id: %"PRI64_PREFIX"d, "
-                "cluster_id: %d, file_size: %"PRI64_PREFIX"d, offset: %"PRI64_PREFIX"d]",
+      TBSYS_LOG(DEBUG, "TfsFileInfo: [block_id: %" PRI64_PREFIX "d, file_id: %" PRI64_PREFIX "d, "
+                "cluster_id: %d, file_size: %" PRI64_PREFIX "d, offset: %" PRI64_PREFIX "d]",
                  block_id_, file_id_, cluster_id_, file_size_, offset_);
     }
 
@@ -163,8 +163,8 @@ namespace tfs
 
     void ObjectMetaInfo::dump() const
     {
-      TBSYS_LOG(DEBUG, "ObjectMetaInfo: [create_time: %"PRI64_PREFIX"d, modify_time: %"PRI64_PREFIX"d, "
-          "big_file_size: %"PRI64_PREFIX"d, max_tfs_file_size: %d, owner_id_: %"PRI64_PREFIX"d]",
+      TBSYS_LOG(DEBUG, "ObjectMetaInfo: [create_time: %" PRI64_PREFIX "d, modify_time: %" PRI64_PREFIX "d, "
+          "big_file_size: %" PRI64_PREFIX "d, max_tfs_file_size: %d, owner_id_: %" PRI64_PREFIX "d]",
           create_time_, modify_time_, big_file_size_, max_tfs_file_size_, owner_id_);
     }
 

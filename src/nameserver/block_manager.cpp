@@ -187,7 +187,7 @@ namespace tfs
       bool ret = ((NULL != block) && (!block->in_replicate_queue()));
       if (ret)
       {
-        TBSYS_LOG(DEBUG, "block %"PRI64_PREFIX"u maybe lack of backup, we'll replicate", block->id());
+        TBSYS_LOG(DEBUG, "block %" PRI64_PREFIX "u maybe lack of backup, we'll replicate", block->id());
         block->set_in_replicate_queue(BLOCK_IN_REPLICATE_QUEUE_YES);
         tbutil::Mutex::Lock lock(emergency_replicate_queue_mutex_);
         emergency_replicate_queue_.push_back(block->id());
@@ -206,7 +206,7 @@ namespace tfs
         emergency_replicate_queue_mutex_.unlock();
         block = get(id);
         if (NULL == block)
-          TBSYS_LOG(INFO, "block: %"PRI64_PREFIX"u maybe lost,don't replicate", id);
+          TBSYS_LOG(INFO, "block: %" PRI64_PREFIX "u maybe lost,don't replicate", id);
         else
           block->set_in_replicate_queue(BLOCK_IN_REPLICATE_QUEUE_NO);
       }
@@ -421,7 +421,7 @@ namespace tfs
         ArrayHelper<BlockInfoV2*> same_helper(MAX_SINGLE_DISK_BLOCK_COUNT, same_array);
 
         server->diff(blocks, left_less_helper, right_less_helper, same_helper);
-        TBSYS_LOG(INFO, "server : %s update relation, input: %"PRI64_PREFIX"d, same: %"PRI64_PREFIX"d, left: %"PRI64_PREFIX"d, right: %"PRI64_PREFIX"d",
+        TBSYS_LOG(INFO, "server : %s update relation, input: %" PRI64_PREFIX "d, same: %" PRI64_PREFIX "d, left: %" PRI64_PREFIX "d, right: %" PRI64_PREFIX "d",
             tbsys::CNetUtil::addrToString(server->id()).c_str(), blocks.get_array_index(), same_helper.get_array_index(),
             left_less_helper.get_array_index(), right_less_helper.get_array_index());
 

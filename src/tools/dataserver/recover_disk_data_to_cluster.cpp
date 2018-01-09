@@ -93,7 +93,7 @@ int copy_file(LogicBlock* logic_block, const uint32_t block_id, const uint64_t f
       ret = logic_block->read_file(file_id, data, length, offset, READ_DATA_OPTION_FLAG_NORMAL); //read first data & fileinfo
       if (TFS_SUCCESS != ret)
       {
-        TBSYS_LOG(ERROR, "read file fail. blockid: %u, fileid: %"PRI64_PREFIX"u, offset: %d, ret: %d",
+        TBSYS_LOG(ERROR, "read file fail. blockid: %u, fileid: %" PRI64_PREFIX "u, offset: %d, ret: %d",
             block_id, file_id, offset, ret);
       }
       else
@@ -102,7 +102,7 @@ int copy_file(LogicBlock* logic_block, const uint32_t block_id, const uint64_t f
         {
           ret = EXIT_READ_FILE_SIZE_ERROR;
           TBSYS_LOG(ERROR,
-              "read file fail. blockid: %u, fileid: %"PRI64_PREFIX"u, read len: %d < sizeof(FileInfo):%d, ret: %d",
+              "read file fail. blockid: %u, fileid: %" PRI64_PREFIX "u, read len: %d < sizeof(FileInfo):%d, ret: %d",
               block_id, file_id, length, FILEINFO_SIZE, ret);
         }
         else
@@ -113,7 +113,7 @@ int copy_file(LogicBlock* logic_block, const uint32_t block_id, const uint64_t f
           {
             ret = EXIT_WRITE_FILE_ERROR;
             TBSYS_LOG(ERROR,
-                    "write dest tfsfile fail. blockid: %u, fileid: %"PRI64_PREFIX"u, write len: %d <> %d, file size: %d",
+                    "write dest tfsfile fail. blockid: %u, fileid: %" PRI64_PREFIX "u, write len: %d <> %d, file size: %d",
                     block_id, file_id, write_length, (length - FILEINFO_SIZE), finfo.size_);
           }
           else
@@ -135,7 +135,7 @@ int copy_file(LogicBlock* logic_block, const uint32_t block_id, const uint64_t f
           ret = logic_block->read_file(file_id, data, length, offset, READ_DATA_OPTION_FLAG_NORMAL);//read first data & fileinfo
           if (TFS_SUCCESS != ret)
           {
-            TBSYS_LOG(ERROR, "read file fail. blockid: %u, fileid: %"PRI64_PREFIX"u, offset: %d, ret: %d",
+            TBSYS_LOG(ERROR, "read file fail. blockid: %u, fileid: %" PRI64_PREFIX "u, offset: %d, ret: %d",
                 block_id, file_id, offset, ret);
           }
           else
@@ -145,7 +145,7 @@ int copy_file(LogicBlock* logic_block, const uint32_t block_id, const uint64_t f
             {
               ret = EXIT_WRITE_FILE_ERROR;
               TBSYS_LOG(ERROR,
-                  "write dest tfsfile fail. blockid: %u, fileid: %"PRI64_PREFIX"u, write len: %d <> %d, file size: %d",
+                  "write dest tfsfile fail. blockid: %u, fileid: %" PRI64_PREFIX "u, write len: %d <> %d, file size: %d",
                   block_id, file_id, write_length, length, finfo.size_);
             }
             else
@@ -164,7 +164,7 @@ int copy_file(LogicBlock* logic_block, const uint32_t block_id, const uint64_t f
         ret = total_length == finfo.size_ ? TFS_SUCCESS : EXIT_SYNC_FILE_ERROR; // check file size
         if (TFS_SUCCESS != ret)
         {
-         TBSYS_LOG(ERROR, "file size error. %s, blockid: %u, fileid :%" PRI64_PREFIX "u, crc: %u <> %u, size: %"PRI64_PREFIX"d <> %d",
+         TBSYS_LOG(ERROR, "file size error. %s, blockid: %u, fileid :%"  PRI64_PREFIX  "u, crc: %u <> %u, size: %" PRI64_PREFIX "d <> %d",
                fsname.get_name(), block_id, file_id, crc, finfo.crc_, total_length, finfo.size_);
         }
         else
@@ -172,7 +172,7 @@ int copy_file(LogicBlock* logic_block, const uint32_t block_id, const uint64_t f
           ret = crc != finfo.crc_ ? EXIT_CHECK_CRC_ERROR : TFS_SUCCESS; // check crc
           if (TFS_SUCCESS != ret)
           {
-            TBSYS_LOG(ERROR, "crc error. %s, blockid: %u, fileid :%" PRI64_PREFIX "u, crc: %u <> %u, size: %"PRI64_PREFIX"d <> %d",
+            TBSYS_LOG(ERROR, "crc error. %s, blockid: %u, fileid :%"  PRI64_PREFIX  "u, crc: %u <> %u, size: %" PRI64_PREFIX "d <> %d",
                     fsname.get_name(), block_id, file_id, crc, finfo.crc_, total_length, finfo.size_);
           }
         }
@@ -182,17 +182,17 @@ int copy_file(LogicBlock* logic_block, const uint32_t block_id, const uint64_t f
       int32_t iret = g_tfs_client->close(dest_fd);
       if (TFS_SUCCESS != iret)
       {
-        TBSYS_LOG(ERROR, "close dest tfsfile fail, but write data %s . blockid: %u, fileid :%" PRI64_PREFIX "u",
+        TBSYS_LOG(ERROR, "close dest tfsfile fail, but write data %s . blockid: %u, fileid :%"  PRI64_PREFIX  "u",
                  TFS_SUCCESS == ret ? "successful": "fail",block_id, file_id);
       }
 
       if (TFS_SUCCESS != ret)
       {
-        TBSYS_LOG(ERROR, "copy file fail. blockid: %d, fileid: %"PRI64_PREFIX"u, ret: %d", block_id, file_id, ret);
+        TBSYS_LOG(ERROR, "copy file fail. blockid: %d, fileid: %" PRI64_PREFIX "u, ret: %d", block_id, file_id, ret);
       }
       else
       {
-        TBSYS_LOG(INFO, "copy file success. blockid: %d, fileid: %"PRI64_PREFIX"u", block_id, file_id);
+        TBSYS_LOG(INFO, "copy file success. blockid: %d, fileid: %" PRI64_PREFIX "u", block_id, file_id);
       }
     }
   }
@@ -241,7 +241,7 @@ int get_file_list(const string& ns_addr, const uint32_t block_id, BLOCK_FILE_INF
             {
               FileInfo& file_info = file_info_list->at(i);
               FSName fsname(block_id, file_info.id_, TfsClientImpl::Instance()->get_cluster_id(ns_addr.c_str()));
-              TBSYS_LOG(INFO, "block_id: %u, file_id: %"PRI64_PREFIX"u, name: %s\n", block_id, file_info.id_, fsname.get_name());
+              TBSYS_LOG(INFO, "block_id: %u, file_id: %" PRI64_PREFIX "u, name: %s\n", block_id, file_info.id_, fsname.get_name());
               v_block_file_info.push_back(BlockFileInfo(block_id, file_info));
             }
           }
@@ -537,18 +537,18 @@ int main(int argc,char* argv[])
           ret = copy_file(logic_block, block_id, file_id);
           if (TFS_SUCCESS == ret)
           {
-            fprintf(stdout, "recover block_id: %u, file_id: %"PRI64_PREFIX"u successful!\n", block_id, file_id);
+            fprintf(stdout, "recover block_id: %u, file_id: %" PRI64_PREFIX "u successful!\n", block_id, file_id);
           }
           else
           {
             ret = copy_file_from_slave_cluster(ns_slave_addr, ns_addr, block_id, file_id);
             if (TFS_SUCCESS == ret)
             {
-              fprintf(stdout, "recover block_id: %u, file_id: %"PRI64_PREFIX"u successful from slave cluster!\n", block_id, file_id);
+              fprintf(stdout, "recover block_id: %u, file_id: %" PRI64_PREFIX "u successful from slave cluster!\n", block_id, file_id);
             }
             else
             {
-              fprintf(stdout, "recover block_id: %u, file_id: %"PRI64_PREFIX"u failed!\n", block_id, file_id);
+              fprintf(stdout, "recover block_id: %u, file_id: %" PRI64_PREFIX "u failed!\n", block_id, file_id);
               all_success = false;
               fail_block_file_list.insert(pair<uint32_t, uint64_t>(block_id, file_id));
             }
@@ -587,15 +587,15 @@ int main(int argc,char* argv[])
           ret = copy_file_from_slave_cluster(ns_slave_addr, ns_addr, block_id, file_id);
           if (TFS_SUCCESS == ret)
           {
-            fprintf(stdout, "recover block_id: %u, file_id: %"PRI64_PREFIX"u successful from slave cluster!\n", block_id, file_id);
+            fprintf(stdout, "recover block_id: %u, file_id: %" PRI64_PREFIX "u successful from slave cluster!\n", block_id, file_id);
           }
           else
           {
-            fprintf(stdout, "recover block_id: %u, file_id: %"PRI64_PREFIX"u failed from slave cluster\n", block_id, file_id);
+            fprintf(stdout, "recover block_id: %u, file_id: %" PRI64_PREFIX "u failed from slave cluster\n", block_id, file_id);
             all_success = false;
             fail_block_file_list.insert(pair<uint32_t, uint64_t>(block_id, file_id));
           }
-          fprintf(stdout, "block_id: %u, file_id: %"PRI64_PREFIX"u\n", block_id, file_id);
+          fprintf(stdout, "block_id: %u, file_id: %" PRI64_PREFIX "u\n", block_id, file_id);
         }
         if (all_success)
         {
@@ -632,7 +632,7 @@ int main(int argc,char* argv[])
   for (; mit != fail_block_file_list.end(); mit++)
   {
       FSName fsname(mit->first, mit->second, g_tfs_client->get_cluster_id());
-      fprintf(stdout, "block_id: %u, file_id: %"PRI64_PREFIX"u, file_name: %s\n", mit->first, mit->second, fsname.get_name());
+      fprintf(stdout, "block_id: %u, file_id: %" PRI64_PREFIX "u, file_name: %s\n", mit->first, mit->second, fsname.get_name());
   }
 
   fprintf(stdout, "********************************* no need to recover block sum: %u *************************************\n",

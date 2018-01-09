@@ -152,7 +152,7 @@ namespace tfs
         }
         if (TFS_SUCCESS != ret)
         {
-          TBSYS_LOG(WARN, "get block %"PRI64_PREFIX"u replica from src cluster %s fail, ret: %d",
+          TBSYS_LOG(WARN, "get block %" PRI64_PREFIX "u replica from src cluster %s fail, ret: %d",
               block, get_src_addr().c_str(), ret);
         }
       }
@@ -161,7 +161,7 @@ namespace tfs
         ret = DsRequester::read_block_index(sserver, block, block, sindex_data);
         if (TFS_SUCCESS != ret)
         {
-          TBSYS_LOG(WARN, "read %"PRI64_PREFIX"u index from src cluster %s fail, ret: %d",
+          TBSYS_LOG(WARN, "read %" PRI64_PREFIX "u index from src cluster %s fail, ret: %d",
               block, get_src_addr().c_str(), ret);
         }
       }
@@ -199,7 +199,7 @@ namespace tfs
 
       if (sindex_data.finfos_.empty() || dindex_data.finfos_.empty())
       {
-        TBSYS_LOG(INFO, "block %"PRI64_PREFIX"u is empty, will not sync", block);
+        TBSYS_LOG(INFO, "block %" PRI64_PREFIX "u is empty, will not sync", block);
       }
 
       return ret;
@@ -214,7 +214,7 @@ namespace tfs
         ret = DsRequester::read_block_index(server, block, block, index_data);
         if (TFS_SUCCESS != ret)
         {
-          TBSYS_LOG(WARN, "read %"PRI64_PREFIX"u index from %s failed, ret: %d", block, tbsys::CNetUtil::addrToString(server).c_str(), ret);
+          TBSYS_LOG(WARN, "read %" PRI64_PREFIX "u index from %s failed, ret: %d", block, tbsys::CNetUtil::addrToString(server).c_str(), ret);
         }
       }
       if (TFS_SUCCESS == ret)
@@ -222,7 +222,7 @@ namespace tfs
         ret = index_data.finfos_.size() == dindex_data.finfos_.size() ? TFS_SUCCESS : EXIT_FILE_COUNT_CONFLICT_ERROR;
         if (TFS_SUCCESS != ret)
         {
-          TBSYS_LOG(WARN, "check %"PRI64_PREFIX"u integrity failed, ret: %d, file count conflict: %zd <> %zd, serever: %s",
+          TBSYS_LOG(WARN, "check %" PRI64_PREFIX "u integrity failed, ret: %d, file count conflict: %zd <> %zd, serever: %s",
               block, ret, index_data.finfos_.size(), dindex_data.finfos_.size(), tbsys::CNetUtil::addrToString(server).c_str());
         }
       }
@@ -274,21 +274,21 @@ namespace tfs
           ret = (INVALID_FAMILY_ID != meta.family_info_.family_id_) ? EXIT_FAMILY_EXISTED : TFS_SUCCESS;
           if (TFS_SUCCESS != ret)
           {
-            TBSYS_LOG(WARN, "block: %"PRI64_PREFIX"u exists in dest cluster. family id: %"PRI64_PREFIX"u", block, meta.family_info_.family_id_);
+            TBSYS_LOG(WARN, "block: %" PRI64_PREFIX "u exists in dest cluster. family id: %" PRI64_PREFIX "u", block, meta.family_info_.family_id_);
           }
           else
           {
             if (force_remove)
             {
               ret = NsRequester::remove_block(block, get_dest_addr(), tfs::nameserver::HANDLE_DELETE_BLOCK_FLAG_ONLY_RELATION);
-              TBSYS_LOG(WARN, "remove block: %"PRI64_PREFIX"u from %s %s", block, get_dest_addr().c_str(), TFS_SUCCESS == ret ? "successful" : "failed");
+              TBSYS_LOG(WARN, "remove block: %" PRI64_PREFIX "u from %s %s", block, get_dest_addr().c_str(), TFS_SUCCESS == ret ? "successful" : "failed");
               for (int32_t index = 0; index < meta.size_; ++index)
               {
                 uint64_t server = meta.ds_[index];
                 ret = DsRequester::remove_block(block,tbsys::CNetUtil::addrToString(server), false);
                 if (EXIT_NO_LOGICBLOCK_ERROR == ret)
                   ret = TFS_SUCCESS;
-                TBSYS_LOG(WARN, "remove block: %"PRI64_PREFIX"u from %s %s", block, tbsys::CNetUtil::addrToString(server).c_str(), TFS_SUCCESS == ret ? "successful" : "failed");
+                TBSYS_LOG(WARN, "remove block: %" PRI64_PREFIX "u from %s %s", block, tbsys::CNetUtil::addrToString(server).c_str(), TFS_SUCCESS == ret ? "successful" : "failed");
               }
             }
           }
@@ -297,7 +297,7 @@ namespace tfs
         {
           if (EXIT_NO_DATASERVER == ret)
           {
-            TBSYS_LOG(WARN, "remove block: %"PRI64_PREFIX"u from %s", block, get_dest_addr().c_str());
+            TBSYS_LOG(WARN, "remove block: %" PRI64_PREFIX "u from %s", block, get_dest_addr().c_str());
             ret = NsRequester::remove_block(block, get_dest_addr(), tfs::nameserver::HANDLE_DELETE_BLOCK_FLAG_ONLY_RELATION);
           }
           if (EXIT_BLOCK_NOT_FOUND == ret)
@@ -317,7 +317,7 @@ namespace tfs
       sret = MiscRequester::read_block_index(Func::get_host_ip(get_src_addr().c_str()), block, block, sindex_data);
       if (TFS_SUCCESS != sret)
       {
-        TBSYS_LOG(WARN, "read block %"PRI64_PREFIX"u index from src cluster %s fail, ret: %d",
+        TBSYS_LOG(WARN, "read block %" PRI64_PREFIX "u index from src cluster %s fail, ret: %d",
             block, get_src_addr().c_str(), ret);
       }
       else
@@ -326,7 +326,7 @@ namespace tfs
         dret = (TFS_SUCCESS == dret || EXIT_BLOCK_NOT_FOUND == dret) ? TFS_SUCCESS : dret;
         if (TFS_SUCCESS != dret)
         {
-          TBSYS_LOG(WARN, "read block %"PRI64_PREFIX"u index from dest cluster %s fail, ret: %d",
+          TBSYS_LOG(WARN, "read block %" PRI64_PREFIX "u index from dest cluster %s fail, ret: %d",
               block, get_dest_addr().c_str(), ret);
         }
         else
@@ -364,7 +364,7 @@ namespace tfs
             }
           }
 
-          TBSYS_LOG(INFO, "sync block: %"PRI64_PREFIX"u %s successful",block, TFS_SUCCESS == ret ? "all" : "part");
+          TBSYS_LOG(INFO, "sync block: %" PRI64_PREFIX "u %s successful",block, TFS_SUCCESS == ret ? "all" : "part");
 
           memset(&left, 0, sizeof(left));
           for (iter = dfinfos.begin(); iter != dfinfos.end(); ++iter)
@@ -451,7 +451,7 @@ namespace tfs
 
           memset(&left, 0, sizeof(left));
           memset(&right, 0, sizeof(right));
-          TBSYS_LOG(INFO, "compare block: %"PRI64_PREFIX"u %s successful",block, TFS_SUCCESS == ret ? "all" : "part");
+          TBSYS_LOG(INFO, "compare block: %" PRI64_PREFIX "u %s successful",block, TFS_SUCCESS == ret ? "all" : "part");
           for (iter = dfinfos.begin(); iter != dfinfos.end(); ++iter)
           {
             right = (*iter);

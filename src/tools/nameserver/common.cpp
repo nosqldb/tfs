@@ -95,7 +95,7 @@ namespace tfs
 
     void ServerBase::dump() const
     {
-      TBSYS_LOG(INFO, "server_id: %"PRI64_PREFIX"d, use_capacity: %"PRI64_PREFIX"d, total_capacity: %"PRI64_PREFIX"d, current_load: %d, block_count: %d, last_update_time: %s, startup_time: %s, write_byte: %"PRI64_PREFIX"d, write_file_count: %"PRI64_PREFIX"d, read_byte: %"PRI64_PREFIX"d, read_file_count: %"PRI64_PREFIX"d current_time: %s, status: %d, rb_expired_time_: %"PRI64_PREFIX"d, next_report_block_time: %"PRI64_PREFIX"d, disk_type: %u, rb_status_: %u , hold_size: %zd, writable size: %zd, master size: %zd",
+      TBSYS_LOG(INFO, "server_id: %" PRI64_PREFIX "d, use_capacity: %" PRI64_PREFIX "d, total_capacity: %" PRI64_PREFIX "d, current_load: %d, block_count: %d, last_update_time: %s, startup_time: %s, write_byte: %" PRI64_PREFIX "d, write_file_count: %" PRI64_PREFIX "d, read_byte: %" PRI64_PREFIX "d, read_file_count: %" PRI64_PREFIX "d current_time: %s, status: %d, rb_expired_time_: %" PRI64_PREFIX "d, next_report_block_time: %" PRI64_PREFIX "d, disk_type: %u, rb_status_: %u , hold_size: %zd, writable size: %zd, master size: %zd",
           server_stat_.id_,
           server_stat_.use_capacity_,
           server_stat_.total_capacity_,
@@ -159,7 +159,7 @@ namespace tfs
 
     void BlockBase::dump() const
     {
-      TBSYS_LOG(INFO, "family_id: %"PRI64_PREFIX"d,block_id: %"PRI64_PREFIX"u, version: %d, file_count: %d, size: %d, del_file_count: %d, del_size: %d, copys: %Zd",
+      TBSYS_LOG(INFO, "family_id: %" PRI64_PREFIX "d,block_id: %" PRI64_PREFIX "u, version: %d, file_count: %d, size: %d, del_file_count: %d, del_size: %d, copys: %Zd",
           info_.family_id_, info_.block_id_, info_.version_, info_.file_count_, info_.size_, info_.del_file_count_, info_.del_size_, server_list_.size());
     }
   }

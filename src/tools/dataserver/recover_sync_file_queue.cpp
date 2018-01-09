@@ -118,13 +118,13 @@ int remote_copy_file(const char* dest_addr, const uint32_t block_id, const uint6
       if (EXIT_BLOCK_NOT_FOUND == src_fd)
       {
         ret = TFS_SUCCESS;
-        TBSYS_LOG(DEBUG, "tfs file: %s, blockid: %u, fileid: %" PRI64_PREFIX "u not exists in src: %s, ret: %d, need not sync",
+        TBSYS_LOG(DEBUG, "tfs file: %s, blockid: %u, fileid: %"  PRI64_PREFIX  "u not exists in src: %s, ret: %d, need not sync",
                   fsname.get_name(), block_id, file_id, g_src_addr, ret);
 
       }
       else
       {
-        TBSYS_LOG(DEBUG, "%s open src read fail. blockid: %u, fileid: %"PRI64_PREFIX"u, ret: %d",
+        TBSYS_LOG(DEBUG, "%s open src read fail. blockid: %u, fileid: %" PRI64_PREFIX "u, ret: %d",
                   fsname.get_name(), block_id, file_id, src_fd);
         ret = src_fd;
       }
@@ -140,7 +140,7 @@ int remote_copy_file(const char* dest_addr, const uint32_t block_id, const uint6
             EXIT_META_NOT_FOUND_ERROR != ret &&
             EXIT_FILE_STATUS_ERROR != ret)
         {
-          TBSYS_LOG(DEBUG, "%s stat src file fail. blockid: %u, fileid: %"PRI64_PREFIX"u, ret: %d",
+          TBSYS_LOG(DEBUG, "%s stat src file fail. blockid: %u, fileid: %" PRI64_PREFIX "u, ret: %d",
                     fsname.get_name(), block_id, file_id, ret);
         }
       }
@@ -149,7 +149,7 @@ int remote_copy_file(const char* dest_addr, const uint32_t block_id, const uint6
         dest_fd = g_tfs_client-> open(fsname.get_name(), NULL, dest_addr, T_WRITE|T_NEWBLK);
         if (dest_fd <= 0)
         {
-          TBSYS_LOG(DEBUG, "%s open dest write fail. blockid: %u, fileid: %" PRI64_PREFIX "u, ret: %d",
+          TBSYS_LOG(DEBUG, "%s open dest write fail. blockid: %u, fileid: %"  PRI64_PREFIX  "u, ret: %d",
                   fsname.get_name(), block_id, file_id, dest_fd);
           ret = dest_fd;
         }
@@ -171,7 +171,7 @@ int remote_copy_file(const char* dest_addr, const uint32_t block_id, const uint6
               if (length <= 0)
               {
                 ret = EXIT_READ_FILE_ERROR;
-                TBSYS_LOG(DEBUG, "%s read src tfsfile fail. blockid: %u, fileid: %"PRI64_PREFIX"u, length: %d",
+                TBSYS_LOG(DEBUG, "%s read src tfsfile fail. blockid: %u, fileid: %" PRI64_PREFIX "u, length: %d",
                    fsname.get_name(), block_id, file_id, length);
               }
               else
@@ -180,7 +180,7 @@ int remote_copy_file(const char* dest_addr, const uint32_t block_id, const uint6
                 if (write_length != length)
                 {
                   ret = EXIT_WRITE_FILE_ERROR;
-                  TBSYS_LOG(DEBUG, "%s write dest tfsfile fail. blockid: %u, fileid: %" PRI64_PREFIX "u, length: %d, write_length: %d",
+                  TBSYS_LOG(DEBUG, "%s write dest tfsfile fail. blockid: %u, fileid: %"  PRI64_PREFIX  "u, length: %d, write_length: %d",
                       fsname.get_name(), block_id, file_id, length, write_length);
                 }
                 else
@@ -197,7 +197,7 @@ int remote_copy_file(const char* dest_addr, const uint32_t block_id, const uint6
               ret = total_length == file_stat.size_ ? TFS_SUCCESS : EXIT_SYNC_FILE_ERROR;//check file size
               if (TFS_SUCCESS != ret)
               {
-                TBSYS_LOG(DEBUG, "file size error. %s, blockid: %u, fileid :%" PRI64_PREFIX "u, crc: %u <> %u, size: %"PRI64_PREFIX"d <> %"PRI64_PREFIX"d",
+                TBSYS_LOG(DEBUG, "file size error. %s, blockid: %u, fileid :%"  PRI64_PREFIX  "u, crc: %u <> %u, size: %" PRI64_PREFIX "d <> %" PRI64_PREFIX "d",
                     fsname.get_name(), block_id, file_id, crc, file_stat.crc_, total_length, file_stat.size_);
               }
               else
@@ -205,7 +205,7 @@ int remote_copy_file(const char* dest_addr, const uint32_t block_id, const uint6
                 ret = crc != file_stat.crc_ ? EXIT_CHECK_CRC_ERROR : TFS_SUCCESS;//check crc
                 if (TFS_SUCCESS != ret)
                 {
-                  TBSYS_LOG(DEBUG, "crc error. %s, blockid: %u, fileid :%" PRI64_PREFIX "u, crc: %u <> %u, size: %"PRI64_PREFIX"d <> %"PRI64_PREFIX"d",
+                  TBSYS_LOG(DEBUG, "crc error. %s, blockid: %u, fileid :%"  PRI64_PREFIX  "u, crc: %u <> %u, size: %" PRI64_PREFIX "d <> %" PRI64_PREFIX "d",
                       fsname.get_name(), block_id, file_id, crc, file_stat.crc_, total_length, file_stat.size_);
                 }
               }
@@ -225,7 +225,7 @@ int remote_copy_file(const char* dest_addr, const uint32_t block_id, const uint6
         int tmp_ret = g_tfs_client->close(dest_fd);
         if (tmp_ret != TFS_SUCCESS)
         {
-          TBSYS_LOG(DEBUG, "%s close dest tfsfile fail. blockid: %u, fileid: %" PRI64_PREFIX "u. ret: %d",
+          TBSYS_LOG(DEBUG, "%s close dest tfsfile fail. blockid: %u, fileid: %"  PRI64_PREFIX  "u. ret: %d",
               fsname.get_name(), block_id, file_id, tmp_ret);
           ret = tmp_ret;
         }
@@ -234,7 +234,7 @@ int remote_copy_file(const char* dest_addr, const uint32_t block_id, const uint6
 
     if (TFS_SUCCESS == ret)
     {
-      TBSYS_LOG(DEBUG, "tfs remote copy file success: %s to dest: %s, blockid: %u, fileid: %" PRI64_PREFIX "u",
+      TBSYS_LOG(DEBUG, "tfs remote copy file success: %s to dest: %s, blockid: %u, fileid: %"  PRI64_PREFIX  "u",
           fsname.get_name(), dest_addr, block_id, file_id);
     }
     else
@@ -245,12 +245,12 @@ int remote_copy_file(const char* dest_addr, const uint32_t block_id, const uint6
           EXIT_FILE_STATUS_ERROR == ret)
       {
         ret = TFS_SUCCESS;
-        TBSYS_LOG(DEBUG, "tfs file: %s, blockid: %u, fileid: %" PRI64_PREFIX "u not exists in src: %s, ret: %d, need not sync",
+        TBSYS_LOG(DEBUG, "tfs file: %s, blockid: %u, fileid: %"  PRI64_PREFIX  "u not exists in src: %s, ret: %d, need not sync",
                   fsname.get_name(), block_id, file_id, g_src_addr, ret);
       }
       else
       {
-        TBSYS_LOG(DEBUG, "tfs remote copy file fail: %s to dest: %s, blockid: %u, fileid: %" PRI64_PREFIX "u, ret: %d",
+        TBSYS_LOG(DEBUG, "tfs remote copy file fail: %s to dest: %s, blockid: %u, fileid: %"  PRI64_PREFIX  "u, ret: %d",
             fsname.get_name(), dest_addr, block_id, file_id, ret);
       }
     }
@@ -309,7 +309,7 @@ int copy_file(const char* dest_addr, const uint32_t block_id, const uint64_t fil
       // if file is local deleted or not exists, need not sync
       if (EXIT_FILE_INFO_ERROR != ret && EXIT_META_NOT_FOUND_ERROR != ret)
       {
-        TBSYS_LOG(ERROR, "read file fail. blockid: %u, fileid: %"PRI64_PREFIX"u, offset: %d, ret: %d",
+        TBSYS_LOG(ERROR, "read file fail. blockid: %u, fileid: %" PRI64_PREFIX "u, offset: %d, ret: %d",
             block_id, file_id, offset, ret);
       }
     }
@@ -319,7 +319,7 @@ int copy_file(const char* dest_addr, const uint32_t block_id, const uint64_t fil
       {
         ret = EXIT_READ_FILE_SIZE_ERROR;
         TBSYS_LOG(ERROR,
-            "read file fail. blockid: %u, fileid: %"PRI64_PREFIX"u, read len: %d < sizeof(FileInfo):%d, ret: %d",
+            "read file fail. blockid: %u, fileid: %" PRI64_PREFIX "u, read len: %d < sizeof(FileInfo):%d, ret: %d",
             block_id, file_id, length, FILEINFO_SIZE, ret);
       }
       else
@@ -329,7 +329,7 @@ int copy_file(const char* dest_addr, const uint32_t block_id, const uint64_t fil
         int dest_fd = g_tfs_client->open(fsname.get_name(), NULL, dest_addr, T_WRITE|T_NEWBLK);
         if (dest_fd <= 0)
         {
-          TBSYS_LOG(ERROR, "open dest tfsfile: %s(block_id: %u, file_id: %"PRI64_PREFIX"u) fail. ret: %d",
+          TBSYS_LOG(ERROR, "open dest tfsfile: %s(block_id: %u, file_id: %" PRI64_PREFIX "u) fail. ret: %d",
                     fsname.get_name(), fsname.get_block_id(), fsname.get_file_id(), dest_fd);
           ret = TFS_ERROR;
         }
@@ -342,7 +342,7 @@ int copy_file(const char* dest_addr, const uint32_t block_id, const uint64_t fil
           {
             ret = EXIT_WRITE_FILE_ERROR;
             TBSYS_LOG(ERROR,
-                    "write dest tfsfile fail. blockid: %u, fileid: %"PRI64_PREFIX"u, write len: %d <> %d, file size: %d",
+                    "write dest tfsfile fail. blockid: %u, fileid: %" PRI64_PREFIX "u, write len: %d <> %d, file size: %d",
                     block_id, file_id, write_length, (length - FILEINFO_SIZE), finfo.size_);
           }
           else
@@ -362,7 +362,7 @@ int copy_file(const char* dest_addr, const uint32_t block_id, const uint64_t fil
               ret = logic_block->read_file(file_id, data, length, offset, READ_DATA_OPTION_FLAG_NORMAL);//read data
               if (TFS_SUCCESS != ret)
               {
-                TBSYS_LOG(ERROR, "read file fail. blockid: %u, fileid: %"PRI64_PREFIX"u, offset: %d, ret: %d",
+                TBSYS_LOG(ERROR, "read file fail. blockid: %u, fileid: %" PRI64_PREFIX "u, offset: %d, ret: %d",
                     block_id, file_id, offset, ret);
               }
               else
@@ -372,7 +372,7 @@ int copy_file(const char* dest_addr, const uint32_t block_id, const uint64_t fil
                 {
                   ret = EXIT_WRITE_FILE_ERROR;
                   TBSYS_LOG(ERROR,
-                      "write dest tfsfile fail. blockid: %u, fileid: %"PRI64_PREFIX"u, write len: %d <> %d, file size: %d",
+                      "write dest tfsfile fail. blockid: %u, fileid: %" PRI64_PREFIX "u, write len: %d <> %d, file size: %d",
                       block_id, file_id, write_length, length, finfo.size_);
                 }
                 else
@@ -391,7 +391,7 @@ int copy_file(const char* dest_addr, const uint32_t block_id, const uint64_t fil
             ret = total_length == finfo.size_ ? TFS_SUCCESS : EXIT_SYNC_FILE_ERROR; // check file size
             if (TFS_SUCCESS != ret)
             {
-               TBSYS_LOG(ERROR, "file size error. %s, blockid: %u, fileid :%" PRI64_PREFIX "u, crc: %u <> %u, size: %"PRI64_PREFIX"d <> %d",
+               TBSYS_LOG(ERROR, "file size error. %s, blockid: %u, fileid :%"  PRI64_PREFIX  "u, crc: %u <> %u, size: %" PRI64_PREFIX "d <> %d",
                      fsname.get_name(), block_id, file_id, crc, finfo.crc_, total_length, finfo.size_);
             }
             else
@@ -399,7 +399,7 @@ int copy_file(const char* dest_addr, const uint32_t block_id, const uint64_t fil
               ret = crc != finfo.crc_ ? EXIT_CHECK_CRC_ERROR : TFS_SUCCESS; // check crc
               if (TFS_SUCCESS != ret)
               {
-                TBSYS_LOG(ERROR, "crc error. %s, blockid: %u, fileid :%" PRI64_PREFIX "u, crc: %u <> %u, size: %"PRI64_PREFIX"d <> %d",
+                TBSYS_LOG(ERROR, "crc error. %s, blockid: %u, fileid :%"  PRI64_PREFIX  "u, crc: %u <> %u, size: %" PRI64_PREFIX "d <> %d",
                         fsname.get_name(), block_id, file_id, crc, finfo.crc_, total_length, finfo.size_);
               }
             }
@@ -409,7 +409,7 @@ int copy_file(const char* dest_addr, const uint32_t block_id, const uint64_t fil
           int32_t iret = g_tfs_client->close(dest_fd);
           if (TFS_SUCCESS != iret)
           {
-            TBSYS_LOG(ERROR, "close dest tfsfile fail, but write data %s . blockid: %u, fileid :%" PRI64_PREFIX "u",
+            TBSYS_LOG(ERROR, "close dest tfsfile fail, but write data %s . blockid: %u, fileid :%"  PRI64_PREFIX  "u",
                      TFS_SUCCESS == ret ? "successful": "fail",block_id, file_id);
           }
         }
@@ -422,19 +422,19 @@ int copy_file(const char* dest_addr, const uint32_t block_id, const uint64_t fil
       if (EXIT_FILE_INFO_ERROR == ret || EXIT_META_NOT_FOUND_ERROR == ret)
       {
          ret = TFS_SUCCESS;
-         TBSYS_LOG(DEBUG, "tfs file: %s, blockid: %u, fileid: %" PRI64_PREFIX "u not exists in src: %s, ret: %d, need not sync",
+         TBSYS_LOG(DEBUG, "tfs file: %s, blockid: %u, fileid: %"  PRI64_PREFIX  "u not exists in src: %s, ret: %d, need not sync",
                    fsname.get_name(), block_id, file_id, g_src_addr, ret);
 
       }
       else
       {
-        TBSYS_LOG(ERROR, "tfs mirror copy file fail to dest: %s. blockid: %d, fileid: %"PRI64_PREFIX"u, ret: %d",
+        TBSYS_LOG(ERROR, "tfs mirror copy file fail to dest: %s. blockid: %d, fileid: %" PRI64_PREFIX "u, ret: %d",
                   dest_addr, block_id, file_id, ret);
       }
     }
     else
     {
-      TBSYS_LOG(INFO, "tfs mirror copy file success to dest: %s. blockid: %d, fileid: %"PRI64_PREFIX"u",
+      TBSYS_LOG(INFO, "tfs mirror copy file success to dest: %s. blockid: %d, fileid: %" PRI64_PREFIX "u",
                 dest_addr, block_id, file_id);
     }
   }
@@ -478,7 +478,7 @@ int remove_file(const char* dest_addr, const uint32_t block_id,
         else // DELETE or UNDELETE
         {
           ret = TFS_SUCCESS;
-          TBSYS_LOG(DEBUG, "blockid: %u, fileid: %" PRI64_PREFIX "u not exists in dest: %s, ret: %d, need not sync",
+          TBSYS_LOG(DEBUG, "blockid: %u, fileid: %"  PRI64_PREFIX  "u not exists in dest: %s, ret: %d, need not sync",
                     block_id, file_id, dest_addr, ret);
         }
       }
@@ -489,13 +489,13 @@ int remove_file(const char* dest_addr, const uint32_t block_id,
     }
     if (TFS_SUCCESS != ret)
     {
-      TBSYS_LOG(ERROR, "tfs mirror remove file %s(block_id: %u, file_id: %"PRI64_PREFIX"u) fail to dest: %s.\
-                blockid: %u, fileid: %"PRI64_PREFIX"u, action: %d, ret: %d",
+      TBSYS_LOG(ERROR, "tfs mirror remove file %s(block_id: %u, file_id: %" PRI64_PREFIX "u) fail to dest: %s.\
+                blockid: %u, fileid: %" PRI64_PREFIX "u, action: %d, ret: %d",
                 fsname.get_name(), fsname.get_block_id(), fsname.get_file_id(), dest_addr, block_id, file_id, action, ret);
     }
     else
     {
-      TBSYS_LOG(INFO, "tfs mirror remove file success to dest: %s. blockid: %d, fileid: %"PRI64_PREFIX"u, action: %d",
+      TBSYS_LOG(INFO, "tfs mirror remove file success to dest: %s. blockid: %d, fileid: %" PRI64_PREFIX "u, action: %d",
                 dest_addr, block_id, file_id, action);
     }
   }
@@ -550,7 +550,7 @@ int do_sync(const char* dest_addr, const char* data, const int32_t len)
       // for invalid block, not retry; also to the already removed file
       if (EXIT_BLOCKID_ZERO_ERROR == ret)
         break;
-      TBSYS_LOG(WARN, "sync error! cmd: %d, blockid: %u, fileid: %" PRI64_PREFIX "u, old fileid: %" PRI64_PREFIX "u, ret: %d, retry_count: %d",
+      TBSYS_LOG(WARN, "sync error! cmd: %d, blockid: %u, fileid: %"  PRI64_PREFIX  "u, old fileid: %"  PRI64_PREFIX  "u, ret: %d, retry_count: %d",
           sf->cmd_, sf->block_id_, sf->file_id_, sf->old_file_id_, ret, retry_count);
       retry_count++;
       int32_t wait_second = retry_count * retry_count; // 1, 4, 9, ...
@@ -623,7 +623,7 @@ void* thread_func(void *args)
   // init file queue
   uint64_t dest_ns_id = Func::get_host_ip(thread_param->dest_addr_);
   char file_queue_name[20];
-  sprintf(file_queue_name, "queue_%"PRI64_PREFIX"u", dest_ns_id);
+  sprintf(file_queue_name, "queue_%" PRI64_PREFIX "u", dest_ns_id);
   FileQueue* file_queue = new FileQueue(g_mirror_dir, file_queue_name);
   int ret = file_queue->load_queue_head();
   if (TFS_SUCCESS != ret)

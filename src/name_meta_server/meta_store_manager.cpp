@@ -127,7 +127,7 @@ namespace tfs
       {
         MetaCacheHelper::free(*it);
       }
-      TBSYS_LOG(DEBUG, "used size is %"PRI64_PREFIX"d", MemHelper::get_used_size());
+      TBSYS_LOG(DEBUG, "used size is %" PRI64_PREFIX "d", MemHelper::get_used_size());
       delete database_pool_;
       delete [] app_id_uid_mutex_;
     }
@@ -139,7 +139,7 @@ namespace tfs
       HashHelper helper(app_id, uid);
       int32_t hash_value = tbsys::CStringUtil::murMurHash((const void*)&helper, sizeof(HashHelper))
         % mutex_count_;
-      TBSYS_LOG(DEBUG, "app_id: %"PRI64_PREFIX"d, uid: %"PRI64_PREFIX"d get mutex: %d", app_id, uid, hash_value);
+      TBSYS_LOG(DEBUG, "app_id: %" PRI64_PREFIX "d, uid: %" PRI64_PREFIX "d get mutex: %d", app_id, uid, hash_value);
       return app_id_uid_mutex_ + hash_value;
     }
 
@@ -161,7 +161,7 @@ namespace tfs
       vector<CacheRootNode*>::iterator it = v_root_node.begin();
       for (; it != v_root_node.end(); it++)
       {
-        TBSYS_LOG(INFO, "gc app_id: %"PRI64_PREFIX"d uid: %"PRI64_PREFIX"d bucket: %"PRI64_PREFIX"d root node",
+        TBSYS_LOG(INFO, "gc app_id: %" PRI64_PREFIX "d uid: %" PRI64_PREFIX "d bucket: %" PRI64_PREFIX "d root node",
           (*it)->key_.app_id_, (*it)->key_.uid_, (*it)->key_.get_hash());
         MetaCacheHelper::free(*it);
       }
@@ -174,7 +174,7 @@ namespace tfs
       std::set<int64_t>::const_iterator iter = change.begin();
       for (; iter != change.end(); ++iter)
       {
-        TBSYS_LOG(INFO, "gc bucket: %"PRI64_PREFIX"d", (*iter));
+        TBSYS_LOG(INFO, "gc bucket: %" PRI64_PREFIX "d", (*iter));
       }
     }
 
@@ -236,7 +236,7 @@ namespace tfs
     void* MetaStoreManager::malloc(const int64_t size, const int32_t type)
     {
       int64_t used_size = MemHelper::get_used_size();
-      TBSYS_LOG(DEBUG, "malloc size %"PRI64_PREFIX"d type %d cache size %d MB used size %"PRI64_PREFIX"d",
+      TBSYS_LOG(DEBUG, "malloc size %" PRI64_PREFIX "d type %d cache size %d MB used size %" PRI64_PREFIX "d",
           size, type, cache_size_, used_size);
       used_size = used_size >> 20;
       if (cache_size_ <= used_size)
@@ -362,7 +362,7 @@ namespace tfs
                      name, name_len, type, meta_info);
         if (TFS_SUCCESS != ret)
         {
-          TBSYS_LOG(INFO, "insert into db error, ret : %d, app_id: %"PRI64_PREFIX"d,uid: %"PRI64_PREFIX"d, name: %s", ret,
+          TBSYS_LOG(INFO, "insert into db error, ret : %d, app_id: %" PRI64_PREFIX "d,uid: %" PRI64_PREFIX "d, name: %s", ret,
             app_id, uid, name);
         }
         else
@@ -738,13 +738,13 @@ namespace tfs
       {
         real_pid = pid & ~(1L<<63);
       }
-      TBSYS_LOG(DEBUG, "ls real_pid %"PRI64_PREFIX"d is_file %d", real_pid, is_file);
+      TBSYS_LOG(DEBUG, "ls real_pid %" PRI64_PREFIX "d is_file %d", real_pid, is_file);
 
       DatabaseHelper* database_helper = NULL;
       database_helper = database_pool_->get(database_pool_->get_hash_flag(app_id, uid));
       if (NULL != database_helper)
       {
-        TBSYS_LOG(DEBUG, "ls_meta_info appid %"PRI64_PREFIX"d uid %"PRI64_PREFIX"d",
+        TBSYS_LOG(DEBUG, "ls_meta_info appid %" PRI64_PREFIX "d uid %" PRI64_PREFIX "d",
             app_id, uid);
         PROFILER_BEGIN("ls_meta_info");
         ret = database_helper->ls_meta_info(out_v_meta_info, app_id, uid, real_pid,
@@ -822,7 +822,7 @@ namespace tfs
             int64_t frag_len = meta_info->frag_info_.get_length();
             if (frag_len > MAX_FRAG_INFO_SIZE)
             {
-              TBSYS_LOG(ERROR, "meta info is too long(%"PRI64_PREFIX"d > %d)", frag_len, MAX_FRAG_INFO_SIZE);
+              TBSYS_LOG(ERROR, "meta info is too long(%" PRI64_PREFIX "d > %d)", frag_len, MAX_FRAG_INFO_SIZE);
               ret = TFS_ERROR;
             }
             else
@@ -1005,7 +1005,7 @@ namespace tfs
     int MetaStoreManager::get_children_from_db(const int64_t app_id, const int64_t uid,
         CacheDirMetaNode* p_dir_node, const char* name, bool is_file)
     {
-      TBSYS_LOG(DEBUG, "get_children_from_db app_id %"PRI64_PREFIX"d uid %"PRI64_PREFIX"d",
+      TBSYS_LOG(DEBUG, "get_children_from_db app_id %" PRI64_PREFIX "d uid %" PRI64_PREFIX "d",
           app_id, uid);
       int ret = TFS_ERROR;
       assert (NULL != p_dir_node);

@@ -109,7 +109,7 @@ static int64_t write_dest(const char* dest_name, char* buff, const int64_t size)
   }
   else
   {
-    fprintf(stderr, "%s error %"PRI64_PREFIX"d\n", dest_name, write_count);
+    fprintf(stderr, "%s error %" PRI64_PREFIX "d\n", dest_name, write_count);
   }
   return write_count;
 }
@@ -186,19 +186,19 @@ int main(int argc ,char* argv[])
     int64_t dest_count = -1;
     if (source_count < 0)
     {
-      printf("%s:%s fail read, stage=%d source=%"PRI64_PREFIX"d\n", p_source, p_dest, g_stage, source_count);
+      printf("%s:%s fail read, stage=%d source=%" PRI64_PREFIX "d\n", p_source, p_dest, g_stage, source_count);
     }
     else
     {
       dest_count = write_dest(p_dest, buff, source_count);
       if (dest_count < 0)
       {
-        printf("%s:%s fail all, stage=%d source=%"PRI64_PREFIX"d dest=%"PRI64_PREFIX"d\n",
+        printf("%s:%s fail all, stage=%d source=%" PRI64_PREFIX "d dest=%" PRI64_PREFIX "d\n",
             p_source, p_dest, g_stage, source_count, dest_count);
       }
       else if(source_count != dest_count)
       {
-        printf("%s:%s fail partial, stage=%d source=%"PRI64_PREFIX"d dest=%"PRI64_PREFIX"d\n",
+        printf("%s:%s fail partial, stage=%d source=%" PRI64_PREFIX "d dest=%" PRI64_PREFIX "d\n",
             p_source, p_dest, g_stage, source_count, dest_count);
       }
       else

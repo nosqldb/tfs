@@ -151,7 +151,7 @@ namespace tfs
                   || (max_server_item <= 0) || (max_server_item > MAX_SERVER_COUNT))
               {
                 iret = TFS_ERROR;
-                TBSYS_LOG(ERROR, "invalid parameter: bucket_item: %"PRI64_PREFIX"d, server_item: %"PRI64_PREFIX"d",
+                TBSYS_LOG(ERROR, "invalid parameter: bucket_item: %" PRI64_PREFIX "d, server_item: %" PRI64_PREFIX "d",
                     max_bucket_item, max_server_item);
               }
               else
@@ -224,13 +224,13 @@ namespace tfs
               }
               else
               {
-                TBSYS_LOG(ERROR, "load tables error:  %"PRI64_PREFIX"u <> %"PRI64_PREFIX"u",
+                TBSYS_LOG(ERROR, "load tables error:  %" PRI64_PREFIX "u <> %" PRI64_PREFIX "u",
                     header_->bucket_item_, max_bucket_item);
               }
             }
             else
             {
-              TBSYS_LOG(ERROR, "tables magic number error:  %"PRI64_PREFIX"u <> %"PRI64_PREFIX"u",
+              TBSYS_LOG(ERROR, "tables magic number error:  %" PRI64_PREFIX "u <> %" PRI64_PREFIX "u",
                   header_->magic_number_, MAGIC_NUMBER);
             }
           }
@@ -467,12 +467,12 @@ namespace tfs
                 iret = compress(dest, &dest_length, reinterpret_cast<unsigned char*>(tables_), MAX_BUCKET_DATA_LENGTH);
                 if (Z_OK != iret)
                 {
-                  TBSYS_LOG(ERROR, "compress error: %d, build version: %"PRI64_PREFIX"d", iret, header_->build_table_version_);
+                  TBSYS_LOG(ERROR, "compress error: %d, build version: %" PRI64_PREFIX "d", iret, header_->build_table_version_);
                   iret = TFS_ERROR;
                 }
                 else
                 {
-                  TBSYS_LOG(DEBUG, "compress dest_length: %"PRI64_PREFIX"d, length: %"PRI64_PREFIX"d",
+                  TBSYS_LOG(DEBUG, "compress dest_length: %" PRI64_PREFIX "d, length: %" PRI64_PREFIX "d",
                     dest_length, MAX_BUCKET_DATA_LENGTH);
                   NEW_TABLE_ITER iter;
                   std::pair<NEW_TABLE_ITER, bool> res;
@@ -597,7 +597,7 @@ namespace tfs
           }
         }
       }
-      TBSYS_LOG(DEBUG, "total: %zd, success: %"PRI64_PREFIX"u, error: %"PRI64_PREFIX"u",
+      TBSYS_LOG(DEBUG, "total: %zd, success: %" PRI64_PREFIX "u, error: %" PRI64_PREFIX "u",
           tables.size(), success_count, error_count);
       update_complete = (success_count == tables.size() && !tables.empty());
       return iret;
@@ -612,9 +612,9 @@ namespace tfs
         memcpy(reinterpret_cast<unsigned char*>(active_tables_), reinterpret_cast<unsigned char*>(tables_),
             header_->bucket_item_ * INT64_SIZE);
         memcpy(compress_active_tables_, compress_tables_, header_->compress_table_length_);
-        TBSYS_LOG(DEBUG, "old active version: %"PRI64_PREFIX"d", this->get_active_table_version());
+        TBSYS_LOG(DEBUG, "old active version: %" PRI64_PREFIX "d", this->get_active_table_version());
         set_active_version();
-        TBSYS_LOG(DEBUG, "new active version: %"PRI64_PREFIX"d", this->get_active_table_version());
+        TBSYS_LOG(DEBUG, "new active version: %" PRI64_PREFIX "d", this->get_active_table_version());
         iret = file_->msync();
       }
       return iret;

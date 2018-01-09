@@ -55,11 +55,11 @@ void BlockSizeRange::dump(FILE* fp) const
 {
   if (max_value_ != -1)
   {
-    fprintf(fp, "%dM ~ %dM: %"PRI64_PREFIX"d\n", min_value_, max_value_, count_);
+    fprintf(fp, "%dM ~ %dM: %" PRI64_PREFIX "d\n", min_value_, max_value_, count_);
   }
   else
   {
-    fprintf(fp, "%dM ~ : %"PRI64_PREFIX"d\n", min_value_, count_);
+    fprintf(fp, "%dM ~ : %" PRI64_PREFIX "d\n", min_value_, count_);
   }
 }
 
@@ -77,11 +77,11 @@ void DelBlockRange::dump(FILE* fp) const
 {
   if (max_value_ != -1)
   {
-    fprintf(fp, "%d%% ~ %d%%: %"PRI64_PREFIX"d\n", min_value_, max_value_, count_);
+    fprintf(fp, "%d%% ~ %d%%: %" PRI64_PREFIX "d\n", min_value_, max_value_, count_);
   }
   else
   {
-    fprintf(fp, "%d%% ~ : %"PRI64_PREFIX"d\n", min_value_, count_);
+    fprintf(fp, "%d%% ~ : %" PRI64_PREFIX "d\n", min_value_, count_);
   }
 }
 
@@ -151,9 +151,9 @@ void StatInfo::add(const BlockBase& block_base)
 
 void StatInfo::dump(FILE* fp) const
 {
-  fprintf(fp, "file_count: %"PRI64_PREFIX"d, file_size: %"PRI64_PREFIX"d, avg_file_size: %.2f,"
-      " del_file_count: %"PRI64_PREFIX"d, del_file_size: %"PRI64_PREFIX"d, del_avg_file_size: %.2f, del_ratio: %.2f%%\n",
+  fprintf(fp, "file_count: %" PRI64_PREFIX "d, file_size: %" PRI64_PREFIX "d, avg_file_size: %.2f,"
+      " del_file_count: %" PRI64_PREFIX "d, del_file_size: %" PRI64_PREFIX "d, del_avg_file_size: %.2f, del_ratio: %.2f%%\n",
       file_count_, file_size_, div(file_size_, file_count_),
       del_file_count_, del_file_size_, div(del_file_size_, del_file_count_), div(del_file_size_ * 100, file_size_));
-  fprintf(fp, "block_count: %"PRI64_PREFIX"d, avg_block_size: %.2f\n", block_count_, div(file_size_, block_count_));
+  fprintf(fp, "block_count: %" PRI64_PREFIX "d, avg_block_size: %.2f\n", block_count_, div(file_size_, block_count_));
 }

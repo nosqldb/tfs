@@ -62,7 +62,7 @@ int NameMetaHelper::do_file_action(const uint64_t server_id, const int64_t app_i
     if (TFS_SUCCESS != ret)
     {
       TBSYS_LOG(ERROR, "call req file path fail,"
-          "server_id: %"PRI64_PREFIX"u, app_id: %"PRI64_PREFIX"d, user_id: %"PRI64_PREFIX"d "
+          "server_id: %" PRI64_PREFIX "u, app_id: %" PRI64_PREFIX "d, user_id: %" PRI64_PREFIX "d "
           "path: %s, new_path: %s, action: %d ret: %d",
           server_id, app_id, user_id, path, new_path == NULL?"null":new_path, action, ret);
       ret = EXIT_NETWORK_ERROR;
@@ -79,7 +79,7 @@ int NameMetaHelper::do_file_action(const uint64_t server_id, const int64_t app_i
     {
       ret = EXIT_UNKNOWN_MSGTYPE;
       TBSYS_LOG(ERROR, "call req file path fail,"
-          "server_id: %"PRI64_PREFIX"u, app_id: %"PRI64_PREFIX"d, user_id: %"PRI64_PREFIX"d "
+          "server_id: %" PRI64_PREFIX "u, app_id: %" PRI64_PREFIX "d, user_id: %" PRI64_PREFIX "d "
           "path: %s, new_path: %s, action: %d, ret: %d: msg type: %d",
           server_id, app_id, user_id, path, new_path == NULL?"null":new_path, action, ret, rsp->getPCode());
     }
@@ -113,7 +113,7 @@ int NameMetaHelper::do_write_file(const uint64_t server_id, const int64_t app_id
     if (TFS_SUCCESS != ret)
     {
       TBSYS_LOG(ERROR, "call write file fail,"
-          "server_id: %"PRI64_PREFIX"u, app_id: %"PRI64_PREFIX"d, user_id: %"PRI64_PREFIX"d "
+          "server_id: %" PRI64_PREFIX "u, app_id: %" PRI64_PREFIX "d, user_id: %" PRI64_PREFIX "d "
           "path: %s, ret: %d",
           server_id, app_id, user_id, path, ret);
       ret = EXIT_NETWORK_ERROR;
@@ -130,7 +130,7 @@ int NameMetaHelper::do_write_file(const uint64_t server_id, const int64_t app_id
     {
       ret = EXIT_UNKNOWN_MSGTYPE;
       TBSYS_LOG(ERROR, "write file fail,"
-          "server_id: %"PRI64_PREFIX"u, app_id: %"PRI64_PREFIX"d, user_id: %"PRI64_PREFIX"d "
+          "server_id: %" PRI64_PREFIX "u, app_id: %" PRI64_PREFIX "d, user_id: %" PRI64_PREFIX "d "
           "path: %s ret: %d: msg type: %d",
           server_id, app_id, user_id, path, ret, rsp->getPCode());
     }
@@ -166,8 +166,8 @@ int NameMetaHelper::do_read_file(const uint64_t server_id, const int64_t app_id,
     if (TFS_SUCCESS != ret)
     {
       TBSYS_LOG(ERROR, "call read file fail,"
-          "server_id: %"PRI64_PREFIX"u, app_id: %"PRI64_PREFIX"d, user_id: %"PRI64_PREFIX"d "
-          "path: %s, offset %"PRI64_PREFIX"d, size %"PRI64_PREFIX"d ret: %d",
+          "server_id: %" PRI64_PREFIX "u, app_id: %" PRI64_PREFIX "d, user_id: %" PRI64_PREFIX "d "
+          "path: %s, offset %" PRI64_PREFIX "d, size %" PRI64_PREFIX "d ret: %d",
           server_id, app_id, user_id, path, offset, size, ret);
       ret = EXIT_NETWORK_ERROR;
     }
@@ -189,7 +189,7 @@ int NameMetaHelper::do_read_file(const uint64_t server_id, const int64_t app_id,
     {
       ret = EXIT_UNKNOWN_MSGTYPE;
       TBSYS_LOG(ERROR, "call read file fail,"
-          "server_id: %"PRI64_PREFIX"u, app_id: %"PRI64_PREFIX"d, user_id: %"PRI64_PREFIX"d "
+          "server_id: %" PRI64_PREFIX "u, app_id: %" PRI64_PREFIX "d, user_id: %" PRI64_PREFIX "d "
           "path: %s ret: %d: msg type: %d",
           server_id, app_id, user_id, path, ret, rsp->getPCode());
     }
@@ -226,7 +226,7 @@ int NameMetaHelper::do_ls(const uint64_t server_id, const int64_t app_id, const 
     if (TFS_SUCCESS != ret)
     {
       TBSYS_LOG(ERROR, "call ls fail,"
-          "server_id: %"PRI64_PREFIX"u, app_id: %"PRI64_PREFIX"d, user_id: %"PRI64_PREFIX"d "
+          "server_id: %" PRI64_PREFIX "u, app_id: %" PRI64_PREFIX "d, user_id: %" PRI64_PREFIX "d "
           "path: %s, file_type: %d ret: %d",
           server_id, app_id, user_id, path, file_type, ret);
       ret = EXIT_NETWORK_ERROR;
@@ -249,7 +249,7 @@ int NameMetaHelper::do_ls(const uint64_t server_id, const int64_t app_id, const 
     {
       ret = EXIT_UNKNOWN_MSGTYPE;
       TBSYS_LOG(ERROR, "call ls fail,"
-          "server_id: %"PRI64_PREFIX"u, app_id: %"PRI64_PREFIX"d, user_id: %"PRI64_PREFIX"d "
+          "server_id: %" PRI64_PREFIX "u, app_id: %" PRI64_PREFIX "d, user_id: %" PRI64_PREFIX "d "
           "path: %s ret: %d: msg type: %d",
           server_id, app_id, user_id, path, ret, rsp->getPCode());
     }
@@ -272,7 +272,7 @@ int NameMetaHelper::get_table(const uint64_t server_id,
   if (TFS_SUCCESS != ret)
   {
     TBSYS_LOG(ERROR, "call get table fail,"
-        "server_id: %"PRI64_PREFIX"u, ret: %d", server_id, ret);
+        "server_id: %" PRI64_PREFIX "u, ret: %d", server_id, ret);
     ret = EXIT_NETWORK_ERROR;
   }
   else if (RSP_RT_GET_TABLE_MESSAGE == rsp->getPCode())
@@ -281,7 +281,7 @@ int NameMetaHelper::get_table(const uint64_t server_id,
     ret = uncompress(reinterpret_cast<unsigned char*> (table_info), &table_length, (unsigned char*)resp_msg->get_table(), resp_msg->get_table_length());
     if (Z_OK != ret)
     {
-      TBSYS_LOG(ERROR, "uncompress error: ret : %d, version: %"PRI64_PREFIX"d, dest length: %"PRI64_PREFIX"d, lenght: %"PRI64_PREFIX"d",
+      TBSYS_LOG(ERROR, "uncompress error: ret : %d, version: %" PRI64_PREFIX "d, dest length: %" PRI64_PREFIX "d, lenght: %" PRI64_PREFIX "d",
           ret, resp_msg->get_version(), table_length, resp_msg->get_table_length());
       ret = TFS_ERROR;
     }
@@ -295,7 +295,7 @@ int NameMetaHelper::get_table(const uint64_t server_id,
   {
     ret = EXIT_UNKNOWN_MSGTYPE;
     TBSYS_LOG(ERROR, "call get table fail,"
-        "server_id: %"PRI64_PREFIX"u, ret: %d: msg type: %d",
+        "server_id: %" PRI64_PREFIX "u, ret: %d: msg type: %d",
         server_id, ret, rsp->getPCode());
   }
   NewClientManager::get_instance().destroy_client(client);

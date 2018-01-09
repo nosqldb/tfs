@@ -121,7 +121,7 @@ namespace tfs
                     else
                       ret = EXIT_MYSQL_FETCH_DATA_ERROR;
                   }
-                  TBSYS_LOG(DEBUG, "family_id: %"PRI64_PREFIX"d", family_id);
+                  TBSYS_LOG(DEBUG, "family_id: %" PRI64_PREFIX "d", family_id);
                   mysql_next_result(&mysql_);
                 }
               }
@@ -234,7 +234,7 @@ namespace tfs
                         else
                           ret = EXIT_MYSQL_FETCH_DATA_ERROR;
                       }
-                      TBSYS_LOG(DEBUG, "mysql_ret: %"PRI64_PREFIX"d", mysql_ret);
+                      TBSYS_LOG(DEBUG, "mysql_ret: %" PRI64_PREFIX "d", mysql_ret);
                       mysql_next_result(&mysql_);
                     }
                   }
@@ -333,7 +333,7 @@ namespace tfs
                       else
                         ret = EXIT_MYSQL_FETCH_DATA_ERROR;
                     }
-                    TBSYS_LOG(DEBUG, "mysql_ret: %"PRI64_PREFIX"d", mysql_ret);
+                    TBSYS_LOG(DEBUG, "mysql_ret: %" PRI64_PREFIX "d", mysql_ret);
                     mysql_next_result(&mysql_);
                   }
                 }
@@ -434,7 +434,7 @@ namespace tfs
       const int32_t ROW_LIMIT = 3;
       int32_t retry = 0, mysql_errno = 0;
       snprintf(sql, 512, "select family_id, family_aid_info, member_infos from t_family_info"
-              " where family_id > %"PRI64_PREFIX"d limit %d",
+              " where family_id > %" PRI64_PREFIX "d limit %d",
               start_family_id,ROW_LIMIT);
       do
       {

@@ -140,7 +140,7 @@ int get_block_copys(TfsClient* tfs_client, uint64_t ds_id, VUINT64* vec)
     int ret = ToolUtil::get_block_ds_list(tfs_client->get_server_id(), (*iter), ds_list);
     if (ret != TFS_SUCCESS)
     {
-      fprintf(stderr, "block no exist in nameserver, blockid:%"PRI64_PREFIX"u.\n", (*iter));
+      fprintf(stderr, "block no exist in nameserver, blockid:%" PRI64_PREFIX "u.\n", (*iter));
       return ret;
     }
     int32_t ds_size = static_cast<int32_t> (ds_list.size());
@@ -164,7 +164,7 @@ void print_block(VUINT64* vec)
     int32_t i = distance(vec->begin(), vit);
     if (g_flag_[i])
     {
-      fprintf(stdout, "%"PRI64_PREFIX"u\n", *vit);
+      fprintf(stdout, "%" PRI64_PREFIX "u\n", *vit);
     }
   }
 }

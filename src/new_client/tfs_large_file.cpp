@@ -539,7 +539,7 @@ int TfsLargeFile::load_meta(int32_t flags)
 #ifndef TFS_TEST
   else if (meta_seg_->file_info_->size_ > size) // meta file is large than MAX_META_SIZE
   {
-    TBSYS_LOG(WARN, "load meta file size large than MAX_META_SIZE: %d > %"PRI64_PREFIX"d",
+    TBSYS_LOG(WARN, "load meta file size large than MAX_META_SIZE: %d > %" PRI64_PREFIX "d",
               meta_seg_->file_info_->size_, size);
 
     int64_t remain_size = meta_seg_->file_info_->size_ - size;
@@ -551,7 +551,7 @@ int TfsLargeFile::load_meta(int32_t flags)
     // reread to get remain meta file
     if ((ret = read_process_ex(read_size, FILE_PHASE_READ_FILE)) != TFS_SUCCESS)
     {
-      TBSYS_LOG(ERROR, "reread meta file fail. remain size: %"PRI64_PREFIX"d, ret: %d",
+      TBSYS_LOG(ERROR, "reread meta file fail. remain size: %" PRI64_PREFIX "d, ret: %d",
                 remain_size, ret);
       tbsys::gDelete(extra_seg_buf);
     }
@@ -596,7 +596,7 @@ int TfsLargeFile::load_meta_head()
 
   if ((ret = read_process_ex(ret_size, FILE_PHASE_READ_FILE)) != TFS_SUCCESS)
   {
-    TBSYS_LOG(ERROR, "read meta head fail, ret: %"PRI64_PREFIX"d", ret_size);
+    TBSYS_LOG(ERROR, "read meta head fail, ret: %" PRI64_PREFIX "d", ret_size);
     ret = TFS_ERROR;
   }
   else

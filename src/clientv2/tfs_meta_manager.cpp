@@ -84,7 +84,7 @@ int64_t TfsMetaManager::write_data(const char* ns_addr, const void* buffer, cons
       write_length = TfsClientImplV2::Instance()->write(fd, reinterpret_cast<const char*>(buffer) + cur_pos, cur_length);
       if (write_length < 0)
       {
-        TBSYS_LOG(ERROR, "tfs write data error, ret: %"PRI64_PREFIX"d", write_length);
+        TBSYS_LOG(ERROR, "tfs write data error, ret: %" PRI64_PREFIX "d", write_length);
         ret = TFS_ERROR;
         break;
       }

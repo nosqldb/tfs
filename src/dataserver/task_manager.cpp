@@ -450,7 +450,7 @@ namespace tfs
         task_queue_.pop_front();
         task_monitor_.unlock();
 
-        TBSYS_LOG(DEBUG, "Start task, seqno: %"PRI64_PREFIX"d, type: %s, %s",
+        TBSYS_LOG(DEBUG, "Start task, seqno: %" PRI64_PREFIX "d, type: %s, %s",
             task->get_seqno(), plan_type_to_str(task->get_type()), task->dump().c_str());
 
         int ret = TFS_SUCCESS;
@@ -461,7 +461,7 @@ namespace tfs
 
         int64_t end_time = Func::get_monotonic_time_us();
 
-        TBSYS_LOG(INFO, "Finish task, seqno: %"PRI64_PREFIX"d, type: %s, cost time: %"PRI64_PREFIX"d",
+        TBSYS_LOG(INFO, "Finish task, seqno: %" PRI64_PREFIX "d, type: %s, cost time: %" PRI64_PREFIX "d",
           task->get_seqno(), plan_type_to_str(task->get_type()), end_time - start_time);
 
         if (task->is_completed())
@@ -470,7 +470,7 @@ namespace tfs
         }
         else
         {
-          TBSYS_LOG(DEBUG, "task not finished, add to map. seqno: %"PRI64_PREFIX"d", task->get_seqno());
+          TBSYS_LOG(DEBUG, "task not finished, add to map. seqno: %" PRI64_PREFIX "d", task->get_seqno());
           running_task_mutex_.lock();
           running_task_.insert(make_pair<int64_t>(task->get_seqno(), task));
           running_task_mutex_.unlock();
@@ -498,7 +498,7 @@ namespace tfs
       {
         if (iter->second->is_expired(now))
         {
-          TBSYS_LOG(DEBUG, "task expired, seqno: %"PRI64_PREFIX"d", iter->second->get_seqno());
+          TBSYS_LOG(DEBUG, "task expired, seqno: %" PRI64_PREFIX "d", iter->second->get_seqno());
           expire_tasks.push_back(iter->second);
           running_task_.erase(iter++);
         }
@@ -652,7 +652,7 @@ namespace tfs
             }
             // got here, erased[unused]  mustbe NODE_ALIVE
             erased[unused] = ErasureCode::NODE_UNUSED;
-            TBSYS_LOG(DEBUG, "block %"PRI64_PREFIX"u will not used in reinstate",
+            TBSYS_LOG(DEBUG, "block %" PRI64_PREFIX "u will not used in reinstate",
               family_members[unused].block_);
           }
         }
@@ -721,7 +721,7 @@ namespace tfs
           {
             running_blocks_.insert(std::make_pair(*helper.at(index),
                 now + task->get_expire_time()));
-            TBSYS_LOG(DEBUG, "add block %"PRI64_PREFIX"u", *helper.at(index));
+            TBSYS_LOG(DEBUG, "add block %" PRI64_PREFIX "u", *helper.at(index));
           }
         }
       }
@@ -740,7 +740,7 @@ namespace tfs
         for (int32_t index = 0; index < helper.get_array_index(); index++)
         {
           running_blocks_.erase(*helper.at(index));
-          TBSYS_LOG(DEBUG, "remove block %"PRI64_PREFIX"u", *helper.at(index));
+          TBSYS_LOG(DEBUG, "remove block %" PRI64_PREFIX "u", *helper.at(index));
         }
       }
     }
@@ -754,7 +754,7 @@ namespace tfs
       {
         running_blocks_.insert(std::make_pair(block_id,
               Func::get_monotonic_time() + expire_time));
-        TBSYS_LOG(DEBUG, "add block %"PRI64_PREFIX"u", block_id);
+        TBSYS_LOG(DEBUG, "add block %" PRI64_PREFIX "u", block_id);
       }
       return ok;
     }
@@ -763,7 +763,7 @@ namespace tfs
     {
       Mutex::Lock lock(running_blocks_mutex_);
       running_blocks_.erase(block_id);
-      TBSYS_LOG(DEBUG, "remove block %"PRI64_PREFIX"u", block_id);
+      TBSYS_LOG(DEBUG, "remove block %" PRI64_PREFIX "u", block_id);
     }
 
     bool TaskManager::exist_block(const uint64_t block_id) const
@@ -781,7 +781,7 @@ namespace tfs
       {
         if (now > iter->second)
         {
-          TBSYS_LOG(DEBUG, "remove block %"PRI64_PREFIX"u", iter->first);
+          TBSYS_LOG(DEBUG, "remove block %" PRI64_PREFIX "u", iter->first);
           running_blocks_.erase(iter++);
         }
         else

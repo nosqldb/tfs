@@ -198,7 +198,7 @@ namespace tfs
       for (; vit != list_blocks->end(); vit++)
       {
         size++;
-        printf("%"PRI64_PREFIX"u ", *vit);
+        printf("%" PRI64_PREFIX "u ", *vit);
         if (size % 20 == 0)
         {
           printf("\n");
@@ -220,7 +220,7 @@ namespace tfs
       for (; it != block_infos->end(); it++)
       {
         BlockInfoV2* block_info = &(*it);
-        printf("%10"PRI64_PREFIX"d %10"PRI64_PREFIX"u %10u %10u %10u %10u %10u\n", block_info->family_id_, block_info->block_id_, block_info->version_,
+        printf("%10" PRI64_PREFIX "d %10" PRI64_PREFIX "u %10u %10u %10u %10u %10u\n", block_info->family_id_, block_info->block_id_, block_info->version_,
                block_info->file_count_, block_info->size_, block_info->del_file_count_, block_info->del_size_);
 
         total_file_count += block_info->file_count_;
@@ -228,7 +228,7 @@ namespace tfs
         total_delfile_count += block_info->del_file_count_;
         total_del_size += block_info->del_size_;
       }
-      printf("TOTAL:     %10d %10" PRI64_PREFIX "u %10s %10" PRI64_PREFIX "u %10s\n\n", static_cast<int>(block_infos->size()),
+      printf("TOTAL:     %10d %10"  PRI64_PREFIX  "u %10s %10"  PRI64_PREFIX  "u %10s\n\n", static_cast<int>(block_infos->size()),
              total_file_count, Func::format_size(total_size).c_str(), total_delfile_count,
              Func::format_size(total_del_size).c_str());
     }
@@ -242,7 +242,7 @@ namespace tfs
       for (; it != logic_phy_pairs->end(); it++)
       {
         vector < int32_t >* v_phy_list = &(it->second);
-        printf("%-10"PRI64_PREFIX"u ", it->first);
+        printf("%-10" PRI64_PREFIX "u ", it->first);
         vit = v_phy_list->begin();
         for (; vit != v_phy_list->end(); vit++)
         {
@@ -331,8 +331,8 @@ namespace tfs
           if (block_id != 0)
           {
             const BlockInfoV2& block_info = req_ubi_msg->get_block_info();
-            printf("ID:            %"PRI64_PREFIX"u\n", block_info.block_id_);
-            printf("FAMILY_ID:     %"PRI64_PREFIX"u\n", block_info.family_id_);
+            printf("ID:            %" PRI64_PREFIX "u\n", block_info.block_id_);
+            printf("FAMILY_ID:     %" PRI64_PREFIX "u\n", block_info.family_id_);
             printf("VERSION:       %u\n", block_info.version_);
             printf("FILE_COUNT:    %d\n", block_info.file_count_);
             printf("SIZE:          %d\n", block_info.size_);
@@ -563,7 +563,7 @@ namespace tfs
 
           if (len_tmp < 0)
           {
-            fprintf(stderr, "read file(id: %" PRI64_PREFIX "u) data error. ret: %d\n", file_id, len_tmp);
+            fprintf(stderr, "read file(id: %"  PRI64_PREFIX  "u) data error. ret: %d\n", file_id, len_tmp);
             ret_status = TFS_ERROR;
           }
         }
@@ -605,7 +605,7 @@ namespace tfs
 
       if (ret_status == TFS_SUCCESS)
       {
-        printf("read file successful, block: %"PRI64_PREFIX"u, %"PRI64_PREFIX"u, file: %" PRI64_PREFIX "u\n", block_id, attach_block_id, file_id);
+        printf("read file successful, block: %" PRI64_PREFIX "u, %" PRI64_PREFIX "u, file: %"  PRI64_PREFIX  "u\n", block_id, attach_block_id, file_id);
       }
       close(fd);
       return ret_status;
@@ -799,8 +799,8 @@ namespace tfs
             ret = smsg->get_status();
             if (TFS_SUCCESS != ret)
             {
-              fprintf(stderr, "unlink file fail. blockid: %"PRI64_PREFIX"u, "
-                  "fileid: %"PRI64_PREFIX"u, server: %s, prepare: %s, error msg: %s, ret: %d\n\n",
+              fprintf(stderr, "unlink file fail. blockid: %" PRI64_PREFIX "u, "
+                  "fileid: %" PRI64_PREFIX "u, server: %s, prepare: %s, error msg: %s, ret: %d\n\n",
                   ds_task.block_id_, ds_task.new_file_id_,
                   tbsys::CNetUtil::addrToString(ds_task.server_id_).c_str(), prepare ? "true" : "false",
                   smsg->get_error(), ret);
@@ -817,8 +817,8 @@ namespace tfs
         }
         else
         {
-          fprintf(stderr, "unlink file fail. blockid: %"PRI64_PREFIX"u, "
-              "fileid: %"PRI64_PREFIX"u, server: %s, prepare: %s, ret: %d\n\n",
+          fprintf(stderr, "unlink file fail. blockid: %" PRI64_PREFIX "u, "
+              "fileid: %" PRI64_PREFIX "u, server: %s, prepare: %s, ret: %d\n\n",
               ds_task.block_id_, ds_task.new_file_id_,
               tbsys::CNetUtil::addrToString(ds_task.server_id_).c_str(), prepare ? "true" : "false", ret);
         }
@@ -858,8 +858,8 @@ namespace tfs
               ret_status = TFS_SUCCESS;
               tfs::clientv2::FSName fsname(block_id, file_id, cluster_id);
               printf("  FILE_NAME:     %s\n", fsname.get_name());
-              printf("  BLOCK_ID:      %"PRI64_PREFIX"u\n", fsname.get_block_id());
-              printf("  FILE_ID:       %" PRI64_PREFIX "u\n", file_info.id_);
+              printf("  BLOCK_ID:      %" PRI64_PREFIX "u\n", fsname.get_block_id());
+              printf("  FILE_ID:       %"  PRI64_PREFIX  "u\n", file_info.id_);
               printf("  OFFSET:        %d\n", file_info.offset_);
               printf("  SIZE:          %d\n", file_info.size_);
               printf("  MODIFIED_TIME: %s\n", Func::time_to_str(file_info.modify_time_).c_str());
@@ -907,10 +907,10 @@ namespace tfs
         tfs::clientv2::FSName fsname(attach_block_id, file_id);
         printf("Read file info success\n");
         printf("  FILE_NAME:     %s\n", fsname.get_name());
-        printf("  BLOCK_ID:      %"PRI64_PREFIX"u\n", attach_block_id);
-        printf("  FILE_ID:       %"PRI64_PREFIX"u\n", stat.file_id_);
+        printf("  BLOCK_ID:      %" PRI64_PREFIX "u\n", attach_block_id);
+        printf("  FILE_ID:       %" PRI64_PREFIX "u\n", stat.file_id_);
         printf("  OFFSET:        %d\n", stat.offset_);
-        printf("  SIZE:          %"PRI64_PREFIX"d\n", stat.size_);
+        printf("  SIZE:          %" PRI64_PREFIX "d\n", stat.size_);
         printf("  MODIFIED_TIME: %s\n", Func::time_to_str(stat.modify_time_).c_str());
         printf("  CREATE_TIME:   %s\n", Func::time_to_str(stat.create_time_).c_str());
         printf("  STATUS:        %d\n", stat.flag_);
@@ -1117,14 +1117,14 @@ namespace tfs
 
     void DsLib::print_file_info(const char* name, FileInfo& file_info)
     {
-      printf("%s %20" PRI64_PREFIX "u %10u %10u %10u %s %s %02d %10u\n", name, file_info.id_, file_info.offset_,
+      printf("%s %20"  PRI64_PREFIX  "u %10u %10u %10u %s %s %02d %10u\n", name, file_info.id_, file_info.offset_,
              file_info.size_, file_info.usize_, Func::time_to_str(file_info.modify_time_).c_str(), Func::time_to_str(
                file_info.create_time_).c_str(), file_info.flag_, file_info.crc_);
     }
 
     void DsLib::print_file_info_v2(const char* name, FileInfoV2& file_info)
     {
-      printf("%s %20"PRI64_PREFIX"u %10u %10u %s %s %02d %10u\n", name, file_info.id_, file_info.offset_,
+      printf("%s %20" PRI64_PREFIX "u %10u %10u %s %s %02d %10u\n", name, file_info.id_, file_info.offset_,
              file_info.size_ - FILEINFO_EXT_SIZE,
              Func::time_to_str(file_info.modify_time_).c_str(),
              Func::time_to_str(file_info.create_time_).c_str(), file_info.status_, file_info.crc_);
@@ -1217,8 +1217,8 @@ namespace tfs
             {
               StatusMessage* smsg = dynamic_cast<StatusMessage*>(resp_msg);
               ret = TFS_ERROR;//回复状态消息算失败
-              fprintf(stderr, "write file data fail. blockid: %"PRI64_PREFIX"u, "
-                  "fileid: %"PRI64_PREFIX"u, server: %s, error msg: %s, status: %d\n",
+              fprintf(stderr, "write file data fail. blockid: %" PRI64_PREFIX "u, "
+                  "fileid: %" PRI64_PREFIX "u, server: %s, error msg: %s, status: %d\n",
                   block_id, file_id, tbsys::CNetUtil::addrToString(server_ip).c_str(), smsg->get_error(), smsg->get_status());
             }
           }
@@ -1227,13 +1227,13 @@ namespace tfs
             WriteFileRespMessageV2* response = dynamic_cast<WriteFileRespMessageV2*>(resp_msg);
             lease_id = response->get_lease_id();
             file_id = response->get_file_id();
-            //printf("write file data. fileid: %"PRI64_PREFIX"u, leaseid: %"PRI64_PREFIX"u\n", file_id, lease_id);
+            //printf("write file data. fileid: %" PRI64_PREFIX "u, leaseid: %" PRI64_PREFIX "u\n", file_id, lease_id);
           }
         }
         else
         {
-          fprintf(stderr, "write data message send failed. blockid: %"PRI64_PREFIX"u, "
-              "fileid: %"PRI64_PREFIX"u, server: %s, ret: %d\n",
+          fprintf(stderr, "write data message send failed. blockid: %" PRI64_PREFIX "u, "
+              "fileid: %" PRI64_PREFIX "u, server: %s, ret: %d\n",
               block_id, file_id, tbsys::CNetUtil::addrToString(server_ip).c_str(), ret);
         }
         NewClientManager::get_instance().destroy_client(client);
@@ -1336,16 +1336,16 @@ namespace tfs
             ret = smsg->get_status();
             if (TFS_SUCCESS != ret)
             {
-              fprintf(stderr, "close file data fail. blockid: %"PRI64_PREFIX"u, "
-                  "fileid: %"PRI64_PREFIX"u, server: %s, error msg: %s, ret: %d\n",
+              fprintf(stderr, "close file data fail. blockid: %" PRI64_PREFIX "u, "
+                  "fileid: %" PRI64_PREFIX "u, server: %s, error msg: %s, ret: %d\n",
                   block_id, file_id, tbsys::CNetUtil::addrToString(server_ip).c_str(), smsg->get_error(), ret);
             }
           }
         }
         else
         {
-          fprintf(stderr, "Close file data fail. blockid: %"PRI64_PREFIX"u, "
-              "fileid: %"PRI64_PREFIX"u, server: %s, ret: %d\n",
+          fprintf(stderr, "Close file data fail. blockid: %" PRI64_PREFIX "u, "
+              "fileid: %" PRI64_PREFIX "u, server: %s, ret: %d\n",
                block_id, file_id, tbsys::CNetUtil::addrToString(server_ip).c_str(), ret);
         }
         NewClientManager::get_instance().destroy_client(client);
@@ -1386,12 +1386,12 @@ namespace tfs
         else if (STATUS_MESSAGE_OK == ret_status)
         {
           printf("send crc error success\n");
-          printf("labeled file %" PRI64_PREFIX "u on block %u as crc error(crc: %u)\n", file_id, block_id, crc);
+          printf("labeled file %"  PRI64_PREFIX  "u on block %u as crc error(crc: %u)\n", file_id, block_id, crc);
           printf("related ds servers: ");
           VUINT64::iterator it = failed_servers.begin();
           for (; it != failed_servers.end(); it++)
           {
-            printf("%" PRI64_PREFIX "u", *it);
+            printf("%"  PRI64_PREFIX  "u", *it);
           }
           printf("\n");
         }

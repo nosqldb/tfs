@@ -1179,7 +1179,7 @@ retry:
             {
               TBSYS_LOG(ERROR, "mysql_stmt_fetch error");
             }
-            TBSYS_LOG(DEBUG, "mysql_proc_ret = %"PRI64_PREFIX"d", mysql_proc_ret);
+            TBSYS_LOG(DEBUG, "mysql_proc_ret = %" PRI64_PREFIX "d", mysql_proc_ret);
           }
           mysql_next_result(&mysql_.mysql); //mysql bugs, we must have this
         }

@@ -107,7 +107,7 @@ namespace tfs
                     }
                     if (header->_chid == 0)
                     {
-                      TBSYS_LOG(ERROR, "get a packet chid==0, pcode: %d,channel_id:%"PRI64_PREFIX"d", header->_pcode, channel_id);
+                      TBSYS_LOG(ERROR, "get a packet chid==0, pcode: %d,channel_id:%" PRI64_PREFIX "d", header->_pcode, channel_id);
                     }
                   }
                   else
@@ -207,7 +207,7 @@ namespace tfs
         bret = TFS_SUCCESS == iret;
         if (bret)
         {
-          //TBSYS_LOG(DEBUG, "pcode: %d, header length: %d, body length : %"PRI64_PREFIX"d", bpacket->getPCode(), header_length, bpacket->get_data_length());
+          //TBSYS_LOG(DEBUG, "pcode: %d, header length: %d, body length : %" PRI64_PREFIX "d", bpacket->getPCode(), header_length, bpacket->get_data_length());
           //Func::hex_dump(output->getData(), output->getDataLen());
           output->pourData(header_length);
           bret = bpacket->encode(output);

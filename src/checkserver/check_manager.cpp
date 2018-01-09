@@ -225,7 +225,7 @@ namespace tfs
         }
       }
 
-      TBSYS_LOG(DEBUG, "assign block %"PRI64_PREFIX"u to server %s",
+      TBSYS_LOG(DEBUG, "assign block %" PRI64_PREFIX "u to server %s",
         block.get_block_id(), tbsys::CNetUtil::addrToString(server_id).c_str());
 
       return assigned ? server_id : INVALID_SERVER_ID;
@@ -359,7 +359,7 @@ namespace tfs
       int64_t seqno = message->get_seqno();
       uint64_t server_id = message->get_server_id();
       vector<CheckResult>& result = message->get_result();
-      TBSYS_LOG(INFO, "server %s report seqno %"PRI64_PREFIX"u finish %zd blocks",
+      TBSYS_LOG(INFO, "server %s report seqno %" PRI64_PREFIX "u finish %zd blocks",
             tbsys::CNetUtil::addrToString(server_id).c_str(), seqno, result.size());
       message->reply(new StatusMessage(STATUS_MESSAGE_OK));
       if ((0 != seqno_) && (seqno == seqno_))
@@ -388,7 +388,7 @@ namespace tfs
               }
             }
 
-            fprintf(result_fp_, "%-20"PRI64_PREFIX"u%-8d%-8d%-8d\n",
+            fprintf(result_fp_, "%-20" PRI64_PREFIX "u%-8d%-8d%-8d\n",
                 iter->block_id_, iter->more_, iter->diff_, iter->less_);
           }
           else
@@ -408,14 +408,14 @@ namespace tfs
                 (*bit)->remove_server(server_id);
               }
             }
-            TBSYS_LOG(WARN, "block %"PRI64_PREFIX"u check fail in turn %d, server: %s, ret: %d",
+            TBSYS_LOG(WARN, "block %" PRI64_PREFIX "u check fail in turn %d, server: %s, ret: %d",
                 iter->block_id_, turn_, tbsys::CNetUtil::addrToString(server_id).c_str(), iter->status_);
           }
         }
       }
       else
       {
-        TBSYS_LOG(WARN, "seqno not match %"PRI64_PREFIX"d:%"PRI64_PREFIX"d.", seqno, seqno_);
+        TBSYS_LOG(WARN, "seqno not match %" PRI64_PREFIX "d:%" PRI64_PREFIX "d.", seqno, seqno_);
       }
 
       return TFS_SUCCESS;
@@ -528,7 +528,7 @@ namespace tfs
             if (TFS_SUCCESS == ret)
             {
               get_block_size(total, succ, fail);
-              TBSYS_LOG(INFO, "turn_%d total: %"PRI64_PREFIX"d succ: %"PRI64_PREFIX"d fail: %"PRI64_PREFIX"d",
+              TBSYS_LOG(INFO, "turn_%d total: %" PRI64_PREFIX "d succ: %" PRI64_PREFIX "d fail: %" PRI64_PREFIX "d",
                   turn_, total, succ, fail);
             }
           }
@@ -558,7 +558,7 @@ namespace tfs
             {
               get_block_size(total, succ, fail);
               TBSYS_LOG(INFO, "current check progress. "
-                "total: %"PRI64_PREFIX"d succ: %"PRI64_PREFIX"d fail: %"PRI64_PREFIX"d",
+                "total: %" PRI64_PREFIX "d succ: %" PRI64_PREFIX "d fail: %" PRI64_PREFIX "d",
                 total, succ, fail);
               if (succ + fail == total)
               {
@@ -574,7 +574,7 @@ namespace tfs
         }
 
         TBSYS_LOG(INFO, "CHECK RESULT: start at %s. "
-            "total: %"PRI64_PREFIX"d, succ: %"PRI64_PREFIX"d, fail: %"PRI64_PREFIX"d",
+            "total: %" PRI64_PREFIX "d, succ: %" PRI64_PREFIX "d, fail: %" PRI64_PREFIX "d",
             Func::time_to_str(seqno_/1000000, 0).c_str(), total, succ, fail);
       }
 
@@ -690,7 +690,7 @@ namespace tfs
             for ( ; bit != check_blocks.end(); bit++)
             {
               check_manager_.add_block(*bit, (*iter)->get_server_id());
-              TBSYS_LOG(DEBUG, "add block %"PRI64_PREFIX"u from %s",
+              TBSYS_LOG(DEBUG, "add block %" PRI64_PREFIX "u from %s",
                   *bit, tbsys::CNetUtil::addrToString((*iter)->get_server_id()).c_str());
             }
           }
@@ -723,7 +723,7 @@ namespace tfs
             VUINT64 replicas;
             int ret = check_manager_.retry_get_block_replicas(SYSPARAM_CHECKSERVER.ns_id_,
                 (*bit)->get_block_id(), replicas);
-            TBSYS_LOG(INFO, "update block %"PRI64_PREFIX"u replica info from ns",
+            TBSYS_LOG(INFO, "update block %" PRI64_PREFIX "u replica info from ns",
                 (*bit)->get_block_id());
             if (TFS_SUCCESS == ret)
             {

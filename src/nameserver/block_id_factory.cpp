@@ -114,7 +114,7 @@ namespace tfs
         ret = flush_(id);
         if (common::TFS_SUCCESS != ret)
         {
-          TBSYS_LOG(WARN, "update global block id failed, id: %"PRI64_PREFIX"u, ret: %d", id, ret);
+          TBSYS_LOG(WARN, "update global block id failed, id: %" PRI64_PREFIX "u, ret: %d", id, ret);
         }
       }
       if (common::TFS_SUCCESS == ret)
@@ -146,7 +146,7 @@ namespace tfs
         ret = flush_(tmp_id);
         if (common::TFS_SUCCESS != ret)
         {
-          TBSYS_LOG(WARN, "flush global block id failed, id: %"PRI64_PREFIX"u, ret: %d", tmp_id, ret);
+          TBSYS_LOG(WARN, "flush global block id failed, id: %" PRI64_PREFIX "u, ret: %d", tmp_id, ret);
         }
       }
       return ret;
@@ -161,7 +161,7 @@ namespace tfs
       int32_t ret = update(id);
       if (common::TFS_SUCCESS != ret)
       {
-        TBSYS_LOG(WARN, "update global block id failed, id: %"PRI64_PREFIX"u, ret: %d", id, ret);
+        TBSYS_LOG(WARN, "update global block id failed, id: %" PRI64_PREFIX "u, ret: %d", id, ret);
       }
       return id;
     }

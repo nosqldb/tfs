@@ -278,7 +278,7 @@ namespace tfs
       while  (retry && TFS_SUCCESS == ret)
       {
         ret = stat_once(file_stat);
-        TBSYS_LOG(DEBUG, "stat request, ret: %"PRI64_PREFIX"d", ret);
+        TBSYS_LOG(DEBUG, "stat request, ret: %" PRI64_PREFIX "d", ret);
         retry = is_cache_hit();
         if (retry)
         {
@@ -310,7 +310,7 @@ namespace tfs
             open_ex(); // reopen file
           }
         }
-        TBSYS_LOG(DEBUG, "read request, ret: %"PRI64_PREFIX"d", ret);
+        TBSYS_LOG(DEBUG, "read request, ret: %" PRI64_PREFIX "d", ret);
       }
       return ret;
     }
@@ -534,14 +534,14 @@ namespace tfs
           TBSYS_LOG(DEBUG, "dataserver %d address %s",
             i, tbsys::CNetUtil::addrToString(file_.ds_[i]).c_str());
         }
-        TBSYS_LOG(DEBUG, "family id %"PRI64_PREFIX"d", file_.family_info_.family_id_);
+        TBSYS_LOG(DEBUG, "family id %" PRI64_PREFIX "d", file_.family_info_.family_id_);
         if (INVALID_FAMILY_ID != file_.family_info_.family_id_)
         {
           const int data_num = GET_DATA_MEMBER_NUM(file_.family_info_.family_aid_info_);
           const int check_num = GET_CHECK_MEMBER_NUM(file_.family_info_.family_aid_info_);
           for (int32_t i = 0; i < data_num + check_num; i++)
           {
-            TBSYS_LOG(DEBUG, "block: %"PRI64_PREFIX"u, server: %s",
+            TBSYS_LOG(DEBUG, "block: %" PRI64_PREFIX "u, server: %s",
                 file_.family_info_.members_[i].first,
                 tbsys::CNetUtil::addrToString(file_.family_info_.members_[i].second).c_str());
           }
@@ -579,8 +579,8 @@ namespace tfs
 
       if (TFS_SUCCESS != ret)
       {
-        TBSYS_LOG(WARN, "stat file %s fail. blockid: %"PRI64_PREFIX"u, "
-            "fileid: %"PRI64_PREFIX"u, server: %s, ret: %d",
+        TBSYS_LOG(WARN, "stat file %s fail. blockid: %" PRI64_PREFIX "u, "
+            "fileid: %" PRI64_PREFIX "u, server: %s, ret: %d",
             fsname_.get_name(), fsname_.get_block_id(), fsname_.get_file_id(),
             tbsys::CNetUtil::addrToString(server).c_str(), ret);
       }
@@ -596,8 +596,8 @@ namespace tfs
           {
             StatusMessage* smsg = dynamic_cast<StatusMessage*>(resp_msg);
             ret = smsg->get_status();
-            TBSYS_LOG(WARN, "stat file %s fail. blockid: %"PRI64_PREFIX"u, "
-                "fileid: %"PRI64_PREFIX"u, server: %s, error msg: %s, ret: %d",
+            TBSYS_LOG(WARN, "stat file %s fail. blockid: %" PRI64_PREFIX "u, "
+                "fileid: %" PRI64_PREFIX "u, server: %s, error msg: %s, ret: %d",
                 fsname_.get_name(), fsname_.get_block_id(), fsname_.get_file_id(),
                 tbsys::CNetUtil::addrToString(server).c_str(), smsg->get_error(), ret);
           }
@@ -658,8 +658,8 @@ namespace tfs
 
       if (TFS_SUCCESS != ret)
       {
-        TBSYS_LOG(WARN, "read file %s fail. blockid: %"PRI64_PREFIX"u, "
-            "fileid: %"PRI64_PREFIX"u, server: %s, ret: %d",
+        TBSYS_LOG(WARN, "read file %s fail. blockid: %" PRI64_PREFIX "u, "
+            "fileid: %" PRI64_PREFIX "u, server: %s, ret: %d",
             fsname_.get_name(), fsname_.get_block_id(), fsname_.get_file_id(),
             tbsys::CNetUtil::addrToString(server).c_str(), ret);
       }
@@ -675,8 +675,8 @@ namespace tfs
           {
             StatusMessage* smsg = dynamic_cast<StatusMessage*>(resp_msg);
             ret = smsg->get_status();
-            TBSYS_LOG(WARN, "read file %s fail. blockid: %"PRI64_PREFIX"u, "
-                "fileid: %"PRI64_PREFIX"u, server: %s, error msg: %s, ret: %d",
+            TBSYS_LOG(WARN, "read file %s fail. blockid: %" PRI64_PREFIX "u, "
+                "fileid: %" PRI64_PREFIX "u, server: %s, error msg: %s, ret: %d",
                 fsname_.get_name(), fsname_.get_block_id(), fsname_.get_file_id(),
                 tbsys::CNetUtil::addrToString(server).c_str(), smsg->get_error(), ret);
           }
@@ -733,8 +733,8 @@ namespace tfs
 
       if (TFS_SUCCESS != ret)
       {
-        TBSYS_LOG(WARN, "write file %s fail. blockid: %"PRI64_PREFIX"u, "
-            "fileid: %"PRI64_PREFIX"u, server: %s, ret: %d",
+        TBSYS_LOG(WARN, "write file %s fail. blockid: %" PRI64_PREFIX "u, "
+            "fileid: %" PRI64_PREFIX "u, server: %s, ret: %d",
            fsname_.get_name(), fsname_.get_block_id(), fsname_.get_file_id(),
            tbsys::CNetUtil::addrToString(server).c_str(), ret);
       }
@@ -750,8 +750,8 @@ namespace tfs
           {
             StatusMessage* smsg = dynamic_cast<StatusMessage*>(resp_msg);
             ret = smsg->get_status();
-            TBSYS_LOG(WARN, "write file %s fail. blockid: %"PRI64_PREFIX"u, "
-                "fileid: %"PRI64_PREFIX"u, server: %s, error msg: %s, ret: %d",
+            TBSYS_LOG(WARN, "write file %s fail. blockid: %" PRI64_PREFIX "u, "
+                "fileid: %" PRI64_PREFIX "u, server: %s, error msg: %s, ret: %d",
                 fsname_.get_name(), fsname_.get_block_id(), fsname_.get_file_id(),
                 tbsys::CNetUtil::addrToString(server).c_str(), smsg->get_error(), ret);
           }
@@ -765,7 +765,7 @@ namespace tfs
             fsname_.set_block_id(response->get_block_id());
           }
           fsname_.set_file_id(response->get_file_id());
-          TBSYS_LOG(DEBUG, "write file %s. blockid: %"PRI64_PREFIX"u, fileid: %"PRI64_PREFIX"u, leaseid: %"PRI64_PREFIX"u",
+          TBSYS_LOG(DEBUG, "write file %s. blockid: %" PRI64_PREFIX "u, fileid: %" PRI64_PREFIX "u, leaseid: %" PRI64_PREFIX "u",
               fsname_.get_name(), fsname_.get_block_id(), fsname_.get_file_id(), file_.lease_id_);
         }
       }
@@ -807,8 +807,8 @@ namespace tfs
 
       if (TFS_SUCCESS != ret)
       {
-        TBSYS_LOG(WARN, "close file %s fail. blockid: %"PRI64_PREFIX"u, "
-            "fileid: %"PRI64_PREFIX"u, server: %s, ret: %d",
+        TBSYS_LOG(WARN, "close file %s fail. blockid: %" PRI64_PREFIX "u, "
+            "fileid: %" PRI64_PREFIX "u, server: %s, ret: %d",
             fsname_.get_name(), fsname_.get_block_id(), fsname_.get_file_id(),
             tbsys::CNetUtil::addrToString(server).c_str(), ret);
       }
@@ -824,8 +824,8 @@ namespace tfs
           ret = smsg->get_status();
           if (TFS_SUCCESS != ret)
           {
-            TBSYS_LOG(WARN, "close file %s fail. blockid: %"PRI64_PREFIX"u, "
-                "fileid: %"PRI64_PREFIX"u, server: %s, error msg: %s, ret: %d",
+            TBSYS_LOG(WARN, "close file %s fail. blockid: %" PRI64_PREFIX "u, "
+                "fileid: %" PRI64_PREFIX "u, server: %s, error msg: %s, ret: %d",
                 fsname_.get_name(), fsname_.get_block_id(), fsname_.get_file_id(),
                 tbsys::CNetUtil::addrToString(server).c_str(), smsg->get_error(), ret);
           }
@@ -870,8 +870,8 @@ namespace tfs
 
       if (TFS_SUCCESS != ret)
       {
-        TBSYS_LOG(WARN, "unlink file %s fail. blockid: %"PRI64_PREFIX"u, "
-            "fileid: %"PRI64_PREFIX"u, server: %s, prepare: %s, ret: %d",
+        TBSYS_LOG(WARN, "unlink file %s fail. blockid: %" PRI64_PREFIX "u, "
+            "fileid: %" PRI64_PREFIX "u, server: %s, prepare: %s, ret: %d",
             fsname_.get_name(), fsname_.get_block_id(), fsname_.get_file_id(),
             tbsys::CNetUtil::addrToString(server).c_str(), prepare ? "true" : "false", ret);
       }
@@ -887,8 +887,8 @@ namespace tfs
           ret = smsg->get_status();
           if (TFS_SUCCESS != ret)
           {
-            TBSYS_LOG(WARN, "unlink file %s fail. blockid: %"PRI64_PREFIX"u, "
-                "fileid: %"PRI64_PREFIX"u, server: %s, prepare: %s, error msg: %s, ret: %d",
+            TBSYS_LOG(WARN, "unlink file %s fail. blockid: %" PRI64_PREFIX "u, "
+                "fileid: %" PRI64_PREFIX "u, server: %s, prepare: %s, error msg: %s, ret: %d",
                 fsname_.get_name(), fsname_.get_block_id(), fsname_.get_file_id(),
                 tbsys::CNetUtil::addrToString(server).c_str(), prepare ? "true" : "false",
                 smsg->get_error(), ret);

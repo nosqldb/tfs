@@ -39,7 +39,7 @@ public:
     }
     memcpy(buf_, &seg_head, sizeof(SegmentHead));
 
-    snprintf(final_key_, MAX_PATH_LENGTH-1, "%s!tmp!TestlocalKey!%"PRI64_PREFIX"u", LOCAL_KEY_PATH, id_);
+    snprintf(final_key_, MAX_PATH_LENGTH-1, "%s!tmp!TestlocalKey!%" PRI64_PREFIX "u", LOCAL_KEY_PATH, id_);
     // ignore error
     ::unlink(final_key_);
   }

@@ -439,11 +439,11 @@ int switch_cmd(const int cmd, VSTRING & param)
       ret = DsLib::read_file_data(ds_task);
       if (TFS_SUCCESS == ret)
       {
-        printf("download tfs file %"PRI64_PREFIX"u, %"PRI64_PREFIX"u, %"PRI64_PREFIX"u ====> local file %s success.\n", ds_task.block_id_, ds_task.attach_block_id_, ds_task.new_file_id_, ds_task.local_file_);
+        printf("download tfs file %" PRI64_PREFIX "u, %" PRI64_PREFIX "u, %" PRI64_PREFIX "u ====> local file %s success.\n", ds_task.block_id_, ds_task.attach_block_id_, ds_task.new_file_id_, ds_task.local_file_);
       }
       else
       {
-        printf("download tfs file %"PRI64_PREFIX"u, %"PRI64_PREFIX "u to local file %s fail.\n", ds_task.block_id_, ds_task.new_file_id_, ds_task.local_file_);
+        printf("download tfs file %" PRI64_PREFIX "u, %" PRI64_PREFIX  "u to local file %s fail.\n", ds_task.block_id_, ds_task.new_file_id_, ds_task.local_file_);
       }
       break;
     }
@@ -470,12 +470,12 @@ int switch_cmd(const int cmd, VSTRING & param)
       ret = DsLib::verify_file_data(ds_task);
       if (TFS_SUCCESS == ret)
       {
-        printf ("verify file success. blockid: %"PRI64_PREFIX"u, %"PRI64_PREFIX"u\n",
+        printf ("verify file success. blockid: %" PRI64_PREFIX "u, %" PRI64_PREFIX "u\n",
             attach_block_id, file_id);
       }
       else
       {
-        printf ("verify file fail. blockid: %"PRI64_PREFIX"u, %"PRI64_PREFIX"u\n",
+        printf ("verify file fail. blockid: %" PRI64_PREFIX "u, %" PRI64_PREFIX "u\n",
             attach_block_id, file_id);
       }
 
@@ -647,7 +647,7 @@ int switch_cmd(const int cmd, VSTRING & param)
         multiset<BlockVisit>::iterator it = blocks_visit.begin();
         for (; it != blocks_visit.end(); ++it)
         {
-          printf("%c     %10"PRI64_PREFIX"u    %10"PRI64_PREFIX"d    %s\n", IS_VERFIFY_BLOCK(it->block_id_) ? 'C' : 'D',
+          printf("%c     %10" PRI64_PREFIX "u    %10" PRI64_PREFIX "d    %s\n", IS_VERFIFY_BLOCK(it->block_id_) ? 'C' : 'D',
               it->block_id_, it->total_visit_count_, Func::time_to_str(it->last_access_time_).c_str());
         }
         printf("----------------------------------------------------------\n");

@@ -124,7 +124,7 @@ namespace tfs
           || ((ret = timer_->scheduleRepeated(stat_task_, tbutil::Time::seconds(SYSPARAM_RCSERVER.stat_interval_))) != 0)
           )
       { //schedule fail. will not happen
-        TBSYS_LOG(ERROR, "call scheduleRepeated failed, stat_interval_: %"PRI64_PREFIX"d, monitor_interval_: %"PRI64_PREFIX"d,"
+        TBSYS_LOG(ERROR, "call scheduleRepeated failed, stat_interval_: %" PRI64_PREFIX "d, monitor_interval_: %" PRI64_PREFIX "d,"
             " ret: %d",
             SYSPARAM_RCSERVER.stat_interval_, SYSPARAM_RCSERVER.monitor_interval_, ret);
 
@@ -156,7 +156,7 @@ namespace tfs
         if ((ret = update_session_info(app_id, session_id, keep_alive_info, LOGIN_FLAG)) != TFS_SUCCESS)
         {
           TBSYS_LOG(ERROR, "call SessionMonitorTask::update_session_info failed,"
-              " session_id: %s, modify time: %"PRI64_PREFIX"d, update_flag: %d, ret: %d",
+              " session_id: %s, modify time: %" PRI64_PREFIX "d, update_flag: %d, ret: %d",
               session_id.c_str(), keep_alive_info.s_base_info_.modify_time_, LOGIN_FLAG, ret);
         }
         resource_manager_->sort_ns_by_distance(app_id, common::Func::addr_to_str(session_ip, false),
@@ -166,7 +166,7 @@ namespace tfs
       }
       else
       {
-        TBSYS_LOG(ERROR, "call ResourceManager::login failed, app_key: %s, session_ip: %"PRI64_PREFIX"u, ret: %d",
+        TBSYS_LOG(ERROR, "call ResourceManager::login failed, app_key: %s, session_ip: %" PRI64_PREFIX "u, ret: %d",
             app_key.c_str(), session_ip, ret);
       }
       return ret;
@@ -211,7 +211,7 @@ namespace tfs
         if ((ret = resource_manager_->check_update_info(app_id, keep_alive_info.s_base_info_.modify_time_,
                 update_flag, base_info_befor_sort)) != TFS_SUCCESS)
         {
-          TBSYS_LOG(ERROR, "call IResourceManager::check_update_info failed. app_id: %d, modify_time: %"PRI64_PREFIX"d, ret: %d",
+          TBSYS_LOG(ERROR, "call IResourceManager::check_update_info failed. app_id: %d, modify_time: %" PRI64_PREFIX "d, ret: %d",
               app_id, keep_alive_info.s_base_info_.modify_time_, ret);
         }
         else
@@ -225,14 +225,14 @@ namespace tfs
           if ((ret = update_session_info(app_id, session_id, keep_alive_info, KA_FLAG)) != TFS_SUCCESS)
           {
             TBSYS_LOG(ERROR, "call SessionMonitorTask::update_session_info failed, this will not be happen!"
-                " session_id: %s, modify time: %"PRI64_PREFIX"d, update_flag: %d, ret: %d",
+                " session_id: %s, modify time: %" PRI64_PREFIX "d, update_flag: %d, ret: %d",
                 session_id.c_str(), keep_alive_info.s_base_info_.modify_time_, KA_FLAG, ret);
           }
         }
       }
       else
       {
-        TBSYS_LOG(ERROR, "call SessionUtil::parse_session_id failed, session_id: %s, modify time: %"PRI64_PREFIX"d, ret: %d",
+        TBSYS_LOG(ERROR, "call SessionUtil::parse_session_id failed, session_id: %s, modify time: %" PRI64_PREFIX "d, ret: %d",
             session_id.c_str(), keep_alive_info.s_base_info_.modify_time_, ret);
       }
       return ret;
@@ -249,13 +249,13 @@ namespace tfs
         if ((ret = update_session_info(app_id, session_id, keep_alive_info, LOGOUT_FLAG)) != TFS_SUCCESS)
         {
           TBSYS_LOG(ERROR, "call SessionManager::update_session_info failed, this will not be happen!"
-              " session_id: %s, modify time: %"PRI64_PREFIX"d, update_flag: %d, ret: %d",
+              " session_id: %s, modify time: %" PRI64_PREFIX "d, update_flag: %d, ret: %d",
               session_id.c_str(), keep_alive_info.s_base_info_.modify_time_, LOGOUT_FLAG, ret);
         }
       }
       else
       {
-        TBSYS_LOG(ERROR, "call SessionUtil::parse_session_id failed, session_id: %s, modify time: %"PRI64_PREFIX"d, ret: %d",
+        TBSYS_LOG(ERROR, "call SessionUtil::parse_session_id failed, session_id: %s, modify time: %" PRI64_PREFIX "d, ret: %d",
             session_id.c_str(), keep_alive_info.s_base_info_.modify_time_, ret);
       }
 
@@ -297,13 +297,13 @@ namespace tfs
       if ((ret = monitor_task_->update_session_info(app_id, session_id, keep_alive_info, update_flag)) != TFS_SUCCESS)
       {
         TBSYS_LOG(ERROR, "call SessionMonitorTask::update_session_info failed."
-            " session_id: %s, modify time: %"PRI64_PREFIX"d, update_flag: %d, ret: %d",
+            " session_id: %s, modify time: %" PRI64_PREFIX "d, update_flag: %d, ret: %d",
             session_id.c_str(), keep_alive_info.s_base_info_.modify_time_, update_flag, ret);
       }
       else if ((ret = stat_task_->update_session_info(app_id, session_id, keep_alive_info, update_flag)) != TFS_SUCCESS)
       {
         TBSYS_LOG(ERROR, "call SessionStatTask::update_session_info failed."
-            " session_id: %s, modify time: %"PRI64_PREFIX"d, update_flag: %d, ret: %d",
+            " session_id: %s, modify time: %" PRI64_PREFIX "d, update_flag: %d, ret: %d",
             session_id.c_str(), keep_alive_info.s_base_info_.modify_time_, update_flag, ret);
       }
 
@@ -364,12 +364,12 @@ namespace tfs
     void ISessionTask::display(const int32_t app_id, const SessionStat& s_stat, const int64_t cache_hit_ratio)
     {
       //Todo: replace app id with app name
-      TBSYS_LOG(INFO, "monitor app: %d, avg cache_hit_ratio: %"PRI64_PREFIX"d", app_id, cache_hit_ratio);
+      TBSYS_LOG(INFO, "monitor app: %d, avg cache_hit_ratio: %" PRI64_PREFIX "d", app_id, cache_hit_ratio);
       std::map<OperType, AppOperInfo>::const_iterator mit = s_stat.app_oper_info_.begin();
       for ( ; mit != s_stat.app_oper_info_.end(); ++mit)
       {
-        TBSYS_LOG(INFO, "monitor app: %d, oper_type: %s, oper_times: %"PRI64_PREFIX"d, oper_size: %"PRI64_PREFIX"d,"
-            " oper_rt: %"PRI64_PREFIX"d, oper_succ: %"PRI64_PREFIX"d",
+        TBSYS_LOG(INFO, "monitor app: %d, oper_type: %s, oper_times: %" PRI64_PREFIX "d, oper_size: %" PRI64_PREFIX "d,"
+            " oper_rt: %" PRI64_PREFIX "d, oper_succ: %" PRI64_PREFIX "d",
             app_id, key_map_[mit->first].c_str(), mit->second.oper_times_,
             mit->second.oper_size_, mit->second.oper_rt_, mit->second.oper_succ_);
       }
@@ -460,8 +460,8 @@ namespace tfs
         SessionCollectMapConstIter sit = mit->second.begin();
         for ( ; sit != mit->second.end(); ++sit)
         {
-          TBSYS_LOG(DEBUG, "extract stat info. session_id: %s, client_version: %s, cache_size: %"PRI64_PREFIX"d,"
-              " cache_time: %"PRI64_PREFIX"d, modify_time: %"PRI64_PREFIX"d, is_logout: %d",
+          TBSYS_LOG(DEBUG, "extract stat info. session_id: %s, client_version: %s, cache_size: %" PRI64_PREFIX "d,"
+              " cache_time: %" PRI64_PREFIX "d, modify_time: %" PRI64_PREFIX "d, is_logout: %d",
               sit->second.s_base_info_.session_id_.c_str(), sit->second.s_base_info_.client_version_.c_str(),
               sit->second.s_base_info_.cache_size_,
               sit->second.s_base_info_.cache_time_, sit->second.s_base_info_.modify_time_, sit->second.s_base_info_.is_logout_);
@@ -486,8 +486,8 @@ namespace tfs
         SessionCollectMapConstIter sit = mit->second.begin();
         for ( ; sit != mit->second.end(); ++sit)
         {
-          TBSYS_LOG(DEBUG, "roll back info. session_id: %s, client_version: %s, cache_size: %"PRI64_PREFIX"d,"
-              " cache_time: %"PRI64_PREFIX"d, modify_time: %"PRI64_PREFIX"d, is_logout: %d",
+          TBSYS_LOG(DEBUG, "roll back info. session_id: %s, client_version: %s, cache_size: %" PRI64_PREFIX "d,"
+              " cache_time: %" PRI64_PREFIX "d, modify_time: %" PRI64_PREFIX "d, is_logout: %d",
               sit->second.s_base_info_.session_id_.c_str(), sit->second.s_base_info_.client_version_.c_str(),
               sit->second.s_base_info_.cache_size_,
               sit->second.s_base_info_.cache_time_, sit->second.s_base_info_.modify_time_, sit->second.s_base_info_.is_logout_);
@@ -503,7 +503,7 @@ namespace tfs
             if ((ret = update_session_info_ex(app_id, sit->first, sit->second, update_flag)) != TFS_SUCCESS)
             {
               TBSYS_LOG(ERROR, "call ISessionTask::update_session_info_ex failed."
-                  "app_id: %d, session_id: %s, modify time: %"PRI64_PREFIX"d, update_flag: %d, ret: %d",
+                  "app_id: %d, session_id: %s, modify time: %" PRI64_PREFIX "d, update_flag: %d, ret: %d",
                   app_id, sit->first.c_str(), sit->second.s_base_info_.modify_time_, update_flag, ret);
             }
           }

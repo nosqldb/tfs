@@ -320,7 +320,7 @@ namespace tfs
         ret = meta_info_helper_.put_object(req_put_object_msg->get_bucket_name(),
             req_put_object_msg->get_file_name(), object_info, user_info);
         //tbutil::Time end = tbutil::Time::now();
-        //TBSYS_LOG(INFO, "put_object cost: %"PRI64_PREFIX"d", (int64_t)(end - start).toMilliSeconds());
+        //TBSYS_LOG(INFO, "put_object cost: %" PRI64_PREFIX "d", (int64_t)(end - start).toMilliSeconds());
       }
 
       if (TFS_SUCCESS != ret)
@@ -381,7 +381,7 @@ namespace tfs
                                            req_get_object_msg->get_length(),
                                            req_get_object_msg->get_user_info(),
                                            &object_info, &still_have);
-        TBSYS_LOG(DEBUG, "get object, bucket_name: %s , object_name: %s, still_have: %d owner_id: %"PRI64_PREFIX"d ret: %d",
+        TBSYS_LOG(DEBUG, "get object, bucket_name: %s , object_name: %s, still_have: %d owner_id: %" PRI64_PREFIX "d ret: %d",
                   req_get_object_msg->get_bucket_name().c_str(),
                   req_get_object_msg->get_file_name().c_str(),
                   still_have,

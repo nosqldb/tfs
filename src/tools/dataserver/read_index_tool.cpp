@@ -28,8 +28,8 @@ using namespace tfs::dataserver;
 
 void dump_index_header(const IndexHeaderV2& header)
 {
-  printf("block id:                  %"PRI64_PREFIX"u\n", header.info_.block_id_);
-  printf("family id:                 %"PRI64_PREFIX"d\n", header.info_.family_id_);
+  printf("block id:                  %" PRI64_PREFIX "u\n", header.info_.block_id_);
+  printf("family id:                 %" PRI64_PREFIX "d\n", header.info_.family_id_);
   printf("version:                   %d\n", header.info_.version_);
   printf("file count:                %d\n", header.info_.file_count_);
   printf("file size:                 %d\n", header.info_.size_);
@@ -69,7 +69,7 @@ struct InnerIndex
 
 void dump_file_info(const FileInfoV2& file_info, const int slot)
 {
-  printf("%-6d%-28"PRI64_PREFIX"u%-10d%-10d%-5d%-10d%-12u%-20s%-20s\n",
+  printf("%-6d%-28" PRI64_PREFIX "u%-10d%-10d%-5d%-10d%-12u%-20s%-20s\n",
       slot,
       file_info.id_,
       file_info.offset_,
@@ -91,7 +91,7 @@ void dump_inner_index_header()
 
 void dump_inner_index(const InnerIndex& index)
 {
-  printf("%-20"PRI64_PREFIX"u%-10d%-10d\n",
+  printf("%-20" PRI64_PREFIX "u%-10d%-10d\n",
       index.logic_block_id_,
       index.offset_,
       index.size_);

@@ -55,7 +55,7 @@ int main(int argc, char **argv)
   uint64_t local_id = Func::get_host_ip(local_ipport);
   int32_t spec_time = tbsys::CTimeUtil::strToTime(stat_time);
 
-  printf("root_id: %"PRI64_PREFIX"d, es_id: %"PRI64_PREFIX"d, spec_time: %d, type: %d\n", root_id, local_id, spec_time, type);
+  printf("root_id: %" PRI64_PREFIX "d, es_id: %" PRI64_PREFIX "d, spec_time: %d, type: %d\n", root_id, local_id, spec_time, type);
 
   int32_t percent = 0;
   ReqQueryProgressMessage req_qp_msg;

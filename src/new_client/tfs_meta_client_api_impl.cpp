@@ -34,7 +34,7 @@ namespace tfs
 
     void MetaTable::dump()
     {
-      TBSYS_LOG(DEBUG, "version_id: %"PRI64_PREFIX"d", version_id_);
+      TBSYS_LOG(DEBUG, "version_id: %" PRI64_PREFIX "d", version_id_);
       std::vector<uint64_t>::iterator iter = v_meta_table_.begin();
       for(; iter != v_meta_table_.end(); iter++)
       {
@@ -404,7 +404,7 @@ namespace tfs
                 reinterpret_cast<char*>(buffer) + cur_pos, cur_offset, cur_length);
             if (read_length < 0)
             {
-              TBSYS_LOG(WARN, "read data from ns %s failed, read_length: %"PRI64_PREFIX"d",
+              TBSYS_LOG(WARN, "read data from ns %s failed, read_length: %" PRI64_PREFIX "d",
                   ns_addr.c_str(), read_length);
               ns_addr = tfs_cluster_manager_->get_read_ns_addr_ex(frag_info.cluster_id_, ns_get_index++);
               if (ns_addr.empty())
@@ -468,12 +468,12 @@ namespace tfs
         if (!is_valid_file_path(file_path) || (offset < 0 && offset != -1))
         {
           ret = EXIT_INVALID_ARGU_ERROR;
-          TBSYS_LOG(ERROR, "file path is invalid or offset less then 0, offset: %"PRI64_PREFIX"d", offset);
+          TBSYS_LOG(ERROR, "file path is invalid or offset less then 0, offset: %" PRI64_PREFIX "d", offset);
         }
         else if (buffer == NULL || length < 0)
         {
           ret = EXIT_INVALID_ARGU_ERROR;
-          TBSYS_LOG(ERROR, "invalid buffer, length %"PRI64_PREFIX"d", length);
+          TBSYS_LOG(ERROR, "invalid buffer, length %" PRI64_PREFIX "d", length);
         }
         else if((cluster_id = get_cluster_id(app_id, uid, file_path)) == -1)
         {
@@ -505,8 +505,8 @@ namespace tfs
                   cur_offset, write_length, frag_info);
               if (real_write_length != write_length)
               {
-                TBSYS_LOG(ERROR, "write tfs data error, cur_pos: %"PRI64_PREFIX"d"
-                    "write_length(%"PRI64_PREFIX"d) => real_length(%"PRI64_PREFIX"d)",
+                TBSYS_LOG(ERROR, "write tfs data error, cur_pos: %" PRI64_PREFIX "d"
+                    "write_length(%" PRI64_PREFIX "d) => real_length(%" PRI64_PREFIX "d)",
                     cur_pos, write_length, real_write_length);
                 unlink_file(frag_info);
                 ns_addr = tfs_cluster_manager_->get_write_ns_addr(ns_get_index++);
@@ -518,7 +518,7 @@ namespace tfs
                 continue;
               }
 
-              TBSYS_LOG(DEBUG, "write tfs data, cluster_id: %d, cur_offset: %"PRI64_PREFIX"d, write_length: %"PRI64_PREFIX"d",
+              TBSYS_LOG(DEBUG, "write tfs data, cluster_id: %d, cur_offset: %" PRI64_PREFIX "d, write_length: %" PRI64_PREFIX "d",
                   cluster_id, cur_offset, write_length);
               frag_info.dump();
 
@@ -530,8 +530,8 @@ namespace tfs
                 table_updated_retry = false;
                 if ((ret = do_write(meta_server_id, app_id, uid, file_path, frag_info)) != TFS_SUCCESS)
                 {
-                  TBSYS_LOG(ERROR, "write meta info error, cur_pos: %"PRI64_PREFIX"d, "
-                      "write_length(%"PRI64_PREFIX"d) => real_length(%"PRI64_PREFIX"d), ret: %"PRI64_PREFIX"d",
+                  TBSYS_LOG(ERROR, "write meta info error, cur_pos: %" PRI64_PREFIX "d, "
+                      "write_length(%" PRI64_PREFIX "d) => real_length(%" PRI64_PREFIX "d), ret: %" PRI64_PREFIX "d",
                       cur_pos, write_length, real_write_length, ret);
                 }
                 if (EXIT_NETWORK_ERROR == ret)
@@ -684,7 +684,7 @@ namespace tfs
 
           if ((write_len = ::write(fd, buf, read_len)) != read_len)
           {
-            TBSYS_LOG(ERROR, "write local file %s fail, write len: %"PRI64_PREFIX"d, ret: %"PRI64_PREFIX"d, error: %s",
+            TBSYS_LOG(ERROR, "write local file %s fail, write len: %" PRI64_PREFIX "d, ret: %" PRI64_PREFIX "d, error: %s",
                 local_file, read_len, write_len, strerror(errno));
             ret = write_len;
             break;
@@ -764,7 +764,7 @@ namespace tfs
             tmp_v_file_meta_info.clear();
             if ((ret = ls_dir(app_id, uid, NULL, iter->id_, tmp_v_file_meta_info, is_recursive)) != TFS_SUCCESS)
             {
-              TBSYS_LOG(WARN, "ls sub directory failed, pid: %"PRI64_PREFIX"d", iter->pid_);
+              TBSYS_LOG(WARN, "ls sub directory failed, pid: %" PRI64_PREFIX "d", iter->pid_);
               break;
             }
             if (static_cast<int32_t>(tmp_v_file_meta_info.size()) <= 0)
@@ -1055,7 +1055,7 @@ namespace tfs
       {
         if (cur_offset > iter->offset_ + iter->size_)
         {
-          TBSYS_LOG(ERROR, "fatal error wrong pos, cur_offset: %"PRI64_PREFIX"d, total: %"PRI64_PREFIX"d",
+          TBSYS_LOG(ERROR, "fatal error wrong pos, cur_offset: %" PRI64_PREFIX "d, total: %" PRI64_PREFIX "d",
               cur_offset, (iter->offset_ + iter->size_));
           break;
         }
@@ -1081,7 +1081,7 @@ namespace tfs
 
         if (read_length < 0)
         {
-          TBSYS_LOG(ERROR, "read tfs data failed, block_id: %u, file_id: %"PRI64_PREFIX"u",
+          TBSYS_LOG(ERROR, "read tfs data failed, block_id: %u, file_id: %" PRI64_PREFIX "u",
               iter->block_id_, iter->file_id_);
           ret = read_length;
           break;
@@ -1091,8 +1091,8 @@ namespace tfs
         {
           left_length -= read_length;
           TBSYS_LOG(WARN, "read tfs data return wrong length,"
-              " cur_offset: %"PRI64_PREFIX"d, cur_length: %"PRI64_PREFIX"d, "
-              "read_length(%"PRI64_PREFIX"d) => cur_length(%"PRI64_PREFIX"d), left_length: %"PRI64_PREFIX"d",
+              " cur_offset: %" PRI64_PREFIX "d, cur_length: %" PRI64_PREFIX "d, "
+              "read_length(%" PRI64_PREFIX "d) => cur_length(%" PRI64_PREFIX "d), left_length: %" PRI64_PREFIX "d",
               cur_offset, cur_length, read_length, cur_length, left_length);
           frag_info.dump();
           break;
@@ -1136,7 +1136,7 @@ namespace tfs
 
         if (real_length != write_length)
         {
-          TBSYS_LOG(ERROR, "write segment data failed, cur_pos : %"PRI64_PREFIX"d, write_length : %"PRI64_PREFIX"d, ret_length: %"PRI64_PREFIX"d, ret: %"PRI64_PREFIX"d",
+          TBSYS_LOG(ERROR, "write segment data failed, cur_pos : %" PRI64_PREFIX "d, write_length : %" PRI64_PREFIX "d, ret_length: %" PRI64_PREFIX "d, ret: %" PRI64_PREFIX "d",
               cur_pos, write_length, real_length, ret);
           if (real_length < 0)
           {
@@ -1182,7 +1182,7 @@ namespace tfs
         int64_t table_size = table_length / INT64_SIZE;
         if (table_size != common::MAX_BUCKET_ITEM_DEFAULT)
         {
-          TBSYS_LOG(ERROR, "tables size is not correct. table size: %"PRI64_PREFIX"d", table_size);
+          TBSYS_LOG(ERROR, "tables size is not correct. table size: %" PRI64_PREFIX "d", table_size);
         }
         else
         {

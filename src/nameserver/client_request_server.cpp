@@ -48,7 +48,7 @@ namespace tfs
         calc_lease_expire_time_(expire_time, next_renew_time, renew_retry_times, renew_retry_timeout);
       }
       TIMER_END();
-      TBSYS_LOG(INFO, "dataserver: %s apply lease %s, consume: %"PRI64_PREFIX"d, ret: %d: use capacity: %" PRI64_PREFIX "u, total capacity: %" PRI64_PREFIX "u,lease_expired_time: %d, next_renew_time: %d, retry_times: %d",
+      TBSYS_LOG(INFO, "dataserver: %s apply lease %s, consume: %" PRI64_PREFIX "d, ret: %d: use capacity: %"  PRI64_PREFIX  "u, total capacity: %"  PRI64_PREFIX  "u,lease_expired_time: %d, next_renew_time: %d, retry_times: %d",
         CNetUtil::addrToString(info.id_).c_str(),TFS_SUCCESS == ret ? "successful" : "failed", TIMER_DURATION(), ret, info.use_capacity_, info.total_capacity_,
         expire_time, next_renew_time, renew_retry_times);
       return ret;
@@ -71,7 +71,7 @@ namespace tfs
         ret = server_manager.renew_block(info.id_,input, output);
       }
       TIMER_END();
-      TBSYS_LOG(INFO, "dataserver: %s renew lease %s consume: %"PRI64_PREFIX"d, ret: %d: use capacity: %" PRI64_PREFIX "u, total capacity: %" PRI64_PREFIX "u,lease_expired_time: %d, next_renew_time: %d, retry_times: %d, input block count: %"PRI64_PREFIX"d, output block count: %"PRI64_PREFIX"d",
+      TBSYS_LOG(INFO, "dataserver: %s renew lease %s consume: %" PRI64_PREFIX "d, ret: %d: use capacity: %"  PRI64_PREFIX  "u, total capacity: %"  PRI64_PREFIX  "u,lease_expired_time: %d, next_renew_time: %d, retry_times: %d, input block count: %" PRI64_PREFIX "d, output block count: %" PRI64_PREFIX "d",
         CNetUtil::addrToString(info.id_).c_str(),TFS_SUCCESS == ret ? "successful" : "failed", TIMER_DURATION(), ret, info.use_capacity_, info.total_capacity_,
         expire_time, next_renew_time, renew_retry_times, input.get_array_index(), output.get_array_index());
       return ret;
@@ -90,7 +90,7 @@ namespace tfs
         ret = server_manager.giveup(now, info.id_);
       }
       TIMER_END();
-      TBSYS_LOG(INFO, "dataserver: %s giveup lease %s,consume: %"PRI64_PREFIX"d, ret: %d: use capacity: %" PRI64_PREFIX "u, total capacity: %" PRI64_PREFIX "u",
+      TBSYS_LOG(INFO, "dataserver: %s giveup lease %s,consume: %" PRI64_PREFIX "d, ret: %d: use capacity: %"  PRI64_PREFIX  "u, total capacity: %"  PRI64_PREFIX  "u",
         CNetUtil::addrToString(info.id_).c_str(),TFS_SUCCESS == ret ? "successful" : "failed", TIMER_DURATION(), ret, info.use_capacity_, info.total_capacity_);
       return ret;
     }
@@ -165,7 +165,7 @@ namespace tfs
         {
           ret = manager_.open_helper_create_new_block_by_id(block_id);
           if (TFS_SUCCESS != ret)
-            TBSYS_LOG(INFO, "create new block by block id: %"PRI64_PREFIX"u failed, ret: %d", block_id, ret);
+            TBSYS_LOG(INFO, "create new block by block id: %" PRI64_PREFIX "u failed, ret: %d", block_id, ret);
           else
             block =  manager_.get_block_manager().get(block_id);
         }
@@ -244,7 +244,7 @@ namespace tfs
 
     int ClientRequestServer::handle_control_load_block(const time_t now, const common::ClientCmdInformation& info, common::BasePacket* message, const int64_t buf_length, char* buf)
     {
-      TBSYS_LOG(INFO, "handle control load block: %"PRI64_PREFIX"u, server: %s",
+      TBSYS_LOG(INFO, "handle control load block: %" PRI64_PREFIX "u, server: %s",
           info.value3_, CNetUtil::addrToString(info.value1_).c_str());
       BlockCollect* pblock = NULL;
       ServerCollect* pserver = NULL;
@@ -263,7 +263,7 @@ namespace tfs
         }
         ret = (NULL != pblock) ? TFS_SUCCESS : EXIT_BLOCK_NOT_FOUND;
         if (TFS_SUCCESS != ret)
-          snprintf(buf, buf_length, " block: %"PRI64_PREFIX"u no exist, ret: %d", info.value3_, ret);
+          snprintf(buf, buf_length, " block: %" PRI64_PREFIX "u no exist, ret: %d", info.value3_, ret);
       }
       if (TFS_SUCCESS == ret)
       {
@@ -278,7 +278,7 @@ namespace tfs
         ret = send_msg_to_server(info.value1_, message, status);
         if ((STATUS_MESSAGE_OK != status) || (TFS_SUCCESS != ret))
         {
-           snprintf(buf, buf_length, "send load block: %"PRI64_PREFIX"u  msg to server: %s failed, ret: %d, status: %d",
+           snprintf(buf, buf_length, "send load block: %" PRI64_PREFIX "u  msg to server: %s failed, ret: %d, status: %d",
             info.value3_, CNetUtil::addrToString(info.value1_).c_str(), ret, status);
           if (TFS_SUCCESS == ret)
             ret = EXIT_LOAD_BLOCK_ERROR;
@@ -312,7 +312,7 @@ namespace tfs
         pblock = block_manager.get(info.value3_);
         ret = (NULL != pblock) ? TFS_SUCCESS : EXIT_BLOCK_NOT_FOUND;
         if (TFS_SUCCESS != ret)
-          snprintf(buf, buf_length, " block: %"PRI64_PREFIX"u no exist, ret: %d", info.value3_, ret);
+          snprintf(buf, buf_length, " block: %" PRI64_PREFIX "u no exist, ret: %d", info.value3_, ret);
       }
       if (TFS_SUCCESS == ret
         && (info.value1_ == INVALID_SERVER_ID)
@@ -322,7 +322,7 @@ namespace tfs
       {
         ret = block_manager.get_servers(helper, pblock);
         if (TFS_SUCCESS != ret)
-          snprintf(buf, buf_length, " block: %"PRI64_PREFIX"u's dataserver not found, ret: %d", info.value3_, ret);
+          snprintf(buf, buf_length, " block: %" PRI64_PREFIX "u's dataserver not found, ret: %d", info.value3_, ret);
       }
 
       if (TFS_SUCCESS == ret
@@ -365,7 +365,7 @@ namespace tfs
         if (TFS_SUCCESS == ret)
           ret = manager_.relieve_relation(pblock, pserver, now, true);
         else
-          snprintf(buf, buf_length, "dataserver server: %s no exist in nameserver or is not alive, block: %"PRI64_PREFIX"u ret: %d", CNetUtil::addrToString(info.value1_).c_str(), info.value3_, ret);
+          snprintf(buf, buf_length, "dataserver server: %s no exist in nameserver or is not alive, block: %" PRI64_PREFIX "u ret: %d", CNetUtil::addrToString(info.value1_).c_str(), info.value3_, ret);
       }
 
       if (info.value4_ != HANDLE_DELETE_BLOCK_FLAG_ONLY_DS)
@@ -378,7 +378,7 @@ namespace tfs
           manager_.get_gc_manager().insert(pblock, now);
         }
       }
-      TBSYS_LOG(INFO, "handle control remove block: %"PRI64_PREFIX"u, flag: %"PRI64_PREFIX"u, server: %s, ret: %d",
+      TBSYS_LOG(INFO, "handle control remove block: %" PRI64_PREFIX "u, flag: %" PRI64_PREFIX "u, server: %s, ret: %d",
           info.value3_, info.value4_, CNetUtil::addrToString(info.value1_).c_str(), ret);
       return ret;
     }
@@ -396,28 +396,28 @@ namespace tfs
         ret = (NULL != block) ? TFS_SUCCESS : EXIT_BLOCK_NOT_FOUND;
         if (TFS_SUCCESS != ret)
         {
-          snprintf(buf, buf_length, " block: %"PRI64_PREFIX"u no exist or dataserver not found, ret: %d", info.value3_, ret);
+          snprintf(buf, buf_length, " block: %" PRI64_PREFIX "u no exist or dataserver not found, ret: %d", info.value3_, ret);
         }
         if (TFS_SUCCESS == ret)
         {
           ret = block->is_in_family() ? EXIT_MARSHALLING_CANNOT_COMPACT : TFS_SUCCESS;
           if (TFS_SUCCESS != ret)
-            snprintf(buf, buf_length, " block: %"PRI64_PREFIX"u marshalling cannot compact, ret: %d", info.value3_, ret);
+            snprintf(buf, buf_length, " block: %" PRI64_PREFIX "u marshalling cannot compact, ret: %d", info.value3_, ret);
         }
         if (TFS_SUCCESS == ret)
         {
           ret = block_manager.get_servers(helper, block);
           if (TFS_SUCCESS != ret)
-            snprintf(buf, buf_length, " block: %"PRI64_PREFIX"u no exist or dataserver not found, ret: %d", info.value3_, ret);
+            snprintf(buf, buf_length, " block: %" PRI64_PREFIX "u no exist or dataserver not found, ret: %d", info.value3_, ret);
         }
         if (TFS_SUCCESS == ret)
         {
           ret = task_manager.add(info.value3_, helper, PLAN_TYPE_COMPACT, now);
           if (TFS_SUCCESS != ret)
-            snprintf(buf, buf_length, " add task(compact) failed, block: %"PRI64_PREFIX"u, ret: %d", info.value3_, ret);
+            snprintf(buf, buf_length, " add task(compact) failed, block: %" PRI64_PREFIX "u, ret: %d", info.value3_, ret);
         }
       }
-      TBSYS_LOG(INFO, "handle control compact block: %"PRI64_PREFIX"u, ret: %d", info.value3_, ret);
+      TBSYS_LOG(INFO, "handle control compact block: %" PRI64_PREFIX "u, ret: %d", info.value3_, ret);
       return ret;
     }
 
@@ -444,13 +444,13 @@ namespace tfs
         }
         ret = (NULL != pblock) ? TFS_SUCCESS : EXIT_BLOCK_NOT_FOUND;
         if (TFS_SUCCESS != ret)
-          snprintf(buf, buf_length, " block: %"PRI64_PREFIX"u no exist, ret: %d", info.value3_, ret);
+          snprintf(buf, buf_length, " block: %" PRI64_PREFIX "u no exist, ret: %d", info.value3_, ret);
       }
       if (TFS_SUCCESS == ret)
       {
         ret = block_manager.get_servers(helper, pblock);
         if (TFS_SUCCESS != ret)
-          snprintf(buf, buf_length, " get server members failed, block: %"PRI64_PREFIX"u , ret: %d", info.value3_, ret);
+          snprintf(buf, buf_length, " get server members failed, block: %" PRI64_PREFIX "u , ret: %d", info.value3_, ret);
       }
       if (TFS_SUCCESS == ret)
       {
@@ -461,7 +461,7 @@ namespace tfs
         ret = (NULL != source) ? TFS_SUCCESS : EXIT_CHOOSE_SOURCE_SERVER_ERROR;
         if (TFS_SUCCESS != ret)
         {
-          snprintf(buf, buf_length, "immediately %s block: %"PRI64_PREFIX"u fail, cannot found source dataserver",
+          snprintf(buf, buf_length, "immediately %s block: %" PRI64_PREFIX "u fail, cannot found source dataserver",
              info.value4_ == REPLICATE_BLOCK_MOVE_FLAG_NO ? "replicate" : "move" , info.value3_);
         }
       }
@@ -473,7 +473,7 @@ namespace tfs
         common::ArrayHelper<std::pair<uint64_t, uint64_t> > mem_helper(MAX_MARSHALLING_NUM, members);
         ret = family_manager.get_members(mem_helper, family_aid_info, pblock->get_family_id());
         if (TFS_SUCCESS != ret)
-          snprintf(buf, buf_length, " get family members failed: ret: %d block: %"PRI64_PREFIX"u, family_id: %"PRI64_PREFIX"d", ret, info.value3_, pblock->get_family_id());
+          snprintf(buf, buf_length, " get family members failed: ret: %d block: %" PRI64_PREFIX "u, family_id: %" PRI64_PREFIX "d", ret, info.value3_, pblock->get_family_id());
         else
         {
           for (int64_t index = 0; index < mem_helper.get_array_index(); ++index)
@@ -494,7 +494,7 @@ namespace tfs
         ret = (NULL != target) ? TFS_SUCCESS : EXIT_CHOOSE_TARGET_SERVER_INSUFFICIENT_ERROR;
         if (TFS_SUCCESS != ret)
         {
-          snprintf(buf, buf_length, "immediately %s block: %"PRI64_PREFIX"u fail, cannot found target dataserver",
+          snprintf(buf, buf_length, "immediately %s block: %" PRI64_PREFIX "u fail, cannot found target dataserver",
               info.value4_ == REPLICATE_BLOCK_MOVE_FLAG_NO ? "replicate" : "move" , info.value3_);
         }
       }
@@ -506,7 +506,7 @@ namespace tfs
         ret = (lan != lan2) ? TFS_SUCCESS : EXIT_CHOOSE_RACK_ERROR;
         if (TFS_SUCCESS != ret)
         {
-          snprintf(buf, buf_length, "immediately %s block: %"PRI64_PREFIX"u fail, choose rack error: %u == %u",
+          snprintf(buf, buf_length, "immediately %s block: %" PRI64_PREFIX "u fail, choose rack error: %u == %u",
               info.value4_ == REPLICATE_BLOCK_MOVE_FLAG_NO ? "replicate" : "move" , info.value3_, lan, lan2);
         }
       }
@@ -519,7 +519,7 @@ namespace tfs
         ret = task_manager.add(info.value3_, helper, type, now);
         if (TFS_SUCCESS != ret)
         {
-          snprintf(buf, buf_length, "add %s task failed, block: %"PRI64_PREFIX"u",
+          snprintf(buf, buf_length, "add %s task failed, block: %" PRI64_PREFIX "u",
               info.value4_ == REPLICATE_BLOCK_MOVE_FLAG_NO ? "replicate" : "move",  info.value3_);
         }
       }
@@ -532,7 +532,7 @@ namespace tfs
         block_manager.remove(pblock, info.value3_);
         manager_.get_gc_manager().insert(pblock, now);
       }
-      TBSYS_LOG(INFO, "handle control %s block: %"PRI64_PREFIX"u, source: %s, target: %s, ret: %d",
+      TBSYS_LOG(INFO, "handle control %s block: %" PRI64_PREFIX "u, source: %s, target: %s, ret: %d",
           REPLICATE_BLOCK_MOVE_FLAG_NO == info.value4_ ? "replicate" : "move", info.value3_,
           CNetUtil::addrToString(info.value1_).c_str(), CNetUtil::addrToString(info.value2_).c_str(), ret);
       return ret;
@@ -560,11 +560,11 @@ namespace tfs
     {
       int32_t ret = (info.value3_ > 1 || info.value4_ < 0) ? EXIT_PARAMETER_ERROR : TFS_SUCCESS;
       if (TFS_SUCCESS != ret)
-        snprintf(buf, buf_length, "parameter is invalid, value3: %"PRI64_PREFIX"u, value4: %"PRI64_PREFIX"d", info.value3_, info.value4_);
+        snprintf(buf, buf_length, "parameter is invalid, value3: %" PRI64_PREFIX "u, value4: %" PRI64_PREFIX "d", info.value3_, info.value4_);
       if (TFS_SUCCESS == ret)
       {
         char data[32] = {'\0'};
-        snprintf(data, 32, "%"PRI64_PREFIX"d.%06"PRI64_PREFIX"d", info.value3_, info.value4_);
+        snprintf(data, 32, "%" PRI64_PREFIX "d.%06" PRI64_PREFIX "d", info.value3_, info.value4_);
         SYSPARAM_NAMESERVER.balance_percent_ = strtod(data, NULL);
       }
       return ret;
@@ -574,7 +574,7 @@ namespace tfs
     {
       int32_t ret = (info.value3_ <= 0) ? EXIT_PARAMETER_ERROR : TFS_SUCCESS;
       if (TFS_SUCCESS != ret)
-        snprintf(buf, buf_length, "parameter is invalid, value3: %"PRI64_PREFIX"u", info.value3_);
+        snprintf(buf, buf_length, "parameter is invalid, value3: %" PRI64_PREFIX "u", info.value3_);
       if (TFS_SUCCESS == ret)
       {
         if (info.value3_ & CLEAR_SYSTEM_TABLE_FLAG_TASK)
@@ -597,7 +597,7 @@ namespace tfs
     // remove family from db, clear family id
     int ClientRequestServer::handle_control_delete_family(const common::ClientCmdInformation& info, const int64_t buf_length, char* buf)
     {
-      TBSYS_LOG(INFO, "handle control remove family: %"PRI64_PREFIX"u, flag: %"PRI64_PREFIX"u",
+      TBSYS_LOG(INFO, "handle control remove family: %" PRI64_PREFIX "u, flag: %" PRI64_PREFIX "u",
           info.value3_, info.value1_);
 
       int32_t ret = (info.value3_ == INVALID_FAMILY_ID) ? EXIT_PARAMETER_ERROR : TFS_SUCCESS;
@@ -618,7 +618,7 @@ namespace tfs
       }
       if (TFS_SUCCESS != ret)
       {
-        snprintf(buf, buf_length, "del family %"PRI64_PREFIX"d fail, ret: %d", info.value3_, ret);
+        snprintf(buf, buf_length, "del family %" PRI64_PREFIX "d fail, ret: %d", info.value3_, ret);
       }
 
       return ret;
@@ -738,7 +738,7 @@ namespace tfs
           for (index = 0; index < members.get_array_index(); ++index)
           {
             std::pair<uint64_t, common::BlockInfoV2>* item = members.at(index);
-            TBSYS_LOG(INFO, "resolve block version conflict: current block: %"PRI64_PREFIX"u, server: %s, version: %d",
+            TBSYS_LOG(INFO, "resolve block version conflict: current block: %" PRI64_PREFIX "u, server: %s, version: %d",
               block->id(), tbsys::CNetUtil::addrToString(item->first).c_str(), item->second.version_);
             server = server_manager.get(item->first);
             if (item->second.version_ >= info.version_)
@@ -758,7 +758,7 @@ namespace tfs
                 it.server_ = item->first;
                 it.version_ = item->second.version_;
                 block_manager.push_to_delete_queue(block_id, it, GFactory::get_runtime_info().is_master());
-                TBSYS_LOG(INFO, "resolve block version conflict: relieve relation block: %"PRI64_PREFIX"u, server: %s, version: %d",
+                TBSYS_LOG(INFO, "resolve block version conflict: relieve relation block: %" PRI64_PREFIX "u, server: %s, version: %d",
                   block_id, tbsys::CNetUtil::addrToString(item->first).c_str(), item->second.version_);
               }
             }
@@ -770,7 +770,7 @@ namespace tfs
           }
           else
           {
-            TBSYS_LOG(INFO, "block: %"PRI64_PREFIX"u, all server relation has been relieved or server exit, resolve version conflict fail", block_id);
+            TBSYS_LOG(INFO, "block: %" PRI64_PREFIX "u, all server relation has been relieved or server exit, resolve version conflict fail", block_id);
           }
         }
       }

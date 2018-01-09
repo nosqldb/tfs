@@ -149,7 +149,7 @@ namespace tfs
         MigrateDsHeartResponseMessage* reply_msg = new (std::nothrow)MigrateDsHeartResponseMessage();
         assert(NULL != reply_msg);
         reply_msg->set_ret_value(ret);
-        TBSYS_LOG(INFO, "%s keepalive %s, ret: %d, total_capacity: %"PRI64_PREFIX"d, use_capacity: %"PRI64_PREFIX"d, block_count: %d, disk type: %d",
+        TBSYS_LOG(INFO, "%s keepalive %s, ret: %d, total_capacity: %" PRI64_PREFIX "d, use_capacity: %" PRI64_PREFIX "d, block_count: %d, disk type: %d",
             tbsys::CNetUtil::addrToString(info.id_).c_str(), TFS_SUCCESS == ret ? "successful" : "failed", ret,
             info.total_capacity_, info.use_capacity_, info.block_count_, info.type_);
         ret = msg->reply(reply_msg);
