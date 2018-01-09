@@ -133,7 +133,7 @@ static CompareResult compare_crc_by_block_id(const std::string& left_ns_addr, co
   if (TFS_SUCCESS != ret)
   {
     cmp_result = COMPARE_FAIL;
-    TBSYS_LOG(WARN, "get file informations erorr, block: %"PRI64_PREFIX"u, left_ret: %d, right_ret: %d", block, left_ret, right_ret);
+    TBSYS_LOG(WARN, "get file informations erorr, block: %" PRI64_PREFIX "u, left_ret: %d, right_ret: %d", block, left_ret, right_ret);
   }
   else
   {
@@ -547,8 +547,8 @@ int main(int argc, char** argv)
   if (NULL != diff_fp)
     ::fclose(diff_fp);
 
-  //TBSYS_LOG(WARN, "total_count: %"PRI64_PREFIX"d, succ_count: %"PRI64_PREFIX"d, fail_count: %"PRI64_PREFIX"d"
-  //    ", error_count: %"PRI64_PREFIX"d, unsync_count: %"PRI64_PREFIX"d, skip_count: %"PRI64_PREFIX"d",
+  //TBSYS_LOG(WARN, "total_count: %" PRI64_PREFIX "d, succ_count: %" PRI64_PREFIX "d, fail_count: %" PRI64_PREFIX "d"
+  //    ", error_count: %" PRI64_PREFIX "d, unsync_count: %" PRI64_PREFIX "d, skip_count: %" PRI64_PREFIX "d",
   //    cmp_stat_.total_count_, cmp_stat_.succ_count_, cmp_stat_.fail_count_, cmp_stat_.error_count_, cmp_stat_.unsync_count_,
   //    cmp_stat_.skip_count_);
   return ret;

@@ -75,7 +75,7 @@ static CompareResult compare_crc_by_filename(const std::string& left_ns_addr, co
         if ( !compare_finfo(left, right) )
         {
           cmp_result = COMPARE_DIFF;
-          TBSYS_LOG(WARN, "DIFF: filename: %s, fileid: %"PRI64_PREFIX"u, left_status: %d,"
+          TBSYS_LOG(WARN, "DIFF: filename: %s, fileid: %" PRI64_PREFIX "u, left_status: %d,"
             "right_status: %d, left_crc: %u, right_crc: %u, left_size : %d, right_size: %d",
             filename.c_str(), left.id_, left.status_, right.status_, left.crc_, right.crc_, left.size_, right.size_);
         }
@@ -93,7 +93,7 @@ static CompareResult compare_crc_by_filename(const std::string& left_ns_addr, co
           else if (left_crc != right_crc)
           {
             cmp_result = COMPARE_DIFF;
-            TBSYS_LOG(WARN, "DIFF: filename: %s, fileid: %"PRI64_PREFIX"u, left_real_crc: %u, right_real_crc: %u, left_status: %d,"
+            TBSYS_LOG(WARN, "DIFF: filename: %s, fileid: %" PRI64_PREFIX "u, left_real_crc: %u, right_real_crc: %u, left_status: %d,"
               "right_status: %d, left_crc : %u, right_crc: %u, left_size : %d, right_size: %d", filename.c_str(), left.id_, left_crc, right_crc,
               left.status_, right.status_, left.crc_, right.crc_, left.size_, right.size_);
           }//else COMPARE_SUCCESS
@@ -102,7 +102,7 @@ static CompareResult compare_crc_by_filename(const std::string& left_ns_addr, co
       else if (EXIT_META_NOT_FOUND_ERROR == right_ret)
       {
         cmp_result = COMPARE_DIFF;
-        TBSYS_LOG(WARN, "MORE: filename: %s, fileid: %"PRI64_PREFIX"u, left_status: %d, left_crc: %u, left_size: %d",
+        TBSYS_LOG(WARN, "MORE: filename: %s, fileid: %" PRI64_PREFIX "u, left_status: %d, left_crc: %u, left_size: %d",
           filename.c_str(), left.id_, left.status_, left.crc_, left.size_);
       }
       else
@@ -164,7 +164,7 @@ static CompareResult compare_crc_by_block_id(const string& left_ns_addr, const s
     else
     {
       cmp_result = COMPARE_FAIL;
-      TBSYS_LOG(WARN, "get file infos erorr, blockd: %"PRI64_PREFIX"u, left_ret: %d, right_ret: %d", block_id, left_ret, right_ret);
+      TBSYS_LOG(WARN, "get file infos erorr, blockd: %" PRI64_PREFIX "u, left_ret: %d, right_ret: %d", block_id, left_ret, right_ret);
     }
   }
   else // both get file infos success
@@ -191,7 +191,7 @@ static CompareResult compare_crc_by_block_id(const string& left_ns_addr, const s
           if ( !compare_finfo((*left_iter), (*right_iter)) )
           {
             cmp_result = COMPARE_DIFF;
-            TBSYS_LOG(WARN, "DIFF: blockid: %"PRI64_PREFIX"u, fileid: %"PRI64_PREFIX"u, left_status: %d, "
+            TBSYS_LOG(WARN, "DIFF: blockid: %" PRI64_PREFIX "u, fileid: %" PRI64_PREFIX "u, left_status: %d, "
               "right_status: %d, left_crc: %u, right_crc: %u, left_size : %d, right_size: %d",
               block_id, (*left_iter).id_, left_iter->status_, right_iter->status_, left_iter->crc_, right_iter->crc_, left_iter->size_, right_iter->size_);
           }
@@ -205,14 +205,14 @@ static CompareResult compare_crc_by_block_id(const string& left_ns_addr, const s
             if (left_ret != TFS_SUCCESS || right_ret != TFS_SUCCESS)
             {
               cmp_result = COMPARE_FAIL;
-              TBSYS_LOG(WARN, "read file fail, fatal erorr, blockid: %"PRI64_PREFIX"u, fileid: %lu, left_ret: %d, right_ret: %d",
+              TBSYS_LOG(WARN, "read file fail, fatal erorr, blockid: %" PRI64_PREFIX "u, fileid: %lu, left_ret: %d, right_ret: %d",
                   block_id, (*left_iter).id_, left_ret, right_ret);
               break;// stop compare, fail quit
             }
             else if (left_crc != right_crc)
             {
               cmp_result = COMPARE_DIFF;
-              TBSYS_LOG(WARN, "DIFF: blockid: %"PRI64_PREFIX"u, fileid: %"PRI64_PREFIX"u, left_real_crc: %u, right_real_crc: %u, left_status: %d,"
+              TBSYS_LOG(WARN, "DIFF: blockid: %" PRI64_PREFIX "u, fileid: %" PRI64_PREFIX "u, left_real_crc: %u, right_real_crc: %u, left_status: %d,"
                 "right_status: %d, left_crc : %u, right_crc: %u, left_size : %d, right_size: %d", block_id, (*left_iter).id_, left_crc, right_crc,
                 left_iter->status_, right_iter->status_, left_iter->crc_, right_iter->crc_, left_iter->size_, right_iter->size_);
             }//else COMPARE_SUCCESS

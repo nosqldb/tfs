@@ -41,7 +41,7 @@ struct StatParam
 
   void dump(void)
   {
-    TBSYS_LOG(ERROR, "[copy] total: %"PRI64_PREFIX"d, success: %d, fail: %d\n",
+    TBSYS_LOG(ERROR, "[copy] total: %" PRI64_PREFIX "d, success: %d, fail: %d\n",
         total_, atomic_read(&copy_success_), atomic_read(&copy_failure_));
   }
 };

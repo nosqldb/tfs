@@ -354,7 +354,7 @@ namespace tfs
 
         if (TFS_SUCCESS != ret)
         {
-          TBSYS_LOG(WARN, "%s apply update block %"PRI64_PREFIX"u fail, ret: %d",
+          TBSYS_LOG(WARN, "%s apply update block %" PRI64_PREFIX "u fail, ret: %d",
               CNetUtil::addrToString(id()).c_str(), entry->block_id_, ret);
         }
       }
@@ -654,7 +654,7 @@ namespace tfs
       }
       time_t diff_sec = next - current;
       next_report_block_time_ = now + diff_sec;
-      TBSYS_LOG(INFO, "%s next: %"PRI64_PREFIX"d, diff: %"PRI64_PREFIX"d, now: %"PRI64_PREFIX"d",
+      TBSYS_LOG(INFO, "%s next: %" PRI64_PREFIX "d, diff: %" PRI64_PREFIX "d, now: %" PRI64_PREFIX "d",
         tbsys::CNetUtil::addrToString(id()).c_str(), next_report_block_time_, diff_sec, now);
     }
 

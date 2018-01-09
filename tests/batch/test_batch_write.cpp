@@ -105,7 +105,7 @@ void* write_worker(void* arg)
       time_consumed = timer.consume();
       if (param.profile_)
       {
-        printf("index:%d, tfsopen ok, spend (%" PRI64_PREFIX "d)\n", param.index_, time_consumed);
+        printf("index:%d, tfsopen ok, spend (%"  PRI64_PREFIX  "d)\n", param.index_, time_consumed);
       }
     }
 
@@ -128,7 +128,7 @@ void* write_worker(void* arg)
       time_consumed = timer.consume();
       if (param.profile_)
       {
-        printf("index:%d, tfswrite completed, spend (%" PRI64_PREFIX "d)\n", param.index_, time_consumed);
+        printf("index:%d, tfswrite completed, spend (%"  PRI64_PREFIX  "d)\n", param.index_, time_consumed);
         print_rate(ret, time_consumed);
       }
       ret = tfsclient->close(fd, ret_name, FILE_NAME_LEN_V2+1);
@@ -152,7 +152,7 @@ void* write_worker(void* arg)
 
         if (param.profile_)
         {
-          printf("index:%d, tfs_close (%s) completed, spend (%" PRI64_PREFIX "d)\n", param.index_,
+          printf("index:%d, tfs_close (%s) completed, spend (%"  PRI64_PREFIX  "d)\n", param.index_,
               ret_name, time_consumed);
         }
 
@@ -191,7 +191,7 @@ void* write_worker(void* arg)
 
   printf(
       "index  count  succ   fail   succ_time  fail_time  min      max      avg      iops     rate      aiops    arate \n");
-  printf("%-6d %-6d %-6d %-6d %-10" PRI64_PREFIX "d %-10" PRI64_PREFIX "d %-8" PRI64_PREFIX "d %-8" PRI64_PREFIX "d %-8" PRI64_PREFIX "d %-8.3f %-8.3f %-8.3f %-8.3f\n", param.index_,
+  printf("%-6d %-6d %-6d %-6d %-10"  PRI64_PREFIX  "d %-10"  PRI64_PREFIX  "d %-8"  PRI64_PREFIX  "d %-8"  PRI64_PREFIX  "d %-8"  PRI64_PREFIX  "d %-8.3f %-8.3f %-8.3f %-8.3f\n", param.index_,
       param.file_count_, success_count, failed_count, accumlate_time_consumed, time_consumed - accumlate_time_consumed,
       min_time_consumed, max_time_consumed, (!success_count)? 0 : (accumlate_time_consumed / success_count), iops, rate, aiops, arate);
   stater.dump_time_stat();

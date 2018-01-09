@@ -306,7 +306,7 @@ namespace tfs
             {
               if (common::INVALID_FILE_ID != dfinfo.id_)
               {
-                TBSYS_LOG(WARN, "%s size or crc conflict! fileid: %"PRI64_PREFIX"u <> %"PRI64_PREFIX"u, size: %d <> %d , crc %u <> %u , status: %d <> %d",
+                TBSYS_LOG(WARN, "%s size or crc conflict! fileid: %" PRI64_PREFIX "u <> %" PRI64_PREFIX "u, size: %d <> %d , crc %u <> %u , status: %d <> %d",
                   filename.c_str(), sfinfo.id_, dfinfo.id_, sfinfo.size_, dfinfo.size_, sfinfo.crc_, dfinfo.crc_, sfinfo.status_, dfinfo.status_);
               }
               ret = (0 == (sfinfo.status_ & FILE_STATUS_DELETE)) ? TFS_SUCCESS : EXIT_SYNC_FILE_NOTHING;

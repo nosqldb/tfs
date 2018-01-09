@@ -126,7 +126,7 @@ namespace tfs
       }
       else if ((ret = timer_->scheduleRepeated(resource_update_task_, tbutil::Time::seconds(SYSPARAM_RCSERVER.update_interval_))) != 0)
       {
-        TBSYS_LOG(ERROR, "call scheduleRepeated failed, update_interval_: %"PRI64_PREFIX"d, ret: %d",
+        TBSYS_LOG(ERROR, "call scheduleRepeated failed, update_interval_: %" PRI64_PREFIX "d, ret: %d",
             SYSPARAM_RCSERVER.update_interval_, ret);
         stop();
         ret = TFS_ERROR;

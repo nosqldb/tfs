@@ -129,8 +129,8 @@ namespace tfs
             std::vector<common::SessionBaseInfo>::const_iterator sit = session_infos.begin();
             for ( ; sit != session_infos.end(); ++sit)
             {
-              TBSYS_LOG(INFO, "update db session info. session_id: %s, client_version: %s, cache_size: %"PRI64_PREFIX"d,"
-                  " cache_time: %"PRI64_PREFIX"d, modify_time: %"PRI64_PREFIX"d, is_logout: %d",
+              TBSYS_LOG(INFO, "update db session info. session_id: %s, client_version: %s, cache_size: %" PRI64_PREFIX "d,"
+                  " cache_time: %" PRI64_PREFIX "d, modify_time: %" PRI64_PREFIX "d, is_logout: %d",
                   (*sit).session_id_.c_str(), (*sit).client_version_.c_str(), (*sit).cache_size_,
                   (*sit).cache_time_, (*sit).modify_time_, (*sit).is_logout_);
             }
@@ -153,8 +153,8 @@ namespace tfs
             std::map<common::OperType, common::AppOperInfo>::const_iterator mit = stat_it->second.app_oper_info_.begin();
             for ( ; mit != stat_it->second.app_oper_info_.end(); ++mit)
             {
-              TBSYS_LOG(INFO, "update db session stat. session_id: %s, oper_type: %d, oper_times: %"PRI64_PREFIX"d, oper_size: %"PRI64_PREFIX"d,"
-                  " oper_rt: %"PRI64_PREFIX"d, oper_succ: %"PRI64_PREFIX"d",
+              TBSYS_LOG(INFO, "update db session stat. session_id: %s, oper_type: %d, oper_times: %" PRI64_PREFIX "d, oper_size: %" PRI64_PREFIX "d,"
+                  " oper_rt: %" PRI64_PREFIX "d, oper_succ: %" PRI64_PREFIX "d",
                   stat_it->first.c_str(), mit->first, mit->second.oper_times_,
                   mit->second.oper_size_, mit->second.oper_rt_, mit->second.oper_succ_);
             }
@@ -169,7 +169,7 @@ namespace tfs
           std::map<int32_t, AppStat>::const_iterator mit = app_stats.begin();
           for ( ; mit != app_stats.end(); ++mit)
           {
-            TBSYS_LOG(INFO, "update db app stat. app_id: %d, id: %d, file_count: %"PRI64_PREFIX"d, used_capacity: %"PRI64_PREFIX"d",
+            TBSYS_LOG(INFO, "update db app stat. app_id: %d, id: %d, file_count: %" PRI64_PREFIX "d, used_capacity: %" PRI64_PREFIX "d",
                 mit->first, mit->second.id_, mit->second.file_count_, mit->second.used_capacity_);
           }
           flag_ = false;

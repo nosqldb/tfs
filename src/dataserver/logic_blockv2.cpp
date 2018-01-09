@@ -513,7 +513,7 @@ namespace tfs
           break;
         default:
           ret = EXIT_FILE_ACTION_ERROR;
-          TBSYS_LOG(INFO, "action is illegal. action: %d, blockid: %"PRI64_PREFIX"u, fileid: %" PRI64_PREFIX "u, ret: %d",
+          TBSYS_LOG(INFO, "action is illegal. action: %d, blockid: %" PRI64_PREFIX "u, fileid: %"  PRI64_PREFIX  "u, ret: %d",
               tmp_action, logic_block_id, fileid, ret);
           break;
       }
@@ -550,7 +550,7 @@ namespace tfs
           int32_t retry_times = (total_need_length / super_info->max_extend_block_size_) + 1;
           while (TFS_SUCCESS == ret && avail_size < total_offset && retry_times-- > 0)
           {
-            TBSYS_LOG(INFO, "extend logic block: %"PRI64_PREFIX"u,avail_size: %d, total_offset: %d, max_single_block_size: %d",
+            TBSYS_LOG(INFO, "extend logic block: %" PRI64_PREFIX "u,avail_size: %d, total_offset: %d, max_single_block_size: %d",
                 id(), avail_size, total_offset, MAX_MAIN_AND_EXT_BLOCK_SIZE);
             BlockIndex index, ext_index;
             BasePhysicalBlock* new_physical_block = NULL;
@@ -707,7 +707,7 @@ namespace tfs
                     sbinfo->max_hash_bucket_count_, logic_block_id);
             bool update = (TFS_SUCCESS == ret);
             if (update)
-              TBSYS_LOG(INFO, "file exist, update! block id: %"PRI64_PREFIX"u, fileid: %"PRI64_PREFIX"u", logic_block_id, fileid);
+              TBSYS_LOG(INFO, "file exist, update! block id: %" PRI64_PREFIX "u, fileid: %" PRI64_PREFIX "u", logic_block_id, fileid);
 
             ret = write_(new_finfo, datafile, old_finfo, update);
             if (TFS_SUCCESS == ret)
@@ -719,7 +719,7 @@ namespace tfs
                       ,sbinfo->max_hash_bucket_count_, logic_block_id, update);
                 if (TFS_SUCCESS != ret)
                 {
-                  TBSYS_LOG(INFO, "write file info failed, we'll rollback, ret: %d, block id: %"PRI64_PREFIX"u, fileid:%"PRI64_PREFIX"u",
+                  TBSYS_LOG(INFO, "write file info failed, we'll rollback, ret: %d, block id: %" PRI64_PREFIX "u, fileid:%" PRI64_PREFIX "u",
                       ret, id(), fileid);
                   get_index_handle_()->update_block_statistic_info(update ? OPER_UPDATE : OPER_INSERT, new_finfo.size_, old_finfo.size_, true);
                 }
@@ -729,7 +729,7 @@ namespace tfs
                   ret = index_handle_->flush();
                   if (TFS_SUCCESS != ret)
                   {
-                    TBSYS_LOG(INFO, "write file, flush index to disk failed, ret: %d, block id: %"PRI64_PREFIX"u, fileid:%"PRI64_PREFIX"u",
+                    TBSYS_LOG(INFO, "write file, flush index to disk failed, ret: %d, block id: %" PRI64_PREFIX "u, fileid:%" PRI64_PREFIX "u",
                         ret, id(), fileid);
                   }
                 }
@@ -959,7 +959,7 @@ namespace tfs
             if (update)
             {
               old_finfo = *pold_finfo;
-              TBSYS_LOG(INFO, "file exist, update! block id: %"PRI64_PREFIX"u, fileid: %"PRI64_PREFIX"d", logic_block_id, fileid );
+              TBSYS_LOG(INFO, "file exist, update! block id: %" PRI64_PREFIX "u, fileid: %" PRI64_PREFIX "d", logic_block_id, fileid );
             }
             ret = write_(new_finfo, datafile, old_finfo, update);
             if (TFS_SUCCESS == ret)
@@ -970,7 +970,7 @@ namespace tfs
                 ret = get_index_handle_()->insert_file_info_(new_finfo, data, index.size_, update);
                 if (TFS_SUCCESS != ret)
                 {
-                  TBSYS_LOG(INFO, "write file info failed, we'll rollback, ret: %d, block id: %"PRI64_PREFIX"u, fileid:%"PRI64_PREFIX"u",
+                  TBSYS_LOG(INFO, "write file info failed, we'll rollback, ret: %d, block id: %" PRI64_PREFIX "u, fileid:%" PRI64_PREFIX "u",
                       ret, logic_block_id, fileid);
                   get_index_handle_()->update_block_statistic_info_(data, index.size_, update ? OPER_UPDATE : OPER_INSERT, new_finfo.size_, old_finfo.size_, true);
                 }
@@ -990,7 +990,7 @@ namespace tfs
             ret = get_index_handle_()->flush();
             if (TFS_SUCCESS != ret)
             {
-              TBSYS_LOG(INFO, "write file, flush index to disk failed, ret: %d, block id: %"PRI64_PREFIX"u, fileid:%"PRI64_PREFIX"u",
+              TBSYS_LOG(INFO, "write file, flush index to disk failed, ret: %d, block id: %" PRI64_PREFIX "u, fileid:%" PRI64_PREFIX "u",
                   ret, logic_block_id, fileid);
             }
           }

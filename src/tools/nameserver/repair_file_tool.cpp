@@ -183,7 +183,7 @@ class WorkThread: public tbutil::Thread
          if (read_len != finfo.size_)
          {
            ret = TFS_ERROR;
-           TBSYS_LOG(WARN, "blockid %"PRI64_PREFIX"u fileid %"PRI64_PREFIX"u cannot read enough data from %s",
+           TBSYS_LOG(WARN, "blockid %" PRI64_PREFIX "u fileid %" PRI64_PREFIX "u cannot read enough data from %s",
                block_id, finfo.id_, tbsys::CNetUtil::addrToString(server_id).c_str());
          }
          break;

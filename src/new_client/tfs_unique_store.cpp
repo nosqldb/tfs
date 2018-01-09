@@ -72,7 +72,7 @@ namespace tfs
 
       if (NULL == buf || count <= 0)
       {
-        TBSYS_LOG(ERROR, "invalie buffer and count. buffer: %p, count: %"PRI64_PREFIX"d", buf, count);
+        TBSYS_LOG(ERROR, "invalie buffer and count. buffer: %p, count: %" PRI64_PREFIX "d", buf, count);
       }
       else if (check_init())
       {
@@ -320,7 +320,7 @@ namespace tfs
         }
         else if (file_stat.size_ != unique_key.data_len_)
         {
-          TBSYS_LOG(WARN, "tfs file size conflict: %"PRI64_PREFIX"d <> %d", file_stat.size_, unique_key.data_len_);
+          TBSYS_LOG(WARN, "tfs file size conflict: %" PRI64_PREFIX "d <> %d", file_stat.size_, unique_key.data_len_);
           action = UNIQUE_ACTION_SAVE_DATA_UPDATE_META;
           // unlink this dirty file?
         } // else if check crc?
@@ -510,7 +510,7 @@ namespace tfs
       }
       else if (file_length > TFS_MALLOC_MAX_SIZE)
       {
-        TBSYS_LOG(ERROR, "file length larger than max malloc size. %"PRI64_PREFIX"d > %"PRI64_PREFIX"d",
+        TBSYS_LOG(ERROR, "file length larger than max malloc size. %" PRI64_PREFIX "d > %" PRI64_PREFIX "d",
                   file_length, TFS_MALLOC_MAX_SIZE);
       }
       else if ((fd = ::open(local_file, O_RDONLY)) < 0)

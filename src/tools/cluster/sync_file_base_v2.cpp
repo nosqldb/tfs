@@ -57,7 +57,7 @@ int SyncFileBase::cmp_and_sync_file(const uint64_t block_id, const FileInfoV2& s
   ret = sync_file(file_name, source_buf, dest_buf, timestamp, force, unlink, result);
   if (TFS_SUCCESS != ret)
   {
-    TBSYS_LOG(INFO, "sync file (%s) failed, blockid: %"PRI64_PREFIX"u fileid: %"PRI64_PREFIX"d, ret: %d", file_name.c_str(), block_id, source_file_info.id_, ret);
+    TBSYS_LOG(INFO, "sync file (%s) failed, blockid: %" PRI64_PREFIX "u fileid: %" PRI64_PREFIX "d, ret: %d", file_name.c_str(), block_id, source_file_info.id_, ret);
   }
   return ret;
 }
@@ -108,7 +108,7 @@ int SyncFileBase::cmp_and_sync_file(const string& file_name, const int32_t times
 int SyncFileBase::sync_file(const string& file_name, const TfsFileStat& source_buf, const TfsFileStat& dest_buf, const int32_t timestamp, const bool force, const bool unlink, SyncResult& result)
 {
   int ret = TFS_SUCCESS;
-  TBSYS_LOG(DEBUG, "file(%s), fileid: %"PRI64_PREFIX"u: flag--(%d -> %d), crc--(%u -> %u), size--(%"PRI64_PREFIX"d -> %"PRI64_PREFIX"d),"
+  TBSYS_LOG(DEBUG, "file(%s), fileid: %" PRI64_PREFIX "u: flag--(%d -> %d), crc--(%u -> %u), size--(%" PRI64_PREFIX "d -> %" PRI64_PREFIX "d),"
     "source modify time: %s -> dest modify time: %s", file_name.c_str(), source_buf.file_id_, source_buf.flag_, dest_buf.flag_, source_buf.crc_, dest_buf.crc_,
     source_buf.size_, dest_buf.size_, Func::time_to_str(source_buf.modify_time_).c_str(), Func::time_to_str(dest_buf.modify_time_).c_str());
 
@@ -136,7 +136,7 @@ int SyncFileBase::sync_file(const string& file_name, const TfsFileStat& source_b
     {
       ret = copy_file(file_name, source_buf.flag_);
       result = (TFS_SUCCESS == ret) ? SYNC_SUCCESS : SYNC_FAILED;
-      TBSYS_LOG(WARN, "file info size or crc conflict!! filename: %s, source size: %"PRI64_PREFIX"d -> dest size: %"PRI64_PREFIX"d, source crc: %u -> dest crc: %u, force:%d, copy file %s", file_name.c_str(), source_buf.size_, dest_buf.size_, source_buf.crc_, dest_buf.crc_, force, TFS_SUCCESS == ret ? "success" : "fail");
+      TBSYS_LOG(WARN, "file info size or crc conflict!! filename: %s, source size: %" PRI64_PREFIX "d -> dest size: %" PRI64_PREFIX "d, source crc: %u -> dest crc: %u, force:%d, copy file %s", file_name.c_str(), source_buf.size_, dest_buf.size_, source_buf.crc_, dest_buf.crc_, force, TFS_SUCCESS == ret ? "success" : "fail");
     }
   }
   else if (source_buf.flag_ != dest_buf.flag_)//4. dest file data has not update, keeep status agreed with src status

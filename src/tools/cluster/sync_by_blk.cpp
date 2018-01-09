@@ -135,7 +135,7 @@ class WorkThread : public tbutil::Thread
       {
         uint64_t block_id = (*iter);
         bool block_done = false;
-        TBSYS_LOG(INFO, "sync block started. blockid: %"PRI64_PREFIX"u", block_id);
+        TBSYS_LOG(INFO, "sync block started. blockid: %" PRI64_PREFIX "u", block_id);
 
         std::set<FileInfo, CompareFileInfoByFileId> files;
         int32_t ret = Util::read_file_infos(src_ns_addr_, block_id, files, 0);
@@ -165,13 +165,13 @@ class WorkThread : public tbutil::Thread
         }
         else
         {
-          TBSYS_LOG(WARN, "get file infos fail, block: %"PRI64_PREFIX"u", block_id);
+          TBSYS_LOG(WARN, "get file infos fail, block: %" PRI64_PREFIX "u", block_id);
         }
 
         if (block_done)
         {
-          fprintf(g_blk_done, "%"PRI64_PREFIX"u\n", block_id);
-          TBSYS_LOG(INFO, "sync block finished. blockid: %"PRI64_PREFIX"u", block_id);
+          fprintf(g_blk_done, "%" PRI64_PREFIX "u\n", block_id);
+          TBSYS_LOG(INFO, "sync block finished. blockid: %" PRI64_PREFIX "u", block_id);
         }
       }
     }
@@ -445,8 +445,8 @@ int main(int argc, char* argv[])
     }
   }
 
-  fprintf(stdout, "total_count: %"PRI64_PREFIX"d, actual_count: %"PRI64_PREFIX"d, "
-      "succ_count: %"PRI64_PREFIX"d, fail_count: %"PRI64_PREFIX"d, unsync_count: %"PRI64_PREFIX"d, del_count: %"PRI64_PREFIX"d\n",
+  fprintf(stdout, "total_count: %" PRI64_PREFIX "d, actual_count: %" PRI64_PREFIX "d, "
+      "succ_count: %" PRI64_PREFIX "d, fail_count: %" PRI64_PREFIX "d, unsync_count: %" PRI64_PREFIX "d, del_count: %" PRI64_PREFIX "d\n",
       g_sync_stat_.total_count_, g_sync_stat_.actual_count_,
       g_sync_stat_.success_count_, g_sync_stat_.fail_count_, g_sync_stat_.unsync_count_, g_sync_stat_.del_count_);
   fprintf(stdout, "log and result path: %s\n", log_path.c_str());

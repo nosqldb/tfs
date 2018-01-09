@@ -315,7 +315,7 @@ namespace tfs
       int32_t ret = send_msg_to_server(Func::get_host_ip(addr.c_str()), client, &req, rsp);
       if (TFS_SUCCESS != ret)
       {
-        TBSYS_LOG(INFO, "send remove block: %"PRI64_PREFIX"u command to %s failed,ret: %d", block, addr.c_str(), ret);
+        TBSYS_LOG(INFO, "send remove block: %" PRI64_PREFIX "u command to %s failed,ret: %d", block, addr.c_str(), ret);
       }
       else
       {
@@ -325,18 +325,18 @@ namespace tfs
           StatusMessage* sm = dynamic_cast<StatusMessage*>(rsp);
           if (STATUS_MESSAGE_OK == sm->get_status())
           {
-            TBSYS_LOG(INFO, "remove block: %"PRI64_PREFIX"u from %s successful", block, addr.c_str());
+            TBSYS_LOG(INFO, "remove block: %" PRI64_PREFIX "u from %s successful", block, addr.c_str());
           }
           else
           {
             ret = sm->get_status();
-            TBSYS_LOG(INFO, "remove block: %"PRI64_PREFIX"u from %s fail, ret: %d", block, addr.c_str(), ret);
+            TBSYS_LOG(INFO, "remove block: %" PRI64_PREFIX "u from %s fail, ret: %d", block, addr.c_str(), ret);
           }
         }
         else
         {
           ret = EXIT_UNKNOWN_MSGTYPE;
-          TBSYS_LOG(INFO, "remove block: %"PRI64_PREFIX"u from %s fail, ret: %d", block, addr.c_str(), ret);
+          TBSYS_LOG(INFO, "remove block: %" PRI64_PREFIX "u from %s fail, ret: %d", block, addr.c_str(), ret);
         }
       }
       NewClientManager::get_instance().destroy_client(client);

@@ -157,8 +157,8 @@ namespace tfs
     };
 
 #define SEG_DATA_SELF_FMT                                               \
-    ", blockid: %"PRI64_PREFIX"u, fileid: %"PRI64_PREFIX"u, offset: %"PRI64_PREFIX"d, " \
-    "size: %d, crc: %d, inneroffset: %d, filenumber: %"PRI64_PREFIX"u, " \
+    ", blockid: %" PRI64_PREFIX "u, fileid: %" PRI64_PREFIX "u, offset: %" PRI64_PREFIX "d, " \
+    "size: %d, crc: %d, inneroffset: %d, filenumber: %" PRI64_PREFIX "u, " \
     "status: %d, rserver: %s, wserver: %s."
 
 #define SEG_DATA_SELF_ARGS(SEG)                                              \

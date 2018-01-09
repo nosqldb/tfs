@@ -294,7 +294,7 @@ namespace tfs
       if (TFS_SUCCESS == iret)
       {
         tbutil::Monitor<tbutil::Mutex>::Lock lock(build_table_monitor_);
-        TBSYS_LOG(DEBUG, "update tables item status: version: %"PRI64_PREFIX"d, status: %d, phase: %d", version, status, phase);
+        TBSYS_LOG(DEBUG, "update tables item status: version: %" PRI64_PREFIX "d, status: %d, phase: %d", version, status, phase);
         iret = build_tables_.update_tables_item_status(server, version, status, phase, new_tables_);
       }
       return iret;
@@ -412,7 +412,7 @@ namespace tfs
       META_SERVER_MAPS_ITER iter = servers_.begin();
       for (; iter != servers_.end(); )
       {
-        TBSYS_LOG(INFO, "%s now time: %ld, lease_id: %"PRI64_PREFIX"u, lease_expired_time: %"PRI64_PREFIX"d",
+        TBSYS_LOG(INFO, "%s now time: %ld, lease_id: %" PRI64_PREFIX "u, lease_expired_time: %" PRI64_PREFIX "d",
           tbsys::CNetUtil::addrToString(iter->first).c_str(), (int64_t)now.toSeconds(),
           iter->second.lease_.lease_id_, iter->second.lease_.lease_expired_time_);
         if (!iter->second.lease_.has_valid_lease(now.toSeconds()))
@@ -469,7 +469,7 @@ namespace tfs
               iret = switch_table(tables);
               if (TFS_SUCCESS == iret)
               {
-                TBSYS_LOG(INFO, "update table complete, version: %"PRI64_PREFIX"d, phase: %d",
+                TBSYS_LOG(INFO, "update table complete, version: %" PRI64_PREFIX "d, phase: %d",
                   build_tables_.get_active_table_version(), phase);
                 update_complete = false;
                 phase = UPDATE_TABLE_PHASE_2;
@@ -479,7 +479,7 @@ namespace tfs
             else
             {
               tables.clear();
-              TBSYS_LOG(INFO, "update table complete, version: %"PRI64_PREFIX"d, phase: %d",
+              TBSYS_LOG(INFO, "update table complete, version: %" PRI64_PREFIX "d, phase: %d",
                   build_tables_.get_active_table_version(), phase);
             }
           }

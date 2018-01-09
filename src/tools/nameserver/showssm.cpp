@@ -213,7 +213,7 @@ void print_block_map(BLOCK_MAP* block_map)
     total_delfile_count += block_info->del_file_count_;
     total_del_size += block_info->del_size_;
   }
-  fprintf(stdout,"TOTAL:     %10Zd %10"PRI64_PREFIX"d %10s %10"PRI64_PREFIX"d %10s\n\n",
+  fprintf(stdout,"TOTAL:     %10Zd %10" PRI64_PREFIX "d %10s %10" PRI64_PREFIX "d %10s\n\n",
 			block_map->size(),
 			total_file_count,
       Func::format_size(total_size).c_str(),
@@ -322,7 +322,7 @@ void print_server_map(SERVER_MAP* ds_map)
     total_capacity += tmp_ds->total_capacity_;
     use_capacity += tmp_ds->use_capacity_;
 
-    fprintf(stdout, "%-21s %7s %7s %2d%% %6d %4d %2d %6s %5"PRI64_PREFIX"d %6s %5"PRI64_PREFIX"d %6s %5"PRI64_PREFIX"d %6s %5"PRI64_PREFIX"d %-19s\n",
+    fprintf(stdout, "%-21s %7s %7s %2d%% %6d %4d %2d %6s %5" PRI64_PREFIX "d %6s %5" PRI64_PREFIX "d %6s %5" PRI64_PREFIX "d %6s %5" PRI64_PREFIX "d %-19s\n",
             get_addr_string(tmp_ds->id_),
             Func::format_size(tmp_ds->use_capacity_).c_str(),
             Func::format_size(tmp_ds->total_capacity_).c_str(),
@@ -346,7 +346,7 @@ void print_server_map(SERVER_MAP* ds_map)
     t_load /= ds_map->size();
   }
 
-  fprintf(stdout, "TOTAL %5Zd %9s %7s %7s %2d%% %6s %4d %2s %6s %5"PRI64_PREFIX"d %6s %5"PRI64_PREFIX"d %6s %5"PRI64_PREFIX"d %6s %5"PRI64_PREFIX"d\n\n",
+  fprintf(stdout, "TOTAL %5Zd %9s %7s %7s %2d%% %6s %4d %2s %6s %5" PRI64_PREFIX "d %6s %5" PRI64_PREFIX "d %6s %5" PRI64_PREFIX "d %6s %5" PRI64_PREFIX "d\n\n",
           ds_map->size(),
           "",
           Func::format_size(use_capacity).c_str(),
@@ -504,7 +504,7 @@ void print_machine(SERVER_MAP* ds_map, int32_t flag)
       add_tp(&(cluster_ltp), &(machine_ltp_total), 1);
       if (flag == 1)
       {
-        fprintf(stdout,"%-15s %-2d %6s %7s  %2d%%  %"PRI64_PREFIX"u   %u %6s %5"PRI64_PREFIX"d %6s %"PRI64_PREFIX"d %3s %"PRI64_PREFIX"d %5s %"PRI64_PREFIX"d %3s %"PRI64_PREFIX"d %5s %5"PRI64_PREFIX"d\n",
+        fprintf(stdout,"%-15s %-2d %6s %7s  %2d%%  %" PRI64_PREFIX "u   %u %6s %5" PRI64_PREFIX "d %6s %" PRI64_PREFIX "d %3s %" PRI64_PREFIX "d %5s %" PRI64_PREFIX "d %3s %" PRI64_PREFIX "d %5s %5" PRI64_PREFIX "d\n",
                 tmp_ip,
                 index_ip,
                 Func::format_size(use_machine_cap).c_str(),
@@ -528,7 +528,7 @@ void print_machine(SERVER_MAP* ds_map, int32_t flag)
       }
       else
       {
-        fprintf(stdout, "%-15s %-2d %6s %7s  %2d%%  %"PRI64_PREFIX"u   %u %3s %"PRI64_PREFIX"d %5s %5"PRI64_PREFIX"d %3s %5"PRI64_PREFIX"d %5s %5"PRI64_PREFIX"d %-19s\n",
+        fprintf(stdout, "%-15s %-2d %6s %7s  %2d%%  %" PRI64_PREFIX "u   %u %3s %" PRI64_PREFIX "d %5s %5" PRI64_PREFIX "d %3s %5" PRI64_PREFIX "d %5s %5" PRI64_PREFIX "d %-19s\n",
                 tmp_ip,
                 index_ip,
                 Func::format_size(use_machine_cap).c_str(),
@@ -567,7 +567,7 @@ void print_machine(SERVER_MAP* ds_map, int32_t flag)
       add_tp(&(cluster_ltp), &(machine_ltp_total), 1);
       if (flag == 1)
       {
-        fprintf(stdout, "%-15s %-2d %6s %7s  %2d%%  %"PRI64_PREFIX"u   %u %6s %5"PRI64_PREFIX"d %6s %5"PRI64_PREFIX"d %3s %5"PRI64_PREFIX"d %5s %5"PRI64_PREFIX"d %3s %5"PRI64_PREFIX"d %5s %5"PRI64_PREFIX"d\n",
+        fprintf(stdout, "%-15s %-2d %6s %7s  %2d%%  %" PRI64_PREFIX "u   %u %6s %5" PRI64_PREFIX "d %6s %5" PRI64_PREFIX "d %3s %5" PRI64_PREFIX "d %5s %5" PRI64_PREFIX "d %3s %5" PRI64_PREFIX "d %5s %5" PRI64_PREFIX "d\n",
                 tmp_ip,
                 index_ip,
                 Func::format_size(use_machine_cap).c_str(),
@@ -591,7 +591,7 @@ void print_machine(SERVER_MAP* ds_map, int32_t flag)
       else
       {
 
-        fprintf(stdout, "%-15s %-2d %6s %7s  %2d%%  %"PRI64_PREFIX"u   %u %3s %5"PRI64_PREFIX"d %5s %5"PRI64_PREFIX"d %3s %5"PRI64_PREFIX"d %5s %5"PRI64_PREFIX"d %-19s\n",
+        fprintf(stdout, "%-15s %-2d %6s %7s  %2d%%  %" PRI64_PREFIX "u   %u %3s %5" PRI64_PREFIX "d %5s %5" PRI64_PREFIX "d %3s %5" PRI64_PREFIX "d %5s %5" PRI64_PREFIX "d %-19s\n",
                 tmp_ip,
                 index_ip,
                 Func::format_size(use_machine_cap).c_str(),
@@ -617,7 +617,7 @@ void print_machine(SERVER_MAP* ds_map, int32_t flag)
   }
   if (1 == flag)
   {
-    fprintf(stdout, "Total : %-5d %-2Zd %6s %7s  %2d%%  %"PRI64_PREFIX"u   %u %6s %5"PRI64_PREFIX"d %6s %5"PRI64_PREFIX"d %6s %5"PRI64_PREFIX"d %6s %5"PRI64_PREFIX"d\n",
+    fprintf(stdout, "Total : %-5d %-2Zd %6s %7s  %2d%%  %" PRI64_PREFIX "u   %u %6s %5" PRI64_PREFIX "d %6s %5" PRI64_PREFIX "d %6s %5" PRI64_PREFIX "d %6s %5" PRI64_PREFIX "d\n",
             total_machine,
             ds_list.size(),
             Func::format_size(use_cluster_cap).c_str(),
@@ -641,7 +641,7 @@ void print_machine(SERVER_MAP* ds_map, int32_t flag)
   }
   else
   {
-    fprintf(stdout, "Total : %-5d %-2Zd %6s %7s  %2d%%  %"PRI64_PREFIX"u   %u %6s %5"PRI64_PREFIX"d %6s %5"PRI64_PREFIX"d\n",
+    fprintf(stdout, "Total : %-5d %-2Zd %6s %7s  %2d%%  %" PRI64_PREFIX "u   %u %6s %5" PRI64_PREFIX "d %6s %5" PRI64_PREFIX "d\n",
             total_machine,
             ds_list.size(),
             Func::format_size(use_cluster_cap).c_str(),

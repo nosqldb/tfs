@@ -61,7 +61,7 @@ namespace tfs
       char skey[128] = {'\0'};
       char value[1024] = {'\0'};
       snprintf(pkey, 64, "%s%06d", key_prefix_.c_str(), get_bucket(family_info.family_id_));
-      snprintf(skey, 64, "%020"PRI64_PREFIX"d", family_info.family_id_);
+      snprintf(skey, 64, "%020" PRI64_PREFIX "d", family_info.family_id_);
       int32_t ret = TFS_SUCCESS != family_info.serialize(value, 1024, pos) ? EXIT_SERIALIZE_ERROR : TFS_SUCCESS;
       if (TFS_SUCCESS == ret)
       {
@@ -69,7 +69,7 @@ namespace tfs
         ret = put_(pkey, skey, value, family_info.length());
         if (TAIR_RETURN_SUCCESS != ret)
         {
-          TBSYS_LOG(WARN, "create family : %"PRI64_PREFIX"d error: call tair put error, ret: %d, pkey: %s, skey: %s", family_info.family_id_, ret, pkey, skey);
+          TBSYS_LOG(WARN, "create family : %" PRI64_PREFIX "d error: call tair put error, ret: %d, pkey: %s, skey: %s", family_info.family_id_, ret, pkey, skey);
         }
         // always try to delete after ns put tair timout, avoid tair put successfully itself finally
         if (TAIR_RETURN_TIMEOUT == ret)
@@ -88,12 +88,12 @@ namespace tfs
       char skey[128] = {'\0'};
       char value[1024] = {'\0'};
       snprintf(pkey, 64, "%s%06d", key_prefix_.c_str(), get_bucket(family_info.family_id_));
-      snprintf(skey, 64, "%020"PRI64_PREFIX"d", family_info.family_id_);
+      snprintf(skey, 64, "%020" PRI64_PREFIX "d", family_info.family_id_);
       tbutil::Mutex::Lock lock(mutex_);
       int32_t ret = get_(pkey, skey, value, 1024);
       if (TAIR_RETURN_SUCCESS != ret)
       {
-        TBSYS_LOG(WARN, "query family : %"PRI64_PREFIX"d error: call tair get error, ret: %d, pkey: %s, skey: %s", family_info.family_id_, ret, pkey, skey);
+        TBSYS_LOG(WARN, "query family : %" PRI64_PREFIX "d error: call tair get error, ret: %d, pkey: %s, skey: %s", family_info.family_id_, ret, pkey, skey);
         ret = EXIT_OP_TAIR_ERROR;
       }
       else
@@ -109,16 +109,16 @@ namespace tfs
       char skey[128] = {'\0'};
       char suffix[64] = {'\0'};
       if (del)
-        snprintf(suffix, 64, "_del_%"PRI64_PREFIX"u",own_ipport);
+        snprintf(suffix, 64, "_del_%" PRI64_PREFIX "u",own_ipport);
       snprintf(pkey, 128, "%s%06d%s", key_prefix_.c_str(), del ? DELETE_FAMILY_CHUNK_DEFAULT_VALUE : get_bucket(family_id), del ? suffix : "");
-      snprintf(skey, 128, "%020"PRI64_PREFIX"d", family_id);
+      snprintf(skey, 128, "%020" PRI64_PREFIX "d", family_id);
       data_entry tair_pkey(pkey, false);
       data_entry tair_skey(skey, false);
       int32_t ret = del_(pkey, skey);
       ret = TAIR_RETURN_DATA_NOT_EXIST == ret ? TAIR_RETURN_SUCCESS : ret;
       if (TAIR_RETURN_SUCCESS != ret)
       {
-        TBSYS_LOG(WARN, "del family : %"PRI64_PREFIX"d error: call tair put error, ret: %d, pkey: %s, skey: %s", family_id, ret, pkey, skey);
+        TBSYS_LOG(WARN, "del family : %" PRI64_PREFIX "d error: call tair put error, ret: %d, pkey: %s, skey: %s", family_id, ret, pkey, skey);
         ret = EXIT_OP_TAIR_ERROR;
       }
       else
@@ -141,7 +141,7 @@ namespace tfs
       int ret = put_(pkey, skey, value, strlen(value));
       if (TAIR_RETURN_SUCCESS != ret)
       {
-        TBSYS_LOG(WARN, "update global block id : %"PRI64_PREFIX"u error. "
+        TBSYS_LOG(WARN, "update global block id : %" PRI64_PREFIX "u error. "
             "call tair put error, ret: %d, pkey: %s, skey: %s", block_id, ret, pkey, skey);
       }
       return ret;
@@ -174,8 +174,8 @@ namespace tfs
       char pkey[128] = {'\0'};
       char skey[128] = {'\0'};
       char value[1024] = {'\0'};
-      snprintf(pkey, 128, "%s%06d_del_%"PRI64_PREFIX"u", key_prefix_.c_str(), DELETE_FAMILY_CHUNK_DEFAULT_VALUE, own_ipport);
-      snprintf(skey, 128, "%020"PRI64_PREFIX"d", family_id);
+      snprintf(pkey, 128, "%s%06d_del_%" PRI64_PREFIX "u", key_prefix_.c_str(), DELETE_FAMILY_CHUNK_DEFAULT_VALUE, own_ipport);
+      snprintf(skey, 128, "%020" PRI64_PREFIX "d", family_id);
       FamilyInfo family_info;
       family_info.family_id_ = family_id;
       int64_t pos = 0;
@@ -183,7 +183,7 @@ namespace tfs
       ret = put_(pkey, skey, value, family_info.length());
       if (TAIR_RETURN_SUCCESS != ret)
       {
-        TBSYS_LOG(WARN, "del family log : %"PRI64_PREFIX"d error: call tair put error, ret: %d, pkey: %s, skey: %s", family_info.family_id_, ret, pkey, skey);
+        TBSYS_LOG(WARN, "del family log : %" PRI64_PREFIX "d error: call tair put error, ret: %d, pkey: %s, skey: %s", family_info.family_id_, ret, pkey, skey);
         ret = EXIT_OP_TAIR_ERROR;
       }
       return ret;
@@ -208,9 +208,9 @@ namespace tfs
       char end_key[128] = {'\0'};
       char suffix[64] = {'\0'};
       if (del)
-        snprintf(suffix, 64,"_del_%"PRI64_PREFIX"u", peer_ipport);
+        snprintf(suffix, 64,"_del_%" PRI64_PREFIX "u", peer_ipport);
       snprintf(pkey, 128, "%s%06d%s", key_prefix_.c_str(), chunk, del ? suffix : "");
-      snprintf(start_key, 128, "%020"PRI64_PREFIX"d", start_family_id);
+      snprintf(start_key, 128, "%020" PRI64_PREFIX "d", start_family_id);
       data_entry tair_pkey(pkey, false);
       data_entry tair_start_key(start_key, true);
       data_entry tair_end_key(end_key, false);
@@ -239,7 +239,7 @@ namespace tfs
         assert(TFS_SUCCESS == rt);
         tbsys::gDelete((*iter));
       }
-      TBSYS_LOG(DEBUG, "scan family information %d, start_family_id: %"PRI64_PREFIX"d, chunk: %d, pkey: %s, start_key: %s, end_key: %s , infos.size(): %zd",
+      TBSYS_LOG(DEBUG, "scan family information %d, start_family_id: %" PRI64_PREFIX "d, chunk: %d, pkey: %s, start_key: %s, end_key: %s , infos.size(): %zd",
         ret, start_family_id, chunk, pkey, start_key, end_key, family_infos.size());
       return ret;
     };

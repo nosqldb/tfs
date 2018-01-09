@@ -865,11 +865,11 @@ int cmd_stat_file_raw(const VSTRING& param)
     tfs::clientv2::FSName fsname(tfs_name, NULL);
     fprintf(stdout,
             "  FILE_NAME:     %s\n"
-            "  BLOCK_ID:      %"PRI64_PREFIX"u\n"
-            "  FILE_ID:       %" PRI64_PREFIX "u\n"
+            "  BLOCK_ID:      %" PRI64_PREFIX "u\n"
+            "  FILE_ID:       %"  PRI64_PREFIX  "u\n"
             "  OFFSET:        %d\n"
-            "  SIZE:          %"PRI64_PREFIX"d\n"
-            "  OCCUPY SIZE:   %"PRI64_PREFIX"d\n"
+            "  SIZE:          %" PRI64_PREFIX "d\n"
+            "  OCCUPY SIZE:   %" PRI64_PREFIX "d\n"
             "  MODIFIED_TIME: %s\n"
             "  CREATE_TIME:   %s\n"
             "  STATUS:        %d\n"
@@ -947,11 +947,11 @@ int cmd_stat_file(const VSTRING& param)
     FSName fsname(tfs_name, NULL);
     fprintf(stdout,
             "  FILE_NAME:     %s\n"
-            "  BLOCK_ID:      %"PRI64_PREFIX"u\n"
-            "  FILE_ID:       %" PRI64_PREFIX "u\n"
+            "  BLOCK_ID:      %" PRI64_PREFIX "u\n"
+            "  FILE_ID:       %"  PRI64_PREFIX  "u\n"
             "  OFFSET:        %d\n"
-            "  SIZE:          %"PRI64_PREFIX"d\n"
-            "  OCCUPY SIZE:   %"PRI64_PREFIX"d\n"
+            "  SIZE:          %" PRI64_PREFIX "d\n"
+            "  OCCUPY SIZE:   %" PRI64_PREFIX "d\n"
             "  MODIFIED_TIME: %s\n"
             "  CREATE_TIME:   %s\n"
             "  STATUS:        %d\n"
@@ -967,7 +967,7 @@ int cmd_stat_file(const VSTRING& param)
   // id <<= 32;
   // id |= file_info.crc_;
   //  uint32_t tindex = static_cast<uint32_t>(id & 0xFFFFFFFF);
-  //  printf("  TABLE:         select * from t%d where id='%" PRI64_PREFIX "u'\n", tindex % TABLE_COUNT, id);
+  //  printf("  TABLE:         select * from t%d where id='%"  PRI64_PREFIX  "u'\n", tindex % TABLE_COUNT, id);
 
   return ret;
 }
@@ -1019,7 +1019,7 @@ int cmd_stat_blk_raw(const VSTRING& param)
 
   if ((block_id = strtoull(param[0].c_str(), (char**)NULL, 10)) <= 0)
   {
-    fprintf(stderr, "invalid blockid: %"PRI64_PREFIX"u\n", block_id);
+    fprintf(stderr, "invalid blockid: %" PRI64_PREFIX "u\n", block_id);
   }
 
   if (param.size() >= 2)
@@ -1032,7 +1032,7 @@ int cmd_stat_blk_raw(const VSTRING& param)
     ret = ToolUtil::get_block_ds_list_v2(g_tfs_client->get_server_id(), block_id, ds_list);
     if (ret != TFS_SUCCESS)
     {
-      fprintf(stderr, "get ds list failed. block_id: %"PRI64_PREFIX"u, ret: %d\n", block_id, ret);
+      fprintf(stderr, "get ds list failed. block_id: %" PRI64_PREFIX "u, ret: %d\n", block_id, ret);
       return ret;
     }
     server_id = ds_list[0];
@@ -1056,7 +1056,7 @@ int cmd_list_file_info(const VSTRING& param)
   int ret = TFS_ERROR;
   if ((block_id = strtoull(param[0].c_str(), (char**)NULL, 10)) <= 0)
   {
-    fprintf(stderr, "invalid blockid: %"PRI64_PREFIX"u\n", block_id);
+    fprintf(stderr, "invalid blockid: %" PRI64_PREFIX "u\n", block_id);
     return ret;
   }
 
@@ -1070,7 +1070,7 @@ int cmd_list_file_info(const VSTRING& param)
     ret = ToolUtil::get_block_ds_list_v2(g_tfs_client->get_server_id(), block_id, ds_list);
     if (ret != TFS_SUCCESS)
     {
-      fprintf(stderr, "get ds list failed. block_id: %"PRI64_PREFIX"u, ret: %d\n", block_id, ret);
+      fprintf(stderr, "get ds list failed. block_id: %" PRI64_PREFIX "u, ret: %d\n", block_id, ret);
       return ret;
     }
     server_id = ds_list[0];
@@ -1109,7 +1109,7 @@ int cmd_list_block(const VSTRING& param)
 
   if (block_id <= 0)
   {
-    fprintf(stderr, "invalid block id: %"PRI64_PREFIX"u\n", block_id);
+    fprintf(stderr, "invalid block id: %" PRI64_PREFIX "u\n", block_id);
   }
   else
   {
@@ -1120,10 +1120,10 @@ int cmd_list_block(const VSTRING& param)
     if (TFS_SUCCESS == ret)
     {
       int32_t ds_size = ds_list.size();
-      fprintf(stdout, "------block: %"PRI64_PREFIX"u, has %d replicas------\n", block_id, ds_size);
+      fprintf(stdout, "------block: %" PRI64_PREFIX "u, has %d replicas------\n", block_id, ds_size);
       for (int32_t i = 0; i < ds_size; ++i)
       {
-        fprintf(stdout, "block: %"PRI64_PREFIX"u, (%d)th server: %s \n", block_id, i, tbsys::CNetUtil::addrToString(ds_list[i]).c_str());
+        fprintf(stdout, "block: %" PRI64_PREFIX "u, (%d)th server: %s \n", block_id, i, tbsys::CNetUtil::addrToString(ds_list[i]).c_str());
       }
     }
   }
@@ -1202,7 +1202,7 @@ int cmd_put_bucket(const VSTRING& param)
   impl.destroy();
   if (TFS_SUCCESS == ret)
   {
-    ToolUtil::print_info(ret, "put bucket %s, owner_id: %"PRI64_PREFIX"d", bucket_name, owner_id);
+    ToolUtil::print_info(ret, "put bucket %s, owner_id: %" PRI64_PREFIX "d", bucket_name, owner_id);
   }
   return ret;
 }
@@ -1241,7 +1241,7 @@ int cmd_put_bucket_acl(const VSTRING& param)
   impl.destroy();
   if (TFS_SUCCESS == ret)
   {
-    ToolUtil::print_info(ret, "put bucket acl for bucket: %s, user_id: %"PRI64_PREFIX"d, acl: %d", bucket_name, user_id, acl);
+    ToolUtil::print_info(ret, "put bucket acl for bucket: %s, user_id: %" PRI64_PREFIX "d, acl: %d", bucket_name, user_id, acl);
   }
   return ret;
 }
@@ -1410,7 +1410,7 @@ int cmd_head_bucket(const VSTRING& param)
 
   if (TFS_SUCCESS == ret)
   {
-    printf("bucket: %s, create_time: %"PRI64_PREFIX"d, owner_id: %"PRI64_PREFIX"d\n",
+    printf("bucket: %s, create_time: %" PRI64_PREFIX "d, owner_id: %" PRI64_PREFIX "d\n",
         bucket_name, bucket_meta_info.create_time_, bucket_meta_info.owner_id_);
   }
 
@@ -1450,7 +1450,7 @@ int cmd_put_object(const VSTRING& param)
   else
   {
     ret = impl.put_object(bucket_name, object_name, local_file, user_info);
-    ToolUtil::print_info(ret, "put object: %s, object: %s => %s owner_id: %"PRI64_PREFIX"d",
+    ToolUtil::print_info(ret, "put object: %s, object: %s => %s owner_id: %" PRI64_PREFIX "d",
         bucket_name, object_name, local_file, owner_id);
   }
   impl.destroy();

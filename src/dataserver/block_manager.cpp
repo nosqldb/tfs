@@ -151,7 +151,7 @@ namespace tfs
         }
       }
       TIMER_END();
-      TBSYS_LOG(INFO, "new block : %"PRI64_PREFIX"u, %s, ret: %d, tmp: %s, family id: %"PRI64_PREFIX"d, index_num: %d, expire_time: %d cost: %ld",
+      TBSYS_LOG(INFO, "new block : %" PRI64_PREFIX "u, %s, ret: %d, tmp: %s, family id: %" PRI64_PREFIX "d, index_num: %d, expire_time: %d cost: %ld",
           logic_block_id, TFS_SUCCESS == ret ? "successful" : "failed", ret, tmp ? "true" : "false", family_id, index_num, expire_time, TIMER_DURATION());
       return ret;
     }
@@ -167,7 +167,7 @@ namespace tfs
         ret = del_block_(logic_block_id, tmp);
         timer.end();
       }
-      TBSYS_LOG(INFO, "del block : %"PRI64_PREFIX"u, %s, ret: %d, tmp: %s, cost: %ld",
+      TBSYS_LOG(INFO, "del block : %" PRI64_PREFIX "u, %s, ret: %d, tmp: %s, cost: %ld",
           logic_block_id, TFS_SUCCESS == ret ? "successful" : "failed", ret, tmp ? "true" : "false", timer.duration());
       return ret;
     }
@@ -276,11 +276,11 @@ namespace tfs
         std::vector<uint64_t>::const_iterator iter = expired_blocks.begin();
         for (; iter != expired_blocks.end(); ++iter)
         {
-          TBSYS_LOG(INFO, "timeout logic block %"PRI64_PREFIX"u", *iter);
+          TBSYS_LOG(INFO, "timeout logic block %" PRI64_PREFIX "u", *iter);
           ret = del_block_((*iter), true);
           if (TFS_SUCCESS != ret)
           {
-            TBSYS_LOG(WARN, "delete logic block : %"PRI64_PREFIX"u from tmp logic block map failed, ret: %d",(*iter), ret);
+            TBSYS_LOG(WARN, "delete logic block : %" PRI64_PREFIX "u from tmp logic block map failed, ret: %d",(*iter), ret);
           }
         }
       }
@@ -805,7 +805,7 @@ namespace tfs
 
             if (get_physical_block_manager().exist(index.physical_block_id_))
             {
-              TBSYS_LOG(WARN, "physical block id %d conflict, physical block existed, logic block id : %"PRI64_PREFIX"u",
+              TBSYS_LOG(WARN, "physical block id %d conflict, physical block existed, logic block id : %" PRI64_PREFIX "u",
                   index.physical_block_id_, index.logic_block_id_);
               continue;
             }
@@ -813,7 +813,7 @@ namespace tfs
             std::stringstream physical_block_path;
             bool complete = (BLOCK_CREATE_COMPLETE_STATUS_COMPLETE == index.status_);
             physical_block_path << info->mount_point_ << MAINBLOCK_DIR_PREFIX << index.physical_file_name_id_;
-            TBSYS_LOG(INFO, "load physical block, physical block id: %d, logic block id: %"PRI64_PREFIX"u, complete : %s, alloc: %s",
+            TBSYS_LOG(INFO, "load physical block, physical block id: %d, logic block id: %" PRI64_PREFIX "u, complete : %s, alloc: %s",
                 index.physical_block_id_, index.logic_block_id_, complete ? "true" : "false", BLOCK_SPLIT_FLAG_YES == index.split_flag_ ? "yes" : "no");
             if (complete)
             {
@@ -827,7 +827,7 @@ namespace tfs
                 if (get_logic_block_manager().exist(index.logic_block_id_, false))
                 {
                   ret = cleanup_dirty_index_single_logic_block_(index);
-                  TBSYS_LOG(INFO, "load block, logic block: %"PRI64_PREFIX"u existed, must be free current block, main physical block id: %d, ret: %d", index.logic_block_id_, index.physical_block_id_, ret);
+                  TBSYS_LOG(INFO, "load block, logic block: %" PRI64_PREFIX "u existed, must be free current block, main physical block id: %d, ret: %d", index.logic_block_id_, index.physical_block_id_, ret);
                 }
                 else
                 {
@@ -848,7 +848,7 @@ namespace tfs
                     BaseLogicBlock* object = NULL;
                     get_logic_block_manager().remove(object, index.logic_block_id_, false);
                     tbsys::gDelete(object);
-                    TBSYS_LOG(WARN, "load block, logic block: %"PRI64_PREFIX"u is corrupt. "
+                    TBSYS_LOG(WARN, "load block, logic block: %" PRI64_PREFIX "u is corrupt. "
                         "must be free current block, main physical block id: %d, ret: %d",
                         index.logic_block_id_, index.physical_block_id_, tmp_ret);
                     if (TFS_SUCCESS == tmp_ret)
@@ -877,14 +877,14 @@ namespace tfs
                     }
                   }
 
-                  TBSYS_LOG(INFO, "load logic block: %"PRI64_PREFIX"u,ret: %d", index.logic_block_id_, ret);
+                  TBSYS_LOG(INFO, "load logic block: %" PRI64_PREFIX "u,ret: %d", index.logic_block_id_, ret);
                 }//end if (get_logic_block_manager().exist(logic_block_id, false))
               }// end if (BLOCK_SPLIT_FLAG_YES == index.split_flag_)
             }
             else//end if (complete)
             {
               ret = cleanup_dirty_index_single_logic_block_(index);
-              TBSYS_LOG(INFO, "load block, logic block: %"PRI64_PREFIX"u is invalid, must be free current block, main physical block id: %d, ret: %d", index.logic_block_id_, index.physical_block_id_, ret);
+              TBSYS_LOG(INFO, "load block, logic block: %" PRI64_PREFIX "u is invalid, must be free current block, main physical block id: %d, ret: %d", index.logic_block_id_, index.physical_block_id_, ret);
             }// end if (complete)
             if (TFS_SUCCESS == ret)
             {
@@ -987,7 +987,7 @@ namespace tfs
           ret = info.mount_point_use_space_ > 0 ? TFS_SUCCESS : EXIT_MOUNT_SPACE_SIZE_ERROR;
           if (TFS_SUCCESS != ret)
           {
-            TBSYS_LOG(ERROR, "format filesystem superblock fail, mount_point_use_space: %"PRI64_PREFIX"d",info.mount_point_use_space_);
+            TBSYS_LOG(ERROR, "format filesystem superblock fail, mount_point_use_space: %" PRI64_PREFIX "d",info.mount_point_use_space_);
           }
         }
 
@@ -1199,7 +1199,7 @@ namespace tfs
         //  ret = get_super_block_manager().flush();
         //}
       }
-      TBSYS_LOG(INFO, "del logic block : %"PRI64_PREFIX"u, %s, ret: %d, tmp: %s",
+      TBSYS_LOG(INFO, "del logic block : %" PRI64_PREFIX "u, %s, ret: %d, tmp: %s",
           logic_block_id, TFS_SUCCESS == ret ? "successful" : "failed", ret, tmp ? "true" : "false");
       return ret;
     }

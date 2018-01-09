@@ -516,7 +516,7 @@ namespace tfs
               base_block->BlockBase::dump();// log info of each block info
               if (once && (base_block->info_.block_id_ != block_id))
               {
-                //TBSYS_LOG(ERROR, "block: %"PRI64_PREFIX"u,%"PRI64_PREFIX"u not exists", base_block->info_.block_id_, block_id);
+                //TBSYS_LOG(ERROR, "block: %" PRI64_PREFIX "u,%" PRI64_PREFIX "u not exists", base_block->info_.block_id_, block_id);
                 break;
               }
               worker->process(base_block, fp);// not sort by block
@@ -602,7 +602,7 @@ namespace tfs
         }
         else
         {
-          TBSYS_LOG(ERROR, "get invalid family_id: %"PRI64_PREFIX"d < 0", family_id);
+          TBSYS_LOG(ERROR, "get invalid family_id: %" PRI64_PREFIX "d < 0", family_id);
           put_file_handle(fp);
           return EXIT_PARAMETER_ERROR;
         }
@@ -648,7 +648,7 @@ namespace tfs
             {
               if (once && (family.family_id_ != family_id))
               {
-                //TBSYS_LOG(ERROR, "only get family: %"PRI64_PREFIX"u, but %"PRI64_PREFIX"u not exists", family.family_id_, family_id);
+                //TBSYS_LOG(ERROR, "only get family: %" PRI64_PREFIX "u, but %" PRI64_PREFIX "u not exists", family.family_id_, family_id);
                 break;
               }
               if (once && (type & BLOCK_TYPE_SERVER_LIST))
@@ -673,7 +673,7 @@ namespace tfs
         }
         if (!once)
         {
-          fprintf(fp, "Total Count: %"PRI64_PREFIX"u\n", family_count);
+          fprintf(fp, "Total Count: %" PRI64_PREFIX "u\n", family_count);
         }
         if (--count)
         {

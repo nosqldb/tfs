@@ -54,7 +54,7 @@ namespace tfs
     int64_t ClusterData::length() const
     {
       //int64_t length = INT_SIZE * 2 + Serialization::get_string_length(cluster_id_) + Serialization::get_string_length(ns_vip_);
-      //TBSYS_LOG(DEBUG, "ClusterData::length: %"PRI64_PREFIX"d, cluster_id_ length: %"PRI64_PREFIX"d, ns_vip_ length: %"PRI64_PREFIX"d",
+      //TBSYS_LOG(DEBUG, "ClusterData::length: %" PRI64_PREFIX "d, cluster_id_ length: %" PRI64_PREFIX "d, ns_vip_ length: %" PRI64_PREFIX "d",
       //    length, Serialization::get_string_length(cluster_id_), Serialization::get_string_length(ns_vip_));
       //return length;
       return INT_SIZE * 2 + Serialization::get_string_length(cluster_id_) + Serialization::get_string_length(ns_vip_);
@@ -111,7 +111,7 @@ namespace tfs
         length = INT8_SIZE + Serialization::get_list_length(cluster_data_);
 
       //int64_t length = INT8_SIZE + Serialization::get_string_length(dupliate_server_addr_) + Serialization::get_list_length(cluster_data_);
-      //TBSYS_LOG(DEBUG, "ClusterRackData::length: %"PRI64_PREFIX"d, dupliate_server_addr_ length: %"PRI64_PREFIX"d, cluster_data_ length: %"PRI64_PREFIX"d",
+      //TBSYS_LOG(DEBUG, "ClusterRackData::length: %" PRI64_PREFIX "d, dupliate_server_addr_ length: %" PRI64_PREFIX "d, cluster_data_ length: %" PRI64_PREFIX "d",
       //    length, Serialization::get_string_length(dupliate_server_addr_), Serialization::get_list_length(cluster_data_));
       return length;
     }
@@ -214,7 +214,7 @@ namespace tfs
     {
       int64_t length = INT_SIZE + INT64_SIZE + Serialization::get_vint64_length(rc_server_infos_) + Serialization::get_list_length(cluster_infos_) + INT64_SIZE +
         Serialization::get_string_length(ns_cache_info_) + Serialization::get_list_length(cluster_infos_for_update_) + INT_SIZE + Serialization::get_vint64_length(kvroot_server_infos_);
-      //TBSYS_LOG(DEBUG, "BaseInfo::length: %"PRI64_PREFIX"d, rc_server_infos_ length: %"PRI64_PREFIX"d, cluster_infos_ length: %"PRI64_PREFIX"d",
+      //TBSYS_LOG(DEBUG, "BaseInfo::length: %" PRI64_PREFIX "d, rc_server_infos_ length: %" PRI64_PREFIX "d, cluster_infos_ length: %" PRI64_PREFIX "d",
       //    length, Serialization::get_vint64_length(rc_server_infos_), Serialization::get_list_length(cluster_infos_));
       return length;
       //return Serialization::get_vint64_length(rc_server_infos_) + Serialization::get_list_length(cluster_infos_);
@@ -231,7 +231,7 @@ namespace tfs
         cluster_infos_[i].dump();
       }
       TBSYS_LOG(DEBUG, "report_interval: %d", report_interval_);
-      TBSYS_LOG(DEBUG, "modify_time: %"PRI64_PREFIX"d", modify_time_);
+      TBSYS_LOG(DEBUG, "modify_time: %" PRI64_PREFIX "d", modify_time_);
       TBSYS_LOG(DEBUG, "root_server: %s", tbsys::CNetUtil::addrToString(meta_root_server_).c_str());
       for (size_t i = 0; i < kvroot_server_infos_.size(); ++i)
       {
@@ -314,7 +314,7 @@ namespace tfs
 
     void SessionBaseInfo::dump() const
     {
-      TBSYS_LOG(DEBUG, "session_id: %s, client_version: %s, cache_size: %"PRI64_PREFIX"d, cache_time: %"PRI64_PREFIX"d, modify_time: %"PRI64_PREFIX"d, is_logout: %d",
+      TBSYS_LOG(DEBUG, "session_id: %s, client_version: %s, cache_size: %" PRI64_PREFIX "d, cache_time: %" PRI64_PREFIX "d, modify_time: %" PRI64_PREFIX "d, is_logout: %d",
           session_id_.c_str(), client_version_.c_str(), cache_size_, cache_time_, modify_time_, is_logout_);
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -378,7 +378,7 @@ namespace tfs
 
     void AppOperInfo::dump() const
     {
-      TBSYS_LOG(DEBUG, "oper_type: %d, oper_times: %"PRI64_PREFIX"d, oper_size: %"PRI64_PREFIX"d, oper_rt: %"PRI64_PREFIX"d, oper_succ: %"PRI64_PREFIX"d",
+      TBSYS_LOG(DEBUG, "oper_type: %d, oper_times: %" PRI64_PREFIX "d, oper_size: %" PRI64_PREFIX "d, oper_rt: %" PRI64_PREFIX "d, oper_succ: %" PRI64_PREFIX "d",
           oper_type_, oper_times_, oper_size_, oper_rt_, oper_succ_);
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -479,7 +479,7 @@ namespace tfs
       {
         mit->second.dump();
       }
-      TBSYS_LOG(DEBUG, "cache_hit_ratio: %"PRI64_PREFIX"d", cache_hit_ratio_);
+      TBSYS_LOG(DEBUG, "cache_hit_ratio: %" PRI64_PREFIX "d", cache_hit_ratio_);
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -528,7 +528,7 @@ namespace tfs
     {
       s_base_info_.dump();
       s_stat_.dump();
-      TBSYS_LOG(DEBUG, "last_report_time: %"PRI64_PREFIX"d", last_report_time_);
+      TBSYS_LOG(DEBUG, "last_report_time: %" PRI64_PREFIX "d", last_report_time_);
     }
 
     int MonitorKeyInfo::deserialize(const char* data, const int64_t data_len, int64_t& pos)

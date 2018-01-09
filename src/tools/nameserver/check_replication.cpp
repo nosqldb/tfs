@@ -90,7 +90,7 @@ bool compare_block_index(const IndexDataV2& left_index, const IndexDataV2& right
         set<FileInfoV2, FileInfoCompare>::iterator sit = right_infos.find(*iter);
         if (sit == right_infos.end())  // a file not in right
         {
-          TBSYS_LOG(WARN, "blockid %"PRI64_PREFIX"u fileid %"PRI64_PREFIX"u not in right",
+          TBSYS_LOG(WARN, "blockid %" PRI64_PREFIX "u fileid %" PRI64_PREFIX "u not in right",
               block_id, iter->id_);
           same = false;
           break;
@@ -109,7 +109,7 @@ bool compare_block_index(const IndexDataV2& left_index, const IndexDataV2& right
 
           if (!same)
           {
-            TBSYS_LOG(WARN, "blockid %"PRI64_PREFIX"u fileid %"PRI64_PREFIX"u file info not same",
+            TBSYS_LOG(WARN, "blockid %" PRI64_PREFIX "u fileid %" PRI64_PREFIX "u file info not same",
                 block_id, left.id_);
             break;
           }
@@ -123,19 +123,19 @@ bool compare_block_index(const IndexDataV2& left_index, const IndexDataV2& right
         set<FileInfoV2, FileInfoCompare>::iterator sit = right_infos.begin();
         for ( ; sit != right_infos.end(); sit++)
         {
-          TBSYS_LOG(WARN, "blockid %"PRI64_PREFIX"u fileid %"PRI64_PREFIX"u not in left",
+          TBSYS_LOG(WARN, "blockid %" PRI64_PREFIX "u fileid %" PRI64_PREFIX "u not in left",
               block_id, sit->id_);
         }
       }
     }
     else
     {
-      TBSYS_LOG(WARN, "block %"PRI64_PREFIX"u index item size not consistency", block_id);
+      TBSYS_LOG(WARN, "block %" PRI64_PREFIX "u index item size not consistency", block_id);
     }
   }
   else
   {
-    TBSYS_LOG(WARN, "block %"PRI64_PREFIX"u index header not consistency", block_id);
+    TBSYS_LOG(WARN, "block %" PRI64_PREFIX "u index header not consistency", block_id);
   }
 
   return same;
@@ -165,7 +165,7 @@ bool compare_block_data(const uint64_t block_id,
     same = (finfo.crc_ == left_crc) && (left_crc == right_crc);
     if (!same)
     {
-      TBSYS_LOG(WARN, "blockid %"PRI64_PREFIX"u fileid %"PRI64_PREFIX"u file data not same. "
+      TBSYS_LOG(WARN, "blockid %" PRI64_PREFIX "u fileid %" PRI64_PREFIX "u file data not same. "
           "finfo crc: %u, left crc: %u, right crc: %u",
           block_id, finfo.id_, finfo.crc_, left_crc, right_crc);
     }
@@ -269,11 +269,11 @@ int main(int argc, char* argv[])
   {
     if (replicas.size() == 0)
     {
-      printf("%"PRI64_PREFIX"u %s\n", block_id, "NONE");
+      printf("%" PRI64_PREFIX "u %s\n", block_id, "NONE");
     }
     else if (replicas.size() == 1)
     {
-      printf("%"PRI64_PREFIX"u %s\n", block_id, "ONE");
+      printf("%" PRI64_PREFIX "u %s\n", block_id, "ONE");
     }
     else
     {
@@ -282,13 +282,13 @@ int main(int argc, char* argv[])
       VUINT64::iterator iter = replicas.begin();
       for ( ; iter != replicas.end(); iter++)
       {
-        TBSYS_LOG(INFO, "block %"PRI64_PREFIX"u : %s",
+        TBSYS_LOG(INFO, "block %" PRI64_PREFIX "u : %s",
             block_id, tbsys::CNetUtil::addrToString(*iter).c_str());
         uint32_t lan = Func::get_lan(*iter, Func::get_addr(group_mask.c_str()));
         set<uint32_t>::iterator sit = lans.find(lan);
         if (sit != lans.end())
         {
-          TBSYS_LOG(WARN, "block %"PRI64_PREFIX"u replicas are not location safe.", block_id);
+          TBSYS_LOG(WARN, "block %" PRI64_PREFIX "u replicas are not location safe.", block_id);
           location_safe = false;
           break;
         }
@@ -297,7 +297,7 @@ int main(int argc, char* argv[])
       // randomly choose two replicas to do compare for simplicity
       random_shuffle(replicas.begin(), replicas.end());
       bool same = compare_block_replicas(block_id, replicas[0], replicas[1]);
-      printf("%"PRI64_PREFIX"u %s\n", block_id, same ? "SAME": "DIFF");
+      printf("%" PRI64_PREFIX "u %s\n", block_id, same ? "SAME": "DIFF");
     }
   }
 

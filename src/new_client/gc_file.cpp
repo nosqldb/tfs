@@ -74,7 +74,7 @@ int GcFile::initialize(const char* name)
     else if ((ret = init_file_op(file_path, O_RDWR|O_APPEND)) == TFS_SUCCESS)
     {
       load_head();
-      TBSYS_LOG(DEBUG, "load head count: %d, size: %"PRI64_PREFIX"d", seg_head_.count_, seg_head_.size_);
+      TBSYS_LOG(DEBUG, "load head count: %d, size: %" PRI64_PREFIX "d", seg_head_.count_, seg_head_.size_);
       TBSYS_LOG(DEBUG, "initialize gc file success");
     }
   }
@@ -88,7 +88,7 @@ int GcFile::add_segment(const SegmentInfo& seg_info)
   seg_head_.count_++;
   seg_head_.size_ += seg_info.size_;
 
-  TBSYS_LOG(DEBUG, "add gc segment. blockid: %u, fileid: %"PRI64_PREFIX"u, offset: %"PRI64_PREFIX"d, size: %d, crc: %u",
+  TBSYS_LOG(DEBUG, "add gc segment. blockid: %u, fileid: %" PRI64_PREFIX "u, offset: %" PRI64_PREFIX "d, size: %d, crc: %u",
             seg_info.block_id_, seg_info.file_id_, seg_info.offset_, seg_info.size_, seg_info.crc_);
   return ret;
 }
@@ -132,7 +132,7 @@ int GcFile::save_gc()
   }
   else                        // write fail, not clear, wait for next chance
   {
-    TBSYS_LOG(DEBUG, "gc save segment success, count: %zd, raw size: %d, need gc segment count: %d, size: %"PRI64_PREFIX"d",
+    TBSYS_LOG(DEBUG, "gc save segment success, count: %zd, raw size: %d, need gc segment count: %d, size: %" PRI64_PREFIX "d",
               seg_info_.size(), size, seg_head_.count_, seg_head_.size_);
     file_op_->flush_file();
     file_pos_ += size;
@@ -170,7 +170,7 @@ int GcFile::load()
       for (int32_t i = 0; i < seg_head_.count_; i++)
       {
         seg_info_.push_back(seg_info[i]);
-        TBSYS_LOG(DEBUG, "load segment info, offset: %"PRI64_PREFIX"d, blockid: %u, fileid: %"PRI64_PREFIX"u, size: %d, crc: %u", seg_info[i].offset_, seg_info[i].block_id_, seg_info[i].file_id_, seg_info[i].size_, seg_info[i].crc_);
+        TBSYS_LOG(DEBUG, "load segment info, offset: %" PRI64_PREFIX "d, blockid: %u, fileid: %" PRI64_PREFIX "u, size: %d, crc: %u", seg_info[i].offset_, seg_info[i].block_id_, seg_info[i].file_id_, seg_info[i].size_, seg_info[i].crc_);
       }
     }
     tbsys::gDeleteA(buf);

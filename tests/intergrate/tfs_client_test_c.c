@@ -78,7 +78,7 @@ int op_read(const int extra_flag)
 
   if ((len = t_read(fd, buf, OP_SIZE/2)) < 0)
   {
-    printf("read data fail, ret: %"PRI64_PREFIX"d\n", len);
+    printf("read data fail, ret: %" PRI64_PREFIX "d\n", len);
     return TFS_ERROR;
   }
 
@@ -87,14 +87,14 @@ int op_read(const int extra_flag)
   // read
   if ((len = t_read(fd, buf, OP_SIZE/2)) < 0)
   {
-    printf("lseek and read data fail, ret: %"PRI64_PREFIX"d\n", len);
+    printf("lseek and read data fail, ret: %" PRI64_PREFIX "d\n", len);
     return TFS_ERROR;
   }
 
   // pread
   if ((len = t_pread(fd, buf, OP_SIZE/2, OP_SIZE/3)) < 0)
   {
-    printf("pread data fail, ret: %"PRI64_PREFIX"d\n", len);
+    printf("pread data fail, ret: %" PRI64_PREFIX "d\n", len);
     return TFS_ERROR;
   }
 
@@ -137,7 +137,7 @@ int op_write(const int extra_flag)
 
   if ((len = t_write(fd, buf, OP_SIZE)) != OP_SIZE)
   {
-    printf("write data to tfs fail, ret: %"PRI64_PREFIX"d\n", len);
+    printf("write data to tfs fail, ret: %" PRI64_PREFIX "d\n", len);
     // write fail, just close fd
     t_close(fd, NULL, 0);
     return ret;
@@ -173,10 +173,10 @@ int op_stat(const int extra_flag)
   {
     printf("stat tfs file success:\n"
            "filename: %s\n"
-           "fileid: %"PRI64_PREFIX"u\n"
+           "fileid: %" PRI64_PREFIX "u\n"
            "offset: %d\n"
-           "size: %"PRI64_PREFIX"d\n"
-           "usize: %"PRI64_PREFIX"d\n"
+           "size: %" PRI64_PREFIX "d\n"
+           "usize: %" PRI64_PREFIX "d\n"
            "modify_time: %d\n"
            "create_time: %d\n"
            "status: %d\n"
@@ -208,7 +208,7 @@ int op_unlink(const int extra_flag)
   }
   else
   {
-    printf("conceal file size : %"PRI64_PREFIX"d\n", file_size);
+    printf("conceal file size : %" PRI64_PREFIX "d\n", file_size);
   }
 
   file_size = 0;
@@ -221,7 +221,7 @@ int op_unlink(const int extra_flag)
   }
   else
   {
-    printf("reveal file size : %"PRI64_PREFIX"d\n", file_size);
+    printf("reveal file size : %" PRI64_PREFIX "d\n", file_size);
   }
 
   file_size = 0;
@@ -234,7 +234,7 @@ int op_unlink(const int extra_flag)
   }
   else
   {
-    printf("conceal file size : %"PRI64_PREFIX"d\n", file_size);
+    printf("conceal file size : %" PRI64_PREFIX "d\n", file_size);
   }
 
   file_size = 0;
@@ -247,7 +247,7 @@ int op_unlink(const int extra_flag)
   }
   else
   {
-    printf("delete file size : %"PRI64_PREFIX"d\n", file_size);
+    printf("delete file size : %" PRI64_PREFIX "d\n", file_size);
   }
 
   // undelete
@@ -262,7 +262,7 @@ int op_unlink(const int extra_flag)
     }
     else
     {
-      printf("undelete file size : %"PRI64_PREFIX"d\n", file_size);
+      printf("undelete file size : %" PRI64_PREFIX "d\n", file_size);
     }
   }
   return TFS_SUCCESS;
@@ -288,7 +288,7 @@ int op_unique(const int extra_flag)
       ret = t_save_unique_file(unique_name, TFS_FILE_LEN, "./Makefile", ".am", NULL);
       if (ret < 0)
       {
-        printf("save unique fail. ret: %"PRI64_PREFIX"d\n", ret);
+        printf("save unique fail. ret: %" PRI64_PREFIX "d\n", ret);
       }
       else
       {
@@ -301,7 +301,7 @@ int op_unique(const int extra_flag)
         }
         else
         {
-          printf("unlink unique file size : %"PRI64_PREFIX"d\n", file_size);
+          printf("unlink unique file size : %" PRI64_PREFIX "d\n", file_size);
         }
       }
       // clear end
@@ -309,7 +309,7 @@ int op_unique(const int extra_flag)
       ret = t_save_unique_file(unique_name, TFS_FILE_LEN, "./Makefile", ".am", NULL);
       if (ret < 0)
       {
-        printf("save unique fail. ret: %"PRI64_PREFIX"d\n", ret);
+        printf("save unique fail. ret: %" PRI64_PREFIX "d\n", ret);
         return ret;
       }
       printf("save unique success.name: %s\n", unique_name);
@@ -323,7 +323,7 @@ int op_unique(const int extra_flag)
         ret = t_save_unique_file(reunique_name, TFS_FILE_LEN, "./Makefile", ".am", NULL);
         if (ret < 0)
         {
-          printf("save unique fail. ret: %"PRI64_PREFIX"d\n", ret);
+          printf("save unique fail. ret: %" PRI64_PREFIX "d\n", ret);
           break;
         }
         else
@@ -349,14 +349,14 @@ int op_unique(const int extra_flag)
         }
         else
         {
-          printf("unlink unique size : %"PRI64_PREFIX"d\n", file_size);
+          printf("unlink unique size : %" PRI64_PREFIX "d\n", file_size);
         }
       }
       file_size = 0;
       refcnt = t_unlink_unique(&file_size, unique_name, NULL, NULL, 1);
       if (refcnt >= 0 || file_size != 0)
       {
-        printf("unlink fail, file_size %"PRI64_PREFIX"d\n", file_size);
+        printf("unlink fail, file_size %" PRI64_PREFIX "d\n", file_size);
         return TFS_ERROR;
       }
     }

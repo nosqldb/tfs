@@ -224,7 +224,7 @@ namespace tfs
         {
           str << " " << tbsys::CNetUtil::addrToString(servers_[index]) << "/";
         }
-        TBSYS_LOGGER.logMessage(level, file, line, function, thid,"%s seqno: %"PRI64_PREFIX"d, type: %s, status: %s, block: %"PRI64_PREFIX"u, expired_time: %"PRI64_PREFIX"d, servers: %s",
+        TBSYS_LOGGER.logMessage(level, file, line, function, thid,"%s seqno: %" PRI64_PREFIX "d, type: %s, status: %s, block: %" PRI64_PREFIX "u, expired_time: %" PRI64_PREFIX "d, servers: %s",
             msgstr, seqno_, transform_type_to_str(),
             transform_status_to_str(status_), block_, get(), str.str().c_str());
       }
@@ -240,7 +240,7 @@ namespace tfs
         {
           str << " " << tbsys::CNetUtil::addrToString(servers_[index]) << "/";
         }
-        log.logMessage(level, file, line, function, thid, "%s block-%"PRI64_PREFIX"u, seqno:%"PRI64_PREFIX"d, status:%s, servers :%s",
+        log.logMessage(level, file, line, function, thid, "%s block-%" PRI64_PREFIX "u, seqno:%" PRI64_PREFIX "d, status:%s, servers :%s",
             transform_type_to_str(), block_, seqno_, transform_status_to_str(status_), str.str().c_str());
       }
     }
@@ -312,7 +312,7 @@ namespace tfs
           }
           else
           {
-            dump(TBSYS_LOG_LEVEL(INFO), "%s block: %"PRI64_PREFIX"u complete, but status: %s error",
+            dump(TBSYS_LOG_LEVEL(INFO), "%s block: %" PRI64_PREFIX "u complete, but status: %s error",
               transform_type_to_str(), blocks.block_id_, transform_status_to_str(status_));
           }
         }
@@ -486,13 +486,13 @@ namespace tfs
             {
               ret = fm.insert(family_info.family_id_, family_info.family_aid_info_,helper, now);
               if (TFS_SUCCESS != ret)
-                TBSYS_LOG(INFO, "add new family in memory failed, ret: %d, family id: %"PRI64_PREFIX"d", ret, family_info.family_id_);
+                TBSYS_LOG(INFO, "add new family in memory failed, ret: %d, family id: %" PRI64_PREFIX "d", ret, family_info.family_id_);
             }
             if (TFS_SUCCESS == ret && !forward)
             {
               ret = lm.get_oplog_sync_mgr().create_family(family_info);
               if (TFS_SUCCESS != ret)
-                TBSYS_LOG(INFO, "add new family in db failed, ret: %d, family id: %"PRI64_PREFIX"d", ret, family_info.family_id_);
+                TBSYS_LOG(INFO, "add new family in db failed, ret: %d, family id: %" PRI64_PREFIX "d", ret, family_info.family_id_);
             }
             if (TFS_SUCCESS == ret)
             {
@@ -652,7 +652,7 @@ namespace tfs
         va_end(ap);
         std::stringstream str;
         dump(str);
-        TBSYS_LOGGER.logMessage(level, file, line, function, thid, "%s type: %s, status: %s, expired_time: %"PRI64_PREFIX"d, infomations: %s",
+        TBSYS_LOGGER.logMessage(level, file, line, function, thid, "%s type: %s, status: %s, expired_time: %" PRI64_PREFIX "d, infomations: %s",
           msgstr, transform_type_to_str(), transform_status_to_str(status_), get(), str.str().c_str());
       }
     }
@@ -672,7 +672,7 @@ namespace tfs
           stream << " | " << tbsys::CNetUtil::addrToString(family_members_[index].server_) << ", block-" << family_members_[index].block_
                  << ", status:" << family_members_[index].status_ ;
         }
-        log.logMessage(level, file, line, function, thid, "%s family-%"PRI64_PREFIX"u, seqno:%"PRI64_PREFIX"d, status:%s, %s",
+        log.logMessage(level, file, line, function, thid, "%s family-%" PRI64_PREFIX "u, seqno:%" PRI64_PREFIX "d, status:%s, %s",
             transform_type_to_str(), family_id_, seqno_, transform_status_to_str(status_), stream.str().c_str());
       }
     }

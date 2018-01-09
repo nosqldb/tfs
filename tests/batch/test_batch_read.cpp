@@ -186,7 +186,7 @@ void* read_worker(void* arg)
   double arate = calc_rate(total_succ_count, accumlate_time_consumed);
 
   printf("thread index:%5d   count:%5d  failed:%5d, zoomed:%5d, filesize:%6d  iops:%10.3f  rate:%10.3f ,"
-      " min:%" PRI64_PREFIX "d, max:%" PRI64_PREFIX "d,avg:%" PRI64_PREFIX "d aiops:%10.3f, arate:%10.3f \n", param.index_, total_count, failed_count, zoomed_count,
+      " min:%"  PRI64_PREFIX  "d, max:%"  PRI64_PREFIX  "d,avg:%"  PRI64_PREFIX  "d aiops:%10.3f, arate:%10.3f \n", param.index_, total_count, failed_count, zoomed_count,
       param.file_size_, iops, rate, min_time_consumed, max_time_consumed, (!total_succ_count)? 0:(accumlate_time_consumed / total_succ_count),
       aiops, arate);
   stater.dump_time_stat();

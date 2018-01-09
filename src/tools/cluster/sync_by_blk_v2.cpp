@@ -177,7 +177,7 @@ int SyncByBlockWorker::get_src_one_ds(uint64_t& src_ds_id)
     ret = (servers.size() == 0) ? EXIT_GENERAL_ERROR : TFS_SUCCESS;
     if (TFS_SUCCESS != ret)
     {
-      TBSYS_LOG(ERROR, "get src ds fail. dataserver servers list is empty , blockid: %"PRI64_PREFIX"u", block_id_);
+      TBSYS_LOG(ERROR, "get src ds fail. dataserver servers list is empty , blockid: %" PRI64_PREFIX "u", block_id_);
     }
     else
     {
@@ -188,7 +188,7 @@ int SyncByBlockWorker::get_src_one_ds(uint64_t& src_ds_id)
   }
   else
   {
-    TBSYS_LOG(ERROR, "get src ds fail. blockid: %"PRI64_PREFIX"u, ret:%d", block_id_, ret);
+    TBSYS_LOG(ERROR, "get src ds fail. blockid: %" PRI64_PREFIX "u, ret:%d", block_id_, ret);
   }
   return ret;
 }
@@ -217,20 +217,20 @@ int SyncByBlockWorker::read_index(const uint64_t src_ds_id)
       else if (STATUS_MESSAGE == rsp->getPCode())
       {
         StatusMessage* msg = dynamic_cast<StatusMessage*>(rsp);
-        TBSYS_LOG(ERROR, "read index from src ds: %s failed, blockid: %"PRI64_PREFIX"u, error msg: %s, ret status: %d",
+        TBSYS_LOG(ERROR, "read index from src ds: %s failed, blockid: %" PRI64_PREFIX "u, error msg: %s, ret status: %d",
             tbsys::CNetUtil::addrToString(src_ds_id).c_str(), block_id_, msg->get_error(), msg->get_status());
         ret = msg->get_status();
       }
       else
       {
-        TBSYS_LOG(ERROR, "read index from src ds: %s failed, blockid: %"PRI64_PREFIX"u, unknow msg type: %d",
+        TBSYS_LOG(ERROR, "read index from src ds: %s failed, blockid: %" PRI64_PREFIX "u, unknow msg type: %d",
             tbsys::CNetUtil::addrToString(src_ds_id).c_str(), block_id_, rsp->getPCode());
         ret = EXIT_UNKNOWN_MSGTYPE;
       }
     }
     else
     {
-      TBSYS_LOG(ERROR, "read index from src ds: %s failed, blockid: %"PRI64_PREFIX"u, ret: %d.",
+      TBSYS_LOG(ERROR, "read index from src ds: %s failed, blockid: %" PRI64_PREFIX "u, ret: %d.",
             tbsys::CNetUtil::addrToString(src_ds_id).c_str(), block_id_, ret);
     }
     NewClientManager::get_instance().destroy_client(client);
@@ -238,11 +238,11 @@ int SyncByBlockWorker::read_index(const uint64_t src_ds_id)
   else
   {
     ret = EXIT_CLIENT_MANAGER_CREATE_CLIENT_ERROR;
-    TBSYS_LOG(ERROR, "read index from src ds: %s failed, blockid: %"PRI64_PREFIX"u, create client failed.",
+    TBSYS_LOG(ERROR, "read index from src ds: %s failed, blockid: %" PRI64_PREFIX "u, create client failed.",
         tbsys::CNetUtil::addrToString(src_ds_id).c_str(), block_id_);
   }
 
-  TBSYS_LOG(DEBUG, "read index from src ds: %s %s, blockid: %"PRI64_PREFIX"u",
+  TBSYS_LOG(DEBUG, "read index from src ds: %s %s, blockid: %" PRI64_PREFIX "u",
         tbsys::CNetUtil::addrToString(src_ds_id).c_str(), ret == TFS_SUCCESS  ? "succ" : "fail", block_id_);
   return ret;
 }
@@ -276,7 +276,7 @@ int SyncByBlockWorker::read_data(const uint64_t src_ds_id)
       if (TFS_SUCCESS != ret)//只有发送的读消息没有收到回应才需要重试
       {
         --remainder_retrys;//need to retry
-        TBSYS_LOG(WARN, "read raw data from ds: %s failed, blockid: %"PRI64_PREFIX"u, offset: %d, remainder_retrys: %"PRI64_PREFIX"d, ret: %d",
+        TBSYS_LOG(WARN, "read raw data from ds: %s failed, blockid: %" PRI64_PREFIX "u, offset: %d, remainder_retrys: %" PRI64_PREFIX "d, ret: %d",
                     tbsys::CNetUtil::addrToString(src_ds_id).c_str(), block_id_, cur_offset, remainder_retrys, ret);
       }
       else
@@ -294,25 +294,25 @@ int SyncByBlockWorker::read_data(const uint64_t src_ds_id)
           {
             assert(cur_offset + len == src_header_.info_.size_);
             eof_flag = true;
-            TBSYS_LOG(INFO, "read raw data from ds: %s finish, blockid: %"PRI64_PREFIX"u, offset: %d, remainder_retrys: %"PRI64_PREFIX"d, ret: %d, read_size:%ld, len: %d",
+            TBSYS_LOG(INFO, "read raw data from ds: %s finish, blockid: %" PRI64_PREFIX "u, offset: %d, remainder_retrys: %" PRI64_PREFIX "d, ret: %d, read_size:%ld, len: %d",
               tbsys::CNetUtil::addrToString(src_ds_id).c_str(), block_id_, cur_offset, remainder_retrys, ret, read_size, len);
           }
           else
           {
-            TBSYS_LOG(DEBUG, "read raw data from ds: %s succ, blockid: %"PRI64_PREFIX"u, offset: %d, len: %d, data: %p",
+            TBSYS_LOG(DEBUG, "read raw data from ds: %s succ, blockid: %" PRI64_PREFIX "u, offset: %d, len: %d, data: %p",
                 tbsys::CNetUtil::addrToString(src_ds_id).c_str(), block_id_, cur_offset, len, rsp_rrd_msg->get_data());
           }
         }
         else if (STATUS_MESSAGE == rsp->getPCode())
         {
           StatusMessage* sm = dynamic_cast<StatusMessage*>(rsp);
-          TBSYS_LOG(ERROR, "read raw data from ds: %s failed, blockid: %"PRI64_PREFIX"u, offset: %d, remainder_retrys: %"PRI64_PREFIX"d, error msg:%s, ret: %d",
+          TBSYS_LOG(ERROR, "read raw data from ds: %s failed, blockid: %" PRI64_PREFIX "u, offset: %d, remainder_retrys: %" PRI64_PREFIX "d, error msg:%s, ret: %d",
           tbsys::CNetUtil::addrToString(src_ds_id).c_str(), block_id_, cur_offset, remainder_retrys, sm->get_error(), sm->get_status());
           ret = sm->get_status();
         }
         else //unknow type
         {
-          TBSYS_LOG(ERROR, "read raw data from ds: %s failed, blockid: %"PRI64_PREFIX"u, offset: %d, remainder_retrys: %"PRI64_PREFIX"d, unknow msg type: %d",
+          TBSYS_LOG(ERROR, "read raw data from ds: %s failed, blockid: %" PRI64_PREFIX "u, offset: %d, remainder_retrys: %" PRI64_PREFIX "d, unknow msg type: %d",
               tbsys::CNetUtil::addrToString(src_ds_id).c_str(), block_id_, cur_offset, remainder_retrys, rsp->getPCode());
           ret = EXIT_READ_FILE_ERROR;
         }
@@ -335,13 +335,13 @@ int SyncByBlockWorker::read_data(const uint64_t src_ds_id)
       speed = read_size * 1000 * 1000 / TIMER_DURATION();
     }
 
-    TBSYS_LOG(DEBUG, "read data, cost time: %"PRI64_PREFIX"d, read size: %"PRI64_PREFIX"d, speed: %"PRI64_PREFIX"d byte/s, need sleep time: %"PRI64_PREFIX"d",
+    TBSYS_LOG(DEBUG, "read data, cost time: %" PRI64_PREFIX "d, read size: %" PRI64_PREFIX "d, speed: %" PRI64_PREFIX "d byte/s, need sleep time: %" PRI64_PREFIX "d",
         TIMER_DURATION(), read_size, speed, d_value);
   }
 
   if (TFS_SUCCESS != ret)
   {
-    TBSYS_LOG(ERROR, "read raw data from ds: %s failed, blockid: %"PRI64_PREFIX"u, ret:%d", tbsys::CNetUtil::addrToString(src_ds_id).c_str(), block_id_, ret);
+    TBSYS_LOG(ERROR, "read raw data from ds: %s failed, blockid: %" PRI64_PREFIX "u, ret:%d", tbsys::CNetUtil::addrToString(src_ds_id).c_str(), block_id_, ret);
   }
   return ret;
 }
@@ -408,7 +408,7 @@ int SyncByBlockWorker::write_block()
       {
         result = SYNC_FAILED;
         all_success = false;
-        TBSYS_LOG(WARN, "write file fail, filename: %s, blockid: %"PRI64_PREFIX"u, fileid: %"PRI64_PREFIX"u, ret:%d", file_name.c_str(), block_id_, it->id_, ret);
+        TBSYS_LOG(WARN, "write file fail, filename: %s, blockid: %" PRI64_PREFIX "u, fileid: %" PRI64_PREFIX "u, ret:%d", file_name.c_str(), block_id_, it->id_, ret);
       }
       else
       {
@@ -417,12 +417,12 @@ int SyncByBlockWorker::write_block()
     }
     else
     {
-      TBSYS_LOG(DEBUG, "skip 'DELETE' file, blockid: %"PRI64_PREFIX"u, fileid: %"PRI64_PREFIX"u", block_id_, it->id_);
+      TBSYS_LOG(DEBUG, "skip 'DELETE' file, blockid: %" PRI64_PREFIX "u, fileid: %" PRI64_PREFIX "u", block_id_, it->id_);
     }
     get_manager()->write_log_file(file_name, result);
   }
   ret = all_success ? TFS_SUCCESS : EXIT_GENERAL_ERROR;// sync some file fail
-  TBSYS_LOG(INFO, "write block %s, blockid: %"PRI64_PREFIX"u", TFS_SUCCESS == ret ? "success" : "fail", block_id_);
+  TBSYS_LOG(INFO, "write block %s, blockid: %" PRI64_PREFIX "u", TFS_SUCCESS == ret ? "success" : "fail", block_id_);
   return ret;
 }
 
@@ -497,7 +497,7 @@ int SyncByBlockWorker::sync_block_by_file(vector<FileInfoV2>& src_finfos, vector
 
   if (src_file_iter == src_finfos.end())
   {
-    TBSYS_LOG(DEBUG, "sync block finished. blockid: %"PRI64_PREFIX"u, %s", block_id_, no_need_sync ? "no need sync" : "sync have done");
+    TBSYS_LOG(DEBUG, "sync block finished. blockid: %" PRI64_PREFIX "u, %s", block_id_, no_need_sync ? "no need sync" : "sync have done");
 
     //dest_finfos_set最后剩下的即为多余文件
     int32_t succ_del_count = 0;
@@ -522,14 +522,14 @@ int SyncByBlockWorker::sync_block_by_file(vector<FileInfoV2>& src_finfos, vector
           {
             sync_block_all_success = false;
           }
-          TBSYS_LOG(WARN, "unlink redundant dest file fail, blockid: %"PRI64_PREFIX"u, file_id:%"PRI64_PREFIX"u, filename: %s, ret:%d", block_id_, it->id_, file_name.c_str(), ret);
+          TBSYS_LOG(WARN, "unlink redundant dest file fail, blockid: %" PRI64_PREFIX "u, file_id:%" PRI64_PREFIX "u, filename: %s, ret:%d", block_id_, it->id_, file_name.c_str(), ret);
         }
         else
         {
           ++succ_del_count;
         }
       }
-      TBSYS_LOG(INFO, "redundant file count:%zd in dest cluster, delete succ count:%d, no need delete count:%d, blockid: %"PRI64_PREFIX"u", dest_finfos_set.size(), succ_del_count, unsync_del_count, block_id_);
+      TBSYS_LOG(INFO, "redundant file count:%zd in dest cluster, delete succ count:%d, no need delete count:%d, blockid: %" PRI64_PREFIX "u", dest_finfos_set.size(), succ_del_count, unsync_del_count, block_id_);
     }
 
     if (!sync_block_all_success)
@@ -539,7 +539,7 @@ int SyncByBlockWorker::sync_block_by_file(vector<FileInfoV2>& src_finfos, vector
   }
   else
   {
-    TBSYS_LOG(INFO, "sync stopped when doing blockid: %"PRI64_PREFIX"u", block_id_);
+    TBSYS_LOG(INFO, "sync stopped when doing blockid: %" PRI64_PREFIX "u", block_id_);
     ret = EXIT_GENERAL_ERROR;//block同步中途终止，没有全部同步完成
   }
 
@@ -563,7 +563,7 @@ int SyncByBlockWorker::process(string& line)
         if (TFS_SUCCESS == ret)
         {
           ret = sync_block_by_file(src_finfos, dest_finfos);
-          TBSYS_LOG(INFO, "sync blockid: %"PRI64_PREFIX"u' %s, src files list size: %zd", block_id_, TFS_SUCCESS == ret ? "success" : "fail", src_finfos.size());
+          TBSYS_LOG(INFO, "sync blockid: %" PRI64_PREFIX "u' %s, src files list size: %zd", block_id_, TFS_SUCCESS == ret ? "success" : "fail", src_finfos.size());
         }
         else
         {
@@ -575,30 +575,30 @@ int SyncByBlockWorker::process(string& line)
           {
             //必须先确保ns解组恢复正常的block成功，然后强制删除持久化的编组信息；但是这个过程不可能一下子就完成所以这里其实什么都不比做
             //delete_family_info_from_ns(block_id_);顺便把block对象删掉,否则NEW_BLK open可能个失败
-            TBSYS_LOG(WARN, "dest cluster's block is lost, family can not reinstate, try to let nameserver dissolve family right now, blockid: %"PRI64_PREFIX"u'", block_id_);
+            TBSYS_LOG(WARN, "dest cluster's block is lost, family can not reinstate, try to let nameserver dissolve family right now, blockid: %" PRI64_PREFIX "u'", block_id_);
           }
 
           if (TFS_SUCCESS == ret)
           {
           //  ret = sync_block_by_block();
             ret = sync_block_by_file(src_finfos, dest_finfos);
-            TBSYS_LOG(INFO, "blockid: %"PRI64_PREFIX"u is not exist in dest cluster, sync block %s by read raw data finally", block_id_, TFS_SUCCESS == ret ? "success":"fail");
+            TBSYS_LOG(INFO, "blockid: %" PRI64_PREFIX "u is not exist in dest cluster, sync block %s by read raw data finally", block_id_, TFS_SUCCESS == ret ? "success":"fail");
           }
           else
           {
-            TBSYS_LOG(WARN, "get dest block fileinfos fail, blockid: %"PRI64_PREFIX"u sync fail, ret:%d", block_id_, ret);
+            TBSYS_LOG(WARN, "get dest block fileinfos fail, blockid: %" PRI64_PREFIX "u sync fail, ret:%d", block_id_, ret);
           }
         }
       }
       else
       {
-        TBSYS_LOG(ERROR, "get src block fileinfo fail, blockid: %"PRI64_PREFIX"u sync fail", block_id_);
+        TBSYS_LOG(ERROR, "get src block fileinfo fail, blockid: %" PRI64_PREFIX "u sync fail", block_id_);
       }
     }
     else
     {
       ret = EXIT_PARAMETER_ERROR;
-      TBSYS_LOG(ERROR, "block_id: %"PRI64_PREFIX"u is not a data block", block_id_);
+      TBSYS_LOG(ERROR, "block_id: %" PRI64_PREFIX "u is not a data block", block_id_);
     }
   }
   else
@@ -701,7 +701,7 @@ int main(int argc, char* argv[])
       traffic_threshold = strtoull(argv[idx + 1], NULL, 10);
       if (traffic_threshold <= 0)
       {
-        TBSYS_LOG(ERROR, "traffic(%"PRI64_PREFIX"d <= 0) set error", traffic_threshold);
+        TBSYS_LOG(ERROR, "traffic(%" PRI64_PREFIX "d <= 0) set error", traffic_threshold);
         exit(-1);
       }
       for (int i = idx; i + 2 < argc; ++i)

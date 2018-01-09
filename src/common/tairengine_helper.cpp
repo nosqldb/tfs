@@ -554,7 +554,7 @@ namespace tfs
 
         prefix_key_size = pos - key.key_ + 1;
         second_key_size = key.key_size_ - prefix_key_size;
-        TBSYS_LOG(DEBUG, "PKEY POS is %"PRI64_PREFIX"d", prefix_key_size);
+        TBSYS_LOG(DEBUG, "PKEY POS is %" PRI64_PREFIX "d", prefix_key_size);
         if (NULL == pos || prefix_key_size <= 0 || second_key_size < 0)
         {
           TBSYS_LOG(ERROR, "invalid key is %s", key.key_);

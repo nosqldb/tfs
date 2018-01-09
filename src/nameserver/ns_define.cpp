@@ -49,7 +49,7 @@ namespace tfs
     void NsGlobalStatisticsInfo::dump(int32_t level, const char* file , const int32_t line , const char* function , const pthread_t thid) const
     {
       TBSYS_LOGGER.logMessage(level, file, line, function, thid,
-          "use_capacity: %"PRI64_PREFIX"d, total_capacity: %"PRI64_PREFIX"d, total_block_count: %"PRI64_PREFIX"d, total_load: %"PRI64_PREFIX"d",
+          "use_capacity: %" PRI64_PREFIX "d, total_capacity: %" PRI64_PREFIX "d, total_block_count: %" PRI64_PREFIX "d, total_load: %" PRI64_PREFIX "d",
           use_capacity_, total_capacity_, total_block_count_, total_load_);
     }
 
@@ -235,7 +235,7 @@ namespace tfs
         vsnprintf(msgstr, 256, NULL == format ? "" : format, ap);
         va_end(ap);
         TBSYS_LOGGER.logMessage(level, file, line, function, thid, "%s, owner_ip_port: %s, other_side_ip_port: %s,switch_time: %s, vip: %s \
-          destroy: %s, owner_role: %s, other_side_role: %s, owner_status: %s, other_side_status: %s, leaes_id: %"PRI64_PREFIX"d, lease_expired_time: %"PRI64_PREFIX"d",
+          destroy: %s, owner_role: %s, other_side_role: %s, owner_status: %s, other_side_status: %s, leaes_id: %" PRI64_PREFIX "d, lease_expired_time: %" PRI64_PREFIX "d",
           msgstr, tbsys::CNetUtil::addrToString(owner_ip_port_).c_str(), tbsys::CNetUtil::addrToString(peer_ip_port_).c_str(),
           common::Func::time_to_str(switch_time_).c_str(), tbsys::CNetUtil::addrToString(vip_).c_str(),
           destroy_flag_ ? "yes" : "no", owner_role_

@@ -171,7 +171,7 @@ namespace tfs
     string FSName::to_string()
     {
       char buffer[256];
-      snprintf(buffer, 256, "block_id: %"PRI64_PREFIX"u, file_id: %"PRI64_PREFIX"u, seq_id: %u, suffix: %u, name: %s",
+      snprintf(buffer, 256, "block_id: %" PRI64_PREFIX "u, file_id: %" PRI64_PREFIX "u, seq_id: %u, suffix: %u, name: %s",
                get_block_id(), get_file_id(), get_seq_id(), get_suffix(), get_name());
       return string(buffer);
     }

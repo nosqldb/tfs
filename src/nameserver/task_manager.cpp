@@ -215,7 +215,7 @@ namespace tfs
                 bool insert_server= is_insert_server_(type, DATA_MEMBER_NUM, index);
                 ret = insert_(helper, task, members[index], target, insert_block, insert_server);
                 if (TFS_SUCCESS != ret)
-                  TBSYS_LOG(INFO, "family_id : %"PRI64_PREFIX"d, block: %"PRI64_PREFIX"u, server: %"PRI64_PREFIX"u, ret: %d", family_id, members[index].block_, members[index].server_, ret);
+                  TBSYS_LOG(INFO, "family_id : %" PRI64_PREFIX "d, block: %" PRI64_PREFIX "u, server: %" PRI64_PREFIX "u, ret: %d", family_id, members[index].block_, members[index].server_, ret);
               }
             }
 
@@ -305,7 +305,7 @@ namespace tfs
       {
         RWLock::Lock lock(rwmutex_, READ_LOCKER);
         TBSYS_LOGGER.logMessage(level, __FILE__, __LINE__, __FUNCTION__,pthread_self(),
-            "%s, tasks size: %zd, block_to_task size: %zd, machine_to_task size: %"PRI64_PREFIX"d, family_to_tasks_: %zd, pening_queue_size: %zd",
+            "%s, tasks size: %zd, block_to_task size: %zd, machine_to_task size: %" PRI64_PREFIX "d, family_to_tasks_: %zd, pening_queue_size: %zd",
             format == NULL ? "" : format, tasks_.size(), block_to_tasks_.size(), size_(), family_to_tasks_.size() , pending_queue_.size());
         TASKS_CONST_ITER it = tasks_.begin();
         for (; it != tasks_.end(); ++it)
@@ -409,11 +409,11 @@ namespace tfs
     int TaskManager::remove_block_from_dataserver(const uint64_t block, const ServerItem& item, const time_t now)
     {
       int32_t ret = remove_block_from_dataserver_(block, item, now);
-      TBSYS_LOG(INFO, "send remove block: %"PRI64_PREFIX"u command on server : %s %s, family_id: %"PRI64_PREFIX"d, version: %d, ret: %d",
+      TBSYS_LOG(INFO, "send remove block: %" PRI64_PREFIX "u command on server : %s %s, family_id: %" PRI64_PREFIX "d, version: %d, ret: %d",
         block, tbsys::CNetUtil::addrToString(item.server_).c_str(), TFS_SUCCESS == ret ? "successful" : "failed",
         item.family_id_, item.version_, ret);
       tbsys::CLogger& block_log = get_layout_manager().get_block_log();
-      block_log.logMessage(TBSYS_LOG_LEVEL(INFO), "send remove block-%"PRI64_PREFIX"u server: %s %s",
+      block_log.logMessage(TBSYS_LOG_LEVEL(INFO), "send remove block-%" PRI64_PREFIX "u server: %s %s",
           block, tbsys::CNetUtil::addrToString(item.server_).c_str(), TFS_SUCCESS == ret ? "successful" : "failed");
       return ret;
     }
@@ -425,11 +425,11 @@ namespace tfs
       cfmsg.set_block(block);
       cfmsg.set_family_id(item.family_id_);
       int32_t ret = post_msg_to_server(item.server_, &cfmsg, ns_async_callback);
-      TBSYS_LOG(INFO, "send clean familyinfo block: %"PRI64_PREFIX"u command on server : %s %s, family_id: %"PRI64_PREFIX"d, version: %d",
+      TBSYS_LOG(INFO, "send clean familyinfo block: %" PRI64_PREFIX "u command on server : %s %s, family_id: %" PRI64_PREFIX "d, version: %d",
         block, tbsys::CNetUtil::addrToString(item.server_).c_str(), TFS_SUCCESS == ret ? "successful" : "failed",
         item.family_id_, item.version_);
       tbsys::CLogger& block_log = get_layout_manager().get_block_log();
-      block_log.logMessage(TBSYS_LOG_LEVEL(INFO), "send clean familyinfo, family-%"PRI64_PREFIX"d, block-%"PRI64_PREFIX"u server: %s %s",
+      block_log.logMessage(TBSYS_LOG_LEVEL(INFO), "send clean familyinfo, family-%" PRI64_PREFIX "d, block-%" PRI64_PREFIX "u server: %s %s",
           item.family_id_, block, tbsys::CNetUtil::addrToString(item.server_).c_str(), TFS_SUCCESS == ret ? "successful" : "failed");
       return ret;
     }

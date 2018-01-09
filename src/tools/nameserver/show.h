@@ -188,7 +188,7 @@ namespace tfs
             ret = block->check_block_finally(ns_ip_, result);
             if (common::TFS_SUCCESS != ret)
             {
-              TBSYS_LOG(ERROR, "check block: %"PRI64_PREFIX"u finally error, ret: %d", block->info_.block_id_, ret);
+              TBSYS_LOG(ERROR, "check block: %" PRI64_PREFIX "u finally error, ret: %d", block->info_.block_id_, ret);
             }
             else if (!result)
             {
@@ -201,7 +201,7 @@ namespace tfs
 
         int end(FILE* fp)
         {
-          fprintf(fp, "\nInconsistent Block Count %"PRI64_PREFIX"d, Total Block Count %"PRI64_PREFIX"d\n",
+          fprintf(fp, "\nInconsistent Block Count %" PRI64_PREFIX "d, Total Block Count %" PRI64_PREFIX "d\n",
               inconsistent_count_, total_count_);
           return common::TFS_SUCCESS;
         }

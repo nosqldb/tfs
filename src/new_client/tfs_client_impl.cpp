@@ -562,12 +562,12 @@ void TfsClientImpl::set_cache_items(const int64_t cache_items)
   if (cache_items >= 0)
   {
     ClientConfig::cache_items_ = cache_items;
-    TBSYS_LOG(INFO, "set cache items: %"PRI64_PREFIX"d", ClientConfig::cache_items_);
+    TBSYS_LOG(INFO, "set cache items: %" PRI64_PREFIX "d", ClientConfig::cache_items_);
     ClientConfig::use_cache_ |= USE_CACHE_FLAG_LOCAL;
   }
   else
   {
-    TBSYS_LOG(WARN, "set cache items invalid: %"PRI64_PREFIX"d", cache_items);
+    TBSYS_LOG(WARN, "set cache items invalid: %" PRI64_PREFIX "d", cache_items);
   }
 }
 
@@ -581,12 +581,12 @@ void TfsClientImpl::set_cache_time(const int64_t cache_time)
   if (cache_time > 0)
   {
     ClientConfig::cache_time_ = cache_time;
-    TBSYS_LOG(INFO, "set cache time: %"PRI64_PREFIX"d", ClientConfig::cache_time_);
+    TBSYS_LOG(INFO, "set cache time: %" PRI64_PREFIX "d", ClientConfig::cache_time_);
     ClientConfig::use_cache_ |= USE_CACHE_FLAG_LOCAL;
   }
   else
   {
-    TBSYS_LOG(WARN, "set cache time invalid: %"PRI64_PREFIX"d", cache_time);
+    TBSYS_LOG(WARN, "set cache time invalid: %" PRI64_PREFIX "d", cache_time);
   }
 }
 
@@ -797,12 +797,12 @@ void TfsClientImpl::set_segment_size(const int64_t segment_size)
   {
     ClientConfig::segment_size_ = segment_size;
     ClientConfig::batch_size_ = ClientConfig::segment_size_ * ClientConfig::batch_count_;
-    TBSYS_LOG(INFO, "set segment size: %" PRI64_PREFIX "d, batch count: %" PRI64_PREFIX "d, batch size: %" PRI64_PREFIX "d",
+    TBSYS_LOG(INFO, "set segment size: %"  PRI64_PREFIX  "d, batch count: %"  PRI64_PREFIX  "d, batch size: %"  PRI64_PREFIX  "d",
               ClientConfig::segment_size_, ClientConfig::batch_count_, ClientConfig::batch_size_);
   }
   else
   {
-    TBSYS_LOG(WARN, "set segment size %"PRI64_PREFIX"d not in (0, %"PRI64_PREFIX"d]", segment_size, MAX_SEGMENT_SIZE);
+    TBSYS_LOG(WARN, "set segment size %" PRI64_PREFIX "d not in (0, %" PRI64_PREFIX "d]", segment_size, MAX_SEGMENT_SIZE);
   }
 }
 
@@ -817,12 +817,12 @@ void TfsClientImpl::set_batch_count(const int64_t batch_count)
   {
     ClientConfig::batch_count_ = batch_count;
     ClientConfig::batch_size_ = ClientConfig::segment_size_ * ClientConfig::batch_count_;
-    TBSYS_LOG(INFO, "set batch count: %" PRI64_PREFIX "d, segment size: %" PRI64_PREFIX "d, batch size: %" PRI64_PREFIX "d",
+    TBSYS_LOG(INFO, "set batch count: %"  PRI64_PREFIX  "d, segment size: %"  PRI64_PREFIX  "d, batch size: %"  PRI64_PREFIX  "d",
               ClientConfig::batch_count_, ClientConfig::segment_size_, ClientConfig::batch_size_);
   }
   else
   {
-    TBSYS_LOG(WARN, "set batch count %"PRI64_PREFIX"d not in (0, %"PRI64_PREFIX"d]", batch_count, MAX_BATCH_COUNT);
+    TBSYS_LOG(WARN, "set batch count %" PRI64_PREFIX "d not in (0, %" PRI64_PREFIX "d]", batch_count, MAX_BATCH_COUNT);
   }
 }
 
@@ -837,11 +837,11 @@ void TfsClientImpl::set_stat_interval(const int64_t stat_interval_ms)
   {
     ClientConfig::stat_interval_ = stat_interval_ms;
     BgTask::get_stat_mgr().reset_schedule_interval(stat_interval_ms * 1000);
-    TBSYS_LOG(INFO, "set stat interval: %" PRI64_PREFIX "d ms", ClientConfig::stat_interval_);
+    TBSYS_LOG(INFO, "set stat interval: %"  PRI64_PREFIX  "d ms", ClientConfig::stat_interval_);
   }
   else
   {
-    TBSYS_LOG(WARN, "set stat interval %"PRI64_PREFIX"d <= 0", stat_interval_ms);
+    TBSYS_LOG(WARN, "set stat interval %" PRI64_PREFIX "d <= 0", stat_interval_ms);
   }
 }
 
@@ -856,11 +856,11 @@ void TfsClientImpl::set_gc_interval(const int64_t gc_interval_ms)
   {
     ClientConfig::gc_interval_ = gc_interval_ms;
     BgTask::get_gc_mgr().reset_schedule_interval(gc_interval_ms);
-    TBSYS_LOG(INFO, "set gc interval: %" PRI64_PREFIX "d ms", ClientConfig::gc_interval_);
+    TBSYS_LOG(INFO, "set gc interval: %"  PRI64_PREFIX  "d ms", ClientConfig::gc_interval_);
   }
   else
   {
-    TBSYS_LOG(WARN, "set gc interval %"PRI64_PREFIX"d <= 0", gc_interval_ms);
+    TBSYS_LOG(WARN, "set gc interval %" PRI64_PREFIX "d <= 0", gc_interval_ms);
   }
 }
 
@@ -874,11 +874,11 @@ void TfsClientImpl::set_gc_expired_time(const int64_t gc_expired_time_ms)
   if (gc_expired_time_ms >= MIN_GC_EXPIRED_TIME)
   {
     ClientConfig::expired_time_ = gc_expired_time_ms;
-    TBSYS_LOG(INFO, "set gc expired time: %" PRI64_PREFIX "d ms", ClientConfig::expired_time_);
+    TBSYS_LOG(INFO, "set gc expired time: %"  PRI64_PREFIX  "d ms", ClientConfig::expired_time_);
   }
   else
   {
-    TBSYS_LOG(WARN, "set gc expired interval %"PRI64_PREFIX"d < %"PRI64_PREFIX"d",
+    TBSYS_LOG(WARN, "set gc expired interval %" PRI64_PREFIX "d < %" PRI64_PREFIX "d",
               gc_expired_time_ms, MIN_GC_EXPIRED_TIME);
   }
 }
@@ -893,11 +893,11 @@ void TfsClientImpl::set_batch_timeout(const int64_t timeout_ms)
   if (timeout_ms > 0)
   {
     ClientConfig::batch_timeout_ = timeout_ms;
-    TBSYS_LOG(INFO, "set batch timeout: %" PRI64_PREFIX "d ms", ClientConfig::batch_timeout_);
+    TBSYS_LOG(INFO, "set batch timeout: %"  PRI64_PREFIX  "d ms", ClientConfig::batch_timeout_);
   }
   else
   {
-    TBSYS_LOG(WARN, "set batch timeout %"PRI64_PREFIX"d <= 0", timeout_ms);
+    TBSYS_LOG(WARN, "set batch timeout %" PRI64_PREFIX "d <= 0", timeout_ms);
   }
 }
 
@@ -911,11 +911,11 @@ void TfsClientImpl::set_wait_timeout(const int64_t timeout_ms)
   if (timeout_ms > 0)
   {
     ClientConfig::wait_timeout_ = timeout_ms;
-    TBSYS_LOG(INFO, "set wait timeout: %" PRI64_PREFIX "d ms", ClientConfig::wait_timeout_);
+    TBSYS_LOG(INFO, "set wait timeout: %"  PRI64_PREFIX  "d ms", ClientConfig::wait_timeout_);
   }
   else
   {
-    TBSYS_LOG(WARN, "set wait timeout %"PRI64_PREFIX"d <= 0", timeout_ms);
+    TBSYS_LOG(WARN, "set wait timeout %" PRI64_PREFIX "d <= 0", timeout_ms);
   }
 }
 
@@ -1230,7 +1230,7 @@ int64_t TfsClientImpl::save_file_ex(char* ret_tfs_name, const int32_t ret_tfs_na
           {
             continue;
           }
-          TBSYS_LOG(ERROR, "read local file %s fail, ret: %"PRI64_PREFIX"d, error: %s", local_file, read_len, strerror(errno));
+          TBSYS_LOG(ERROR, "read local file %s fail, ret: %" PRI64_PREFIX "d, error: %s", local_file, read_len, strerror(errno));
           break;
         }
 
@@ -1241,7 +1241,7 @@ int64_t TfsClientImpl::save_file_ex(char* ret_tfs_name, const int32_t ret_tfs_na
 
         if ((write_len = write(tfs_fd, buf, read_len)) != read_len)
         {
-          TBSYS_LOG(ERROR, "write to tfs fail, write len: %"PRI64_PREFIX"d, ret: %"PRI64_PREFIX"d",
+          TBSYS_LOG(ERROR, "write to tfs fail, write len: %" PRI64_PREFIX "d, ret: %" PRI64_PREFIX "d",
                     read_len, write_len);
           break;
         }
@@ -1284,7 +1284,7 @@ int64_t TfsClientImpl::save_buf_ex(char* ret_tfs_name, const int32_t ret_tfs_nam
 
   if (NULL == buf || count <= 0)
   {
-    TBSYS_LOG(ERROR, "invalid buffer and count. buffer: %p, count: %"PRI64_PREFIX"d", buf, count);
+    TBSYS_LOG(ERROR, "invalid buffer and count. buffer: %p, count: %" PRI64_PREFIX "d", buf, count);
   }
   else if ((flag & (~(T_DEFAULT|T_WRITE|T_NEWBLK|T_LARGE))) != 0)
   {
@@ -1303,7 +1303,7 @@ int64_t TfsClientImpl::save_buf_ex(char* ret_tfs_name, const int32_t ret_tfs_nam
       int64_t write_len = write(tfs_fd, buf, count);
       if (write_len != count)
       {
-        TBSYS_LOG(ERROR, "write to tfs fail, write len: %"PRI64_PREFIX"d, ret: %"PRI64_PREFIX"d",
+        TBSYS_LOG(ERROR, "write to tfs fail, write len: %" PRI64_PREFIX "d, ret: %" PRI64_PREFIX "d",
                   count, write_len);
       }
 
@@ -1370,7 +1370,7 @@ int TfsClientImpl::fetch_file(const char* local_file, const char* file_name, con
       {
         if ((read_len = this->read(tfs_fd, buf, io_size)) < 0)
         {
-          TBSYS_LOG(ERROR, "read tfs file fail. tfsname: %s, suffix: %s, ret: %"PRI64_PREFIX"d",
+          TBSYS_LOG(ERROR, "read tfs file fail. tfsname: %s, suffix: %s, ret: %" PRI64_PREFIX "d",
                     file_name, suffix, read_len);
           break;
         }
@@ -1383,7 +1383,7 @@ int TfsClientImpl::fetch_file(const char* local_file, const char* file_name, con
 
         if ((write_len = ::write(fd, buf, read_len)) != read_len)
         {
-          TBSYS_LOG(ERROR, "write local file %s fail, write len: %"PRI64_PREFIX"d, ret: %"PRI64_PREFIX"d, error: %s",
+          TBSYS_LOG(ERROR, "write local file %s fail, write len: %" PRI64_PREFIX "d, ret: %" PRI64_PREFIX "d, error: %s",
                     local_file, read_len, write_len, strerror(errno));
           break;
         }
@@ -1445,7 +1445,7 @@ int TfsClientImpl::fetch_file(int64_t& ret_count, char* buf, const int64_t count
         per_io_size = io_size > left_len ? left_len : io_size;
         if ((read_len = this->read(tfs_fd, buf + (count - left_len), per_io_size)) < 0)
         {
-          TBSYS_LOG(ERROR, "read tfs file fail. tfsname: %s, suffix: %s, ret: %"PRI64_PREFIX"d",
+          TBSYS_LOG(ERROR, "read tfs file fail. tfsname: %s, suffix: %s, ret: %" PRI64_PREFIX "d",
                     file_name, suffix, read_len);
           ret = read_len;
           break;
@@ -1502,11 +1502,11 @@ int TfsClientImpl::fetch_file_ex(char*& buf, int64_t& count, const char* file_na
     {
       if ((file_length = get_file_length(tfs_fd)) <= 0)
       {
-        TBSYS_LOG(ERROR, "get file length fail. ret: %"PRI64_PREFIX"d", file_length);
+        TBSYS_LOG(ERROR, "get file length fail. ret: %" PRI64_PREFIX "d", file_length);
       }
       else if (file_length > TFS_MALLOC_MAX_SIZE) // cannot alloc buffer once
       {
-        TBSYS_LOG(ERROR, "file length larger than max malloc size. %"PRI64_PREFIX"d > %"PRI64_PREFIX"d",
+        TBSYS_LOG(ERROR, "file length larger than max malloc size. %" PRI64_PREFIX "d > %" PRI64_PREFIX "d",
                   file_length, TFS_MALLOC_MAX_SIZE);
       }
       else
@@ -1521,7 +1521,7 @@ int TfsClientImpl::fetch_file_ex(char*& buf, int64_t& count, const char* file_na
           per_io_size = io_size > left_len ? left_len : io_size;
           if ((read_len = this->read(tfs_fd, buf + (file_length - left_len), per_io_size)) < 0)
           {
-            TBSYS_LOG(ERROR, "read tfs file fail. tfsname: %s, suffix: %s, ret: %"PRI64_PREFIX"d",
+            TBSYS_LOG(ERROR, "read tfs file fail. tfsname: %s, suffix: %s, ret: %" PRI64_PREFIX "d",
                       file_name, suffix, read_len);
             ret = read_len;
             break;

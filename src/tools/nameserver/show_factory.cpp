@@ -204,7 +204,7 @@ namespace tfs
       int32_t count = 0;
       for (; iter != blocks.end(); iter++)
       {
-        fprintf(fp, " %12"PRI64_PREFIX"u",(*iter));
+        fprintf(fp, " %12" PRI64_PREFIX "u",(*iter));
         if (++count >= MAX_COUNT)
         {
           fprintf(fp, "\n%25s", " ");
@@ -218,7 +218,7 @@ namespace tfs
       if (fp == NULL) { return; }
       if (type & SERVER_TYPE_SERVER_INFO)
       {
-        fprintf(fp, "%17s %7s %7s %4d%% %7d %9zd %8u %6d %6s %5"PRI64_PREFIX"d %6s %5"PRI64_PREFIX"d %4s %5"PRI64_PREFIX"d %5s %5"PRI64_PREFIX"d %-18s\n",
+        fprintf(fp, "%17s %7s %7s %4d%% %7d %9zd %8u %6d %6s %5" PRI64_PREFIX "d %6s %5" PRI64_PREFIX "d %4s %5" PRI64_PREFIX "d %5s %5" PRI64_PREFIX "d %-18s\n",
             tbsys::CNetUtil::addrToString(server_stat_.id_).c_str(),
             Func::format_size(server_stat_.use_capacity_).c_str(),
             Func::format_size(server_stat_.total_capacity_).c_str(),
@@ -259,20 +259,20 @@ namespace tfs
       if (fp == NULL) { return; }
       if (type & BLOCK_TYPE_BLOCK_INFO)
       {
-        fprintf(fp, "%-10"PRI64_PREFIX"d %-20"PRI64_PREFIX"u %-8d %-8d %-10d %-8d %-10d %-8d %-10d %-6Zd",
+        fprintf(fp, "%-10" PRI64_PREFIX "d %-20" PRI64_PREFIX "u %-8d %-8d %-10d %-8d %-10d %-8d %-10d %-6Zd",
             info_.family_id_, info_.block_id_, info_.version_, info_.file_count_, info_.size_,
             info_.del_file_count_, info_.del_size_, info_.update_file_count_,
             info_.update_size_, server_list_.size());
       }
       if (type & BLOCK_TYPE_BLOCK_STATUS)
       {
-        fprintf(fp, "%-10"PRI64_PREFIX"d %-20"PRI64_PREFIX"u %-8d %-12d %-9d %-14d %-12"PRI64_PREFIX"d %-12"PRI64_PREFIX"d",
+        fprintf(fp, "%-10" PRI64_PREFIX "d %-20" PRI64_PREFIX "u %-8d %-12d %-9d %-14d %-12" PRI64_PREFIX "d %-12" PRI64_PREFIX "d",
             info_.family_id_, info_.block_id_, create_flag_, in_replicate_queue_, has_lease_,
             choose_master_, expire_time_, last_leave_time_);
       }
       if (type & BLOCK_TYPE_SERVER_LIST)
       {
-        fprintf(fp, "%-10"PRI64_PREFIX"d  %-15"PRI64_PREFIX"u", info_.family_id_, info_.block_id_);
+        fprintf(fp, "%-10" PRI64_PREFIX "d  %-15" PRI64_PREFIX "u", info_.family_id_, info_.block_id_);
         std::stringstream server_str;
         std::vector<ServerInfo>::const_iterator iter = server_list_.begin();
         for (; iter != server_list_.end(); iter++)
@@ -330,7 +330,7 @@ namespace tfs
       }
       else
       {
-        fprintf(stderr, "get block: %"PRI64_PREFIX"u ds_list from ns fail, ret: %d\n",
+        fprintf(stderr, "get block: %" PRI64_PREFIX "u ds_list from ns fail, ret: %d\n",
             info_.block_id_, ret);
       }
       return ret;
@@ -339,7 +339,7 @@ namespace tfs
     void BlockCheckShow::dump(FILE* fp) const
     {
       if (fp == NULL) { return; }
-      fprintf(fp, "%"PRI64_PREFIX"u", info_.block_id_);
+      fprintf(fp, "%" PRI64_PREFIX "u", info_.block_id_);
       string out = "";
       for (uint32_t i = 0; i < ns_more_.size(); ++i)
       {
@@ -392,7 +392,7 @@ namespace tfs
     void BlockDistributionShow::dump_rack(FILE* fp) const
     {
       if (fp == NULL) { return; }
-      //fprintf(fp, " %-10"PRI64_PREFIX"u    %Zd    ", info_.block_id_, ip_rack_servers_.size());
+      //fprintf(fp, " %-10" PRI64_PREFIX "u    %Zd    ", info_.block_id_, ip_rack_servers_.size());
       std::string server_str = "";
       std::map<uint32_t, std::vector<uint64_t>* >::const_iterator iter = ip_rack_servers_.begin();
       int32_t count = 0;
@@ -410,7 +410,7 @@ namespace tfs
         }
       }
       assert("" != server_str);
-      fprintf(fp, " %-10"PRI64_PREFIX"u   %d(%Zd)    ", info_.block_id_,count, ip_rack_servers_.size());
+      fprintf(fp, " %-10" PRI64_PREFIX "u   %d(%Zd)    ", info_.block_id_,count, ip_rack_servers_.size());
       fprintf(fp, " %s\n", server_str.c_str());
     }
 
@@ -458,7 +458,7 @@ namespace tfs
           unsigned char *bytes = (unsigned char *) &(iter->first);
           fprintf(fp, "%d.%d.%d.%d  %10Zd\n", bytes[0], bytes[1], bytes[2], bytes[3], iter->second->size());//大小端
         }
-        fprintf(fp, "rack count: %Zd, total block(replicate) count: %"PRI64_PREFIX"u\n", rack_blocks_.size(), total_block_replicate_count_);
+        fprintf(fp, "rack count: %Zd, total block(replicate) count: %" PRI64_PREFIX "u\n", rack_blocks_.size(), total_block_replicate_count_);
       }
       else
       {
@@ -474,7 +474,7 @@ namespace tfs
             char tmp[255];
             for(uint64_t index = 0; index < block_count; index++)
             {
-              sprintf(tmp, "%-10"PRI64_PREFIX"u", block_list->at(index));
+              sprintf(tmp, "%-10" PRI64_PREFIX "u", block_list->at(index));
               server_str += static_cast<std::string> (tmp) + " ";
               if((index+1) % 15 == 0)
               {
@@ -487,7 +487,7 @@ namespace tfs
         {
           fprintf(fp, "%s\n", server_str.c_str());
         }
-        fprintf(fp, "the total block replicates count is %"PRI64_PREFIX"u in rack %s\n",
+        fprintf(fp, "the total block replicates count is %" PRI64_PREFIX "u in rack %s\n",
             block_count, tbsys::CNetUtil::addrToString(ip_group).c_str());//直接原样输出用户输入的ip_group
       }
       fprintf(fp, "\n");
@@ -619,7 +619,7 @@ namespace tfs
       if (fp == NULL) { return; }
       if (flag & MACHINE_TYPE_ALL)
       {
-        fprintf(fp, "  %-12s  %4d %5s %7s  %2d%%  %4d %6zd  %8u  %5d %6s %5"PRI64_PREFIX"d %5s %5"PRI64_PREFIX"d %5s %5"PRI64_PREFIX"d %4s %5"PRI64_PREFIX"d %3s %5"PRI64_PREFIX"d %3s %5"PRI64_PREFIX"d\n",
+        fprintf(fp, "  %-12s  %4d %5s %7s  %2d%%  %4d %6zd  %8u  %5d %6s %5" PRI64_PREFIX "d %5s %5" PRI64_PREFIX "d %5s %5" PRI64_PREFIX "d %4s %5" PRI64_PREFIX "d %3s %5" PRI64_PREFIX "d %3s %5" PRI64_PREFIX "d\n",
             tbsys::CNetUtil::addrToString(machine_id_).c_str(),
             index_,
             Func::format_size(use_capacity_).c_str(),
@@ -645,7 +645,7 @@ namespace tfs
       }
       else if (flag & MACHINE_TYPE_PART)
       {
-        fprintf(fp, "  %-12s  %4d %6s %7s  %2d%%  %6d  %6zd  %5u %5d  %5s %4"PRI64_PREFIX"d %5s %5"PRI64_PREFIX"d %5s %5"PRI64_PREFIX"d %4s %5"PRI64_PREFIX"d %-19s\n",
+        fprintf(fp, "  %-12s  %4d %6s %7s  %2d%%  %6d  %6zd  %5u %5d  %5s %4" PRI64_PREFIX "d %5s %5" PRI64_PREFIX "d %5s %5" PRI64_PREFIX "d %4s %5" PRI64_PREFIX "d %-19s\n",
             tbsys::CNetUtil::addrToString(machine_id_).c_str(),
             index_,
             Func::format_size(use_capacity_).c_str(),
@@ -710,7 +710,7 @@ namespace tfs
         int ret = ToolUtil::get_block_ds_list_v2(ns_ip, block_id, ds_list);
         if (TFS_SUCCESS != ret || ds_list.empty())
         {
-          fprintf(stderr, "get block: %"PRI64_PREFIX"u ds_list fail, ret: %d\n", block_id, ret);
+          fprintf(stderr, "get block: %" PRI64_PREFIX "u ds_list fail, ret: %d\n", block_id, ret);
           members_[index].second = INVALID_SERVER_ID; // fail show 0 for ds_id
         }
         else
@@ -725,7 +725,7 @@ namespace tfs
       int32_t data_member_num = GET_DATA_MEMBER_NUM(family_aid_info_);
       const int32_t check_member_num = GET_CHECK_MEMBER_NUM(family_aid_info_);
       const int32_t member_num = data_member_num + check_member_num;
-      fprintf(fp, "%-10"PRI64_PREFIX"d %5d %6d %8s", family_id_, data_member_num, check_member_num, "");
+      fprintf(fp, "%-10" PRI64_PREFIX "d %5d %6d %8s", family_id_, data_member_num, check_member_num, "");
       std::ostringstream member_str;
       for(int32_t index = 0; index < member_num; index++)
       {
@@ -795,7 +795,7 @@ namespace tfs
       {
         if (sub_type & SERVER_TYPE_SERVER_INFO)
         {
-          fprintf(fp, "TOTAL: %5d %5s %7s %7s %4d%% %7d %9zd %8s %6d %6s %5"PRI64_PREFIX"d %6s %5"PRI64_PREFIX"d %4s %5"PRI64_PREFIX"d %5s %5"PRI64_PREFIX"d\n\n",
+          fprintf(fp, "TOTAL: %5d %5s %7s %7s %4d%% %7d %9zd %8s %6d %6s %5" PRI64_PREFIX "d %6s %5" PRI64_PREFIX "d %4s %5" PRI64_PREFIX "d %5s %5" PRI64_PREFIX "d\n\n",
               server_count_,
               "",
               Func::format_size(use_capacity_).c_str(),
@@ -820,7 +820,7 @@ namespace tfs
       {
         if (sub_type & BLOCK_TYPE_BLOCK_INFO)
         {
-          fprintf(fp, "TOTAL: %-2d  %5s  FILE COUNT/SIZE: %"PRI64_PREFIX"d/%-12s  DEL FILE COUNT/SIZE: %"PRI64_PREFIX"d/%-12s  PER_FILE(%s)\n\n",
+          fprintf(fp, "TOTAL: %-2d  %5s  FILE COUNT/SIZE: %" PRI64_PREFIX "d/%-12s  DEL FILE COUNT/SIZE: %" PRI64_PREFIX "d/%-12s  PER_FILE(%s)\n\n",
               block_count_,
               "",//调整显示格式用
               file_count_,
@@ -836,7 +836,7 @@ namespace tfs
       {
         if (sub_type & MACHINE_TYPE_ALL)
         {
-          fprintf(fp, "Total : %-10d %2d %3s %7s  %2d%%  %4d %6zd  %5s %5d %6s %5"PRI64_PREFIX"d %5s %5"PRI64_PREFIX"d %5s %5"PRI64_PREFIX"d %4s %5"PRI64_PREFIX"d\n\n",
+          fprintf(fp, "Total : %-10d %2d %3s %7s  %2d%%  %4d %6zd  %5s %5d %6s %5" PRI64_PREFIX "d %5s %5" PRI64_PREFIX "d %5s %5" PRI64_PREFIX "d %4s %5" PRI64_PREFIX "d\n\n",
               machine_count_,
               server_count_,
               Func::format_size(use_capacity_).c_str(),
@@ -858,7 +858,7 @@ namespace tfs
         }
         if (sub_type & MACHINE_TYPE_PART)
         {
-          fprintf(fp, "Total : %-10d %2d %2s %7s  %2d%%  %4d %6zd  %5d %6s %5"PRI64_PREFIX"d %5s %5"PRI64_PREFIX"d\n\n",
+          fprintf(fp, "Total : %-10d %2d %2s %7s  %2d%%  %4d %6zd  %5d %6s %5" PRI64_PREFIX "d %5s %5" PRI64_PREFIX "d\n\n",
               machine_count_,
               server_count_,
               Func::format_size(use_capacity_).c_str(),
@@ -880,7 +880,7 @@ namespace tfs
           struct tm tm;
           ::localtime_r((const time_t*)&t, &tm);
 
-          fprintf(fp, "[%04d-%02d-%02d %02d:%02d:%02d] write_flow(MBps)=%s, write_tps=%"PRI64_PREFIX"d, read_flow(MBps)=%s, read_tps=%"PRI64_PREFIX"d\n",
+          fprintf(fp, "[%04d-%02d-%02d %02d:%02d:%02d] write_flow(MBps)=%s, write_tps=%" PRI64_PREFIX "d, read_flow(MBps)=%s, read_tps=%" PRI64_PREFIX "d\n",
               tm.tm_year+1900, tm.tm_mon+1, tm.tm_mday,
               tm.tm_hour, tm.tm_min, tm.tm_sec,
               Func::format_size(last_tp_.write_byte_, 'M').c_str(),

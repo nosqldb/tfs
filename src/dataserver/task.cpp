@@ -156,7 +156,7 @@ namespace tfs
         }
 
         TBSYS_LOG(INFO, "handle complete compact task, "
-            "seqno: %"PRI64_PREFIX"d, server: %s, status: %d, ret: %d\n",
+            "seqno: %" PRI64_PREFIX "d, server: %s, status: %d, ret: %d\n",
             seqno_, tbsys::CNetUtil::addrToString(resp_cpt_msg->get_ds_id()).c_str(), status, ret);
       }
       return ret;  // no need return here
@@ -213,8 +213,8 @@ namespace tfs
       cmit_cpt_msg.set_result(result_);
       ret = get_data_helper().send_simple_request(source_id_, &cmit_cpt_msg);
 
-      TBSYS_LOG(INFO, "compact report to ns. seqno: %"PRI64_PREFIX"d, "
-          "blockid: %"PRI64_PREFIX"u, status: %d, source: %s, ret: %d",
+      TBSYS_LOG(INFO, "compact report to ns. seqno: %" PRI64_PREFIX "d, "
+          "blockid: %" PRI64_PREFIX "u, status: %d, source: %s, ret: %d",
           seqno_, block_id_, status, tbsys::CNetUtil::addrToString(source_id_).c_str(), ret);
 
       return ret;
@@ -235,7 +235,7 @@ namespace tfs
         if (TFS_SUCCESS != ret)
         {
           resp_cpt_msg.set_status(PLAN_STATUS_FAILURE);
-          TBSYS_LOG(ERROR, "compact get block failed. blockid: %"PRI64_PREFIX"u, ret: %d",
+          TBSYS_LOG(ERROR, "compact get block failed. blockid: %" PRI64_PREFIX "u, ret: %d",
               block_id_, ret);
         }
         else
@@ -249,8 +249,8 @@ namespace tfs
 
       service_.get_task_manager().remove_block(this);
 
-      TBSYS_LOG(INFO, "compact report to ds. seqno: %"PRI64_PREFIX"d, "
-          "blockid: %"PRI64_PREFIX"u, status: %d, source: %s",
+      TBSYS_LOG(INFO, "compact report to ds. seqno: %" PRI64_PREFIX "d, "
+          "blockid: %" PRI64_PREFIX "u, status: %d, source: %s",
         seqno_, block_id_, status, tbsys::CNetUtil::addrToString(source_id_).c_str());
 
       return TFS_SUCCESS;
@@ -268,7 +268,7 @@ namespace tfs
         req_cpt_msg.set_source_id(ds_info.information_.id_);
         req_cpt_msg.set_expire_time(expire_time_);
         ret = get_data_helper().send_simple_request(servers_[i], &req_cpt_msg);
-        TBSYS_LOG(DEBUG, "task seqno(%"PRI64_PREFIX"d) request %s to compact, ret: %d",
+        TBSYS_LOG(DEBUG, "task seqno(%" PRI64_PREFIX "d) request %s to compact, ret: %d",
             seqno_, tbsys::CNetUtil::addrToString(servers_[i]).c_str(), ret);
       }
       return ret;
@@ -387,7 +387,7 @@ namespace tfs
             crc = Func::crc(crc, (buffer + inner_offset + reserve_size), (finfo->size_ - reserve_size));
             if (crc != finfo->crc_)
             {
-              TBSYS_LOG(WARN, "block %"PRI64_PREFIX"u compact crc error", src->id());
+              TBSYS_LOG(WARN, "block %" PRI64_PREFIX "u compact crc error", src->id());
               Func::hex_dump(file_data, 10, true, TBSYS_LOG_LEVEL_INFO);//TODO
             }
             assert(crc == finfo->crc_);
@@ -576,15 +576,15 @@ namespace tfs
         if (need_remove)
         {
           int rm_ret = service_.get_client_request_server().del_block(repl_info_.block_id_);
-          TBSYS_LOG(INFO, "send repl block complete info: del blockid: %"PRI64_PREFIX"u, ret: %d\n",
+          TBSYS_LOG(INFO, "send repl block complete info: del blockid: %" PRI64_PREFIX "u, ret: %d\n",
               repl_info_.block_id_, rm_ret);
         }
       }
 
       service_.get_task_manager().remove_block(this);
 
-      TBSYS_LOG(INFO, "replicate report to ns. seqno: %"PRI64_PREFIX"d, "
-          "blockid: %"PRI64_PREFIX"u, status: %d, source: %s, ret: %d",
+      TBSYS_LOG(INFO, "replicate report to ns. seqno: %" PRI64_PREFIX "d, "
+          "blockid: %" PRI64_PREFIX "u, status: %d, source: %s, ret: %d",
           seqno_, repl_info_.block_id_, status, tbsys::CNetUtil::addrToString(source_id_).c_str(), ret);
 
       return ret;
@@ -598,8 +598,8 @@ namespace tfs
       resp_repl_msg.set_ds_id(ds_info.information_.id_);
       resp_repl_msg.set_status(status);
 
-      TBSYS_LOG(INFO, "replicate report to ds. seqno: %"PRI64_PREFIX"d, "
-          "blockid: %"PRI64_PREFIX"u, status: %d, source: %s",
+      TBSYS_LOG(INFO, "replicate report to ds. seqno: %" PRI64_PREFIX "d, "
+          "blockid: %" PRI64_PREFIX "u, status: %d, source: %s",
           seqno_, repl_info_.block_id_, status, tbsys::CNetUtil::addrToString(source_id_).c_str());
 
       post_msg_to_server(source_id_,  &resp_repl_msg, Task::ds_task_callback);
@@ -822,7 +822,7 @@ namespace tfs
         ret = (ret < 0) ? ret : status;
       }
 
-      TBSYS_LOG(INFO, "marshalling report to ns. seqno: %"PRI64_PREFIX"d, status: %d, source: %s, ret: %d",
+      TBSYS_LOG(INFO, "marshalling report to ns. seqno: %" PRI64_PREFIX "d, status: %d, source: %s, ret: %d",
           seqno_, status, tbsys::CNetUtil::addrToString(source_id_).c_str(), ret);
 
       return ret;
@@ -1449,8 +1449,8 @@ namespace tfs
           continue;  // we need find updated files
         }
 
-        TBSYS_LOG(INFO, "recover updated file. blockid: %"PRI64_PREFIX"u, fileid: "
-            "%"PRI64_PREFIX"u, offset: %d", block_id, finfos[i].id_, finfos[i].offset_);
+        TBSYS_LOG(INFO, "recover updated file. blockid: %" PRI64_PREFIX "u, fileid: "
+            "%" PRI64_PREFIX "u, offset: %d", block_id, finfos[i].id_, finfos[i].offset_);
 
         updated = true;
         int32_t offset = FILEINFO_EXT_SIZE;  // every file has a header, ignore it
@@ -1501,7 +1501,7 @@ namespace tfs
         ret = get_data_helper().send_simple_request(source_id_, &cmit_msg);
       }
 
-      TBSYS_LOG(INFO, "reinstate report to ns. seqno: %"PRI64_PREFIX"d, status: %d, source: %s, ret: %d",
+      TBSYS_LOG(INFO, "reinstate report to ns. seqno: %" PRI64_PREFIX "d, status: %d, source: %s, ret: %d",
           seqno_, status, tbsys::CNetUtil::addrToString(source_id_).c_str(), ret);
 
       return ret;
@@ -1597,7 +1597,7 @@ namespace tfs
         }
 
         TBSYS_LOG(INFO, "handle complete dissolve task. "
-            "seqno: %"PRI64_PREFIX"d, server: %s, status: %d, ret: %d\n",
+            "seqno: %" PRI64_PREFIX "d, server: %s, status: %d, ret: %d\n",
             seqno_, tbsys::CNetUtil::addrToString(resp_msg->get_ds_id()).c_str(), status, ret);
       }
       return ret;
@@ -1639,7 +1639,7 @@ namespace tfs
         }
       }
 
-      TBSYS_LOG(INFO, "dissolve report to ns. seqno: %"PRI64_PREFIX"d, status: %d, source: %s, ret: %d",
+      TBSYS_LOG(INFO, "dissolve report to ns. seqno: %" PRI64_PREFIX "d, status: %d, source: %s, ret: %d",
           seqno_, final_status, tbsys::CNetUtil::addrToString(source_id_).c_str(), ret);
 
       return ret;
@@ -1674,7 +1674,7 @@ namespace tfs
         repl_msg.set_repl_info(repl_block);
         ret = get_data_helper().send_simple_request(family_members_[i].server_, &repl_msg);
 
-        TBSYS_LOG(DEBUG, "task seqno(%"PRI64_PREFIX"d) request %s to replicate, ret: %d",
+        TBSYS_LOG(DEBUG, "task seqno(%" PRI64_PREFIX "d) request %s to replicate, ret: %d",
             seqno_, tbsys::CNetUtil::addrToString(family_members_[i].server_).c_str(), ret);
 
       }
@@ -1705,7 +1705,7 @@ namespace tfs
         get_data_helper().commit_ec_meta(family_members_[i+total_num].server_,
             family_members_[i+total_num].block_, ec_meta, SWITCH_BLOCK_NO);
 
-        TBSYS_LOG(DEBUG, "task seqno(%"PRI64_PREFIX"d) request %s to clear family id, ret: %d",
+        TBSYS_LOG(DEBUG, "task seqno(%" PRI64_PREFIX "d) request %s to clear family id, ret: %d",
             seqno_, tbsys::CNetUtil::addrToString(family_members_[i].server_).c_str(), ret);
       }
 
@@ -1727,7 +1727,7 @@ namespace tfs
         ret = get_data_helper().delete_remote_block(family_members_[i].server_,
             family_members_[i].block_);
 
-        TBSYS_LOG(DEBUG, "task seqno(%"PRI64_PREFIX"d) request %s to delete, ret: %d",
+        TBSYS_LOG(DEBUG, "task seqno(%" PRI64_PREFIX "d) request %s to delete, ret: %d",
             seqno_, tbsys::CNetUtil::addrToString(family_members_[i].server_).c_str(), ret);
 
       }
@@ -1788,8 +1788,8 @@ namespace tfs
         }
       }
 
-      TBSYS_LOG(INFO, "resolve_conflict report to ns. seqno: %"PRI64_PREFIX"d, "
-          "blockid: %"PRI64_PREFIX"u, status: %d, source: %s, ret: %d",
+      TBSYS_LOG(INFO, "resolve_conflict report to ns. seqno: %" PRI64_PREFIX "d, "
+          "blockid: %" PRI64_PREFIX "u, status: %d, source: %s, ret: %d",
           seqno_, block_id_, status, tbsys::CNetUtil::addrToString(source_id_).c_str(), ret);
 
       return ret;

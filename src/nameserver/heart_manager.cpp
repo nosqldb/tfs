@@ -242,7 +242,7 @@ namespace tfs
           msg->reply_error_packet(TBSYS_LOG_LEVEL(ERROR), ret, "execute message failed, pcode: %d", pcode);
         }
         TIMER_END();
-        TBSYS_LOG(DEBUG, "dataserver: %s %s %s consume times: %"PRI64_PREFIX"d(us), ret: %d, port index: %"PRI64_PREFIX"u", CNetUtil::addrToString(server).c_str(),
+        TBSYS_LOG(DEBUG, "dataserver: %s %s %s consume times: %" PRI64_PREFIX "d(us), ret: %d, port index: %" PRI64_PREFIX "u", CNetUtil::addrToString(server).c_str(),
             transform_type_to_str_(pcode) ,TFS_SUCCESS == ret ? "successful" : "failed", TIMER_DURATION(), ret, (server & 0xFFFFFFFF) % SYSPARAM_NAMESERVER.heart_port_count_);
       }
       return bret;
@@ -420,7 +420,7 @@ namespace tfs
 			  ret = message->reply(result_msg);
       }
       TIMER_END();
-      TBSYS_LOG(INFO, "dataserver: %s report block %s, ret: %d, blocks: %d, cleanup family id blocks: %d,consume time: %"PRI64_PREFIX"u(us), port index: %"PRI64_PREFIX"u",
+      TBSYS_LOG(INFO, "dataserver: %s report block %s, ret: %d, blocks: %d, cleanup family id blocks: %d,consume time: %" PRI64_PREFIX "u(us), port index: %" PRI64_PREFIX "u",
          CNetUtil::addrToString(server).c_str(), TFS_SUCCESS == ret ? "successful" : "failed",
          result , block_nums, expire_nums, TIMER_DURATION(), (id & 0xFFFFFFFFF) % SYSPARAM_NAMESERVER.heart_port_count_);
       return ret;
@@ -545,7 +545,7 @@ namespace tfs
           }
           if (TFS_SUCCESS != ret)
           {
-            ngi.dump(TBSYS_LOG_LEVEL(INFO), "%s %s lease failed, ret: %d, lease_id: %"PRI64_PREFIX"d, status: %d",
+            ngi.dump(TBSYS_LOG_LEVEL(INFO), "%s %s lease failed, ret: %d, lease_id: %" PRI64_PREFIX "d, status: %d",
               tbsys::CNetUtil::addrToString(msg->get_ip_port()).c_str(),
               NS_KEEPALIVE_TYPE_LOGIN == msg->get_type() ? "login" : "renew", ret, msg->get_lease_id(), msg->get_status());
           }
@@ -740,7 +740,7 @@ namespace tfs
         NewClientManager::get_instance().destroy_client(client);
         if (TFS_SUCCESS != ret)
         {
-          ngi.dump(TBSYS_LOG_LEVEL(INFO), "%s %s lease failed, ret: %d, lease_id: %"PRI64_PREFIX"d, lease_expired_time: %"PRI64_PREFIX"d,status: %d",
+          ngi.dump(TBSYS_LOG_LEVEL(INFO), "%s %s lease failed, ret: %d, lease_id: %" PRI64_PREFIX "d, lease_expired_time: %" PRI64_PREFIX "d,status: %d",
             tbsys::CNetUtil::addrToString(ngi.owner_ip_port_).c_str(), NS_KEEPALIVE_TYPE_LOGIN == type ? "login" : "renew",
             ret, ngi.lease_id_, ngi.lease_expired_time_, ngi.owner_status_);
         }

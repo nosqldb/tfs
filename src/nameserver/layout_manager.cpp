@@ -236,13 +236,13 @@ namespace tfs
         ret = get_block_manager().relieve_relation(pblock, pserver->id(), now);
         if (TFS_SUCCESS != ret && print)
         {
-          TBSYS_LOG(INFO, "failed when relieve between block: %"PRI64_PREFIX"u and dataserver: %s, ret: %d",
+          TBSYS_LOG(INFO, "failed when relieve between block: %" PRI64_PREFIX "u and dataserver: %s, ret: %d",
               pblock->id(), CNetUtil::addrToString(pserver->id()).c_str(), ret);
         }
         result = get_server_manager().relieve_relation(pserver,pblock->id());
         if (TFS_SUCCESS != result && print)
         {
-          TBSYS_LOG(INFO, "failed when relieve between block: %"PRI64_PREFIX"u and dataserver: %s, ret: %d",
+          TBSYS_LOG(INFO, "failed when relieve between block: %" PRI64_PREFIX "u and dataserver: %s, ret: %d",
               pblock->id(), CNetUtil::addrToString(pserver->id()).c_str(), result);
         }
       }
@@ -347,7 +347,7 @@ namespace tfs
         ret = (NULL == block) ? EXIT_CREATE_BLOCK_BY_ID_ERROR : TFS_SUCCESS;
         if (TFS_SUCCESS != ret)
         {
-          TBSYS_LOG(INFO, "add new block: %"PRI64_PREFIX"u failed because create block by blockid error", block_id);
+          TBSYS_LOG(INFO, "add new block: %" PRI64_PREFIX "u failed because create block by blockid error", block_id);
         }
       }
 
@@ -362,12 +362,12 @@ namespace tfs
           {
             if (block->is_creating())
             {
-              TBSYS_LOG(INFO, "block: %"PRI64_PREFIX"u found meta data, but creating by another thread, must be return", block_id);
+              TBSYS_LOG(INFO, "block: %" PRI64_PREFIX "u found meta data, but creating by another thread, must be return", block_id);
               ret = EXIT_NO_BLOCK;
             }
             else
             {
-              TBSYS_LOG(INFO, "block: %"PRI64_PREFIX"u found meta data, but no dataserver hold it.", block_id);
+              TBSYS_LOG(INFO, "block: %" PRI64_PREFIX "u found meta data, but no dataserver hold it.", block_id);
               ret = EXIT_NO_DATASERVER;
             }
           }
@@ -401,7 +401,7 @@ namespace tfs
         ret = oplog_sync_mgr_.log(OPLOG_TYPE_BLOCK_OP, buf, size, now);
         if (TFS_SUCCESS != ret)
         {
-          TBSYS_LOG(INFO, "write oplog failed, block: %"PRI64_PREFIX"u", info.block_id_);
+          TBSYS_LOG(INFO, "write oplog failed, block: %" PRI64_PREFIX "u", info.block_id_);
         }
       }
       tbsys::gDeleteA(buf);
@@ -630,7 +630,7 @@ namespace tfs
           {
             loop = 0;
             const int64_t marshalling_queue_size = get_family_manager().get_marshalling_queue_size();
-            TBSYS_LOG(INFO, "need: %"PRI64_PREFIX"d, emergency_replicate_queue: %"PRI64_PREFIX"d, reinstate or dissolve queue: %"PRI64_PREFIX"d, marshalling queue: %"PRI64_PREFIX"d, block_start: %"PRI64_PREFIX"u, family_start: %"PRI64_PREFIX"d, now: %"PRI64_PREFIX"d",
+            TBSYS_LOG(INFO, "need: %" PRI64_PREFIX "d, emergency_replicate_queue: %" PRI64_PREFIX "d, reinstate or dissolve queue: %" PRI64_PREFIX "d, marshalling queue: %" PRI64_PREFIX "d, block_start: %" PRI64_PREFIX "u, family_start: %" PRI64_PREFIX "d, now: %" PRI64_PREFIX "d",
               need, replicate_queue_size, reinsate_or_dissolve_queue_size, marshalling_queue_size, block_start, family_start, now);
             get_task_manager().dump(TBSYS_LOG_LEVEL_DEBUG, "task manager all queues information: ");
             get_family_manager().dump_marshalling_queue(TBSYS_LOG_LEVEL_DEBUG, "marshalling queue information: ");
@@ -700,7 +700,7 @@ namespace tfs
             const int64_t replicate_queue_size = get_block_manager().get_emergency_replicate_queue_size();
             const int64_t reinsate_or_dissolve_queue_size = get_family_manager().get_reinstate_or_dissolve_queue_size();
             const int64_t marshalling_queue_size = get_family_manager().get_marshalling_queue_size();
-            TBSYS_LOG(INFO, "need: %"PRI64_PREFIX"d, source: %zd, target: %d, percent: %e, emergency_replicate_queue: %"PRI64_PREFIX"d, reinsate or dissolve queue: %"PRI64_PREFIX"d, marshalling queue: %"PRI64_PREFIX"d",
+            TBSYS_LOG(INFO, "need: %" PRI64_PREFIX "d, source: %zd, target: %d, percent: %e, emergency_replicate_queue: %" PRI64_PREFIX "d, reinsate or dissolve queue: %" PRI64_PREFIX "d, marshalling queue: %" PRI64_PREFIX "d",
               need, source.size(), targets.size(), percent, replicate_queue_size, reinsate_or_dissolve_queue_size, marshalling_queue_size);
 
             bool complete = false;
@@ -896,13 +896,13 @@ namespace tfs
             if ( TFS_SUCCESS != ret)
             {
               send_msg_fail_helper.push_back(id);
-              TBSYS_LOG(INFO, "send 'New block: %"PRI64_PREFIX"u' msg to server : %s fail",
+              TBSYS_LOG(INFO, "send 'New block: %" PRI64_PREFIX "u' msg to server : %s fail",
                   block_id, CNetUtil::addrToString(id).c_str());
             }
             else
             {
               send_msg_success_helper.push_back(id);
-              TBSYS_LOG(INFO, "send 'New block: %"PRI64_PREFIX"u' msg to server : %s successful",
+              TBSYS_LOG(INFO, "send 'New block: %" PRI64_PREFIX "u' msg to server : %s successful",
                   block_id, CNetUtil::addrToString(id).c_str());
             }
           }
@@ -913,7 +913,7 @@ namespace tfs
           {
             print_int64(send_msg_success_helper, all_servers);
             print_int64(send_msg_fail_helper, success_servers);
-            TBSYS_LOG(INFO, "add block: %"PRI64_PREFIX"u failed, we'll rollback, send msg successful: %s, failed: %s, alls: %s",
+            TBSYS_LOG(INFO, "add block: %" PRI64_PREFIX "u failed, we'll rollback, send msg successful: %s, failed: %s, alls: %s",
                 block_id, all_servers.c_str(), success_servers.c_str(), all_servers.c_str());
           }
           else //有发消息成的
@@ -949,14 +949,14 @@ namespace tfs
               if (TFS_SUCCESS != ret)//add block failed, rollback
               {
                 print_int64(send_msg_success_helper, all_servers);
-                TBSYS_LOG(INFO, "add block: %"PRI64_PREFIX"u fail, we'll rollback, servers: %s, success: %s",
+                TBSYS_LOG(INFO, "add block: %" PRI64_PREFIX "u fail, we'll rollback, servers: %s, success: %s",
                     block_id, all_servers.c_str(), success_servers.c_str());
               }
               else
               {
-                TBSYS_LOG(INFO, "add block: %"PRI64_PREFIX"u on servers: %s successful", block_id, success_servers.c_str());
+                TBSYS_LOG(INFO, "add block: %" PRI64_PREFIX "u on servers: %s successful", block_id, success_servers.c_str());
               }
-              block_logger_.logMessage(TBSYS_LOG_LEVEL(INFO), "add block-%"PRI64_PREFIX"u, success %s",
+              block_logger_.logMessage(TBSYS_LOG_LEVEL(INFO), "add block-%" PRI64_PREFIX "u, success %s",
                   block_id, success_servers.c_str());
             }
           }
@@ -1019,7 +1019,7 @@ namespace tfs
             ret = helper.empty() ? EXIT_CHOOSE_CREATE_BLOCK_TARGET_SERVER_ERROR : TFS_SUCCESS;
             if (TFS_SUCCESS != ret)
             {
-              TBSYS_LOG(INFO, "create block: %"PRI64_PREFIX"u by block id fail, dataserver is not enough", block_id);
+              TBSYS_LOG(INFO, "create block: %" PRI64_PREFIX "u by block id fail, dataserver is not enough", block_id);
               if (new_create_block_collect)
                 get_block_manager().remove(pobject,block_id);
             }
@@ -1204,7 +1204,7 @@ namespace tfs
           if (NULL == source)
           {
             print_int64(helper, result);
-            TBSYS_LOG(DEBUG, "replicate block: %"PRI64_PREFIX"u cannot found source dataserver, %s", block->id(), result.c_str());
+            TBSYS_LOG(DEBUG, "replicate block: %" PRI64_PREFIX "u cannot found source dataserver, %s", block->id(), result.c_str());
           }
           else
           {
@@ -1212,7 +1212,7 @@ namespace tfs
             if (NULL == target)
             {
               print_int64(helper, result);
-              TBSYS_LOG(DEBUG, "replicate block: %"PRI64_PREFIX"u cannot found target dataserver, %s", block->id(), result.c_str());
+              TBSYS_LOG(DEBUG, "replicate block: %" PRI64_PREFIX "u cannot found target dataserver, %s", block->id(), result.c_str());
             }
           }
 
@@ -1231,7 +1231,7 @@ namespace tfs
             if (TFS_SUCCESS != iret)
             {
               ret = false;
-              TBSYS_LOG(DEBUG, "build_replicate_task fail, block %"PRI64_PREFIX"u, ret: %d", block->id(), iret);
+              TBSYS_LOG(DEBUG, "build_replicate_task fail, block %" PRI64_PREFIX "u, ret: %d", block->id(), iret);
             }
           }
         }
@@ -1291,7 +1291,7 @@ namespace tfs
           ret = helper.exist(source->id());
           if (!ret)
           {
-            TBSYS_LOG(DEBUG, "cannot choose move source server, block: %"PRI64_PREFIX"u, source: %s",
+            TBSYS_LOG(DEBUG, "cannot choose move source server, block: %" PRI64_PREFIX "u, source: %s",
                 block->id(), CNetUtil::addrToString(source->id()).c_str());
           }
           else
@@ -1300,7 +1300,7 @@ namespace tfs
             ret = NULL != result;
             if (!ret)
             {
-              TBSYS_LOG(DEBUG, "cannot choose move target server, block: %"PRI64_PREFIX"u, source: %s",
+              TBSYS_LOG(DEBUG, "cannot choose move target server, block: %" PRI64_PREFIX "u, source: %s",
                   block->id(), CNetUtil::addrToString(source->id()).c_str());
             }
             else
@@ -1399,7 +1399,7 @@ namespace tfs
         }
         if (TFS_SUCCESS != ret)
         {
-          TBSYS_LOG(DEBUG, "build_reinstate_task fail, family %"PRI64_PREFIX"d, ret: %d", family->get_family_id(), ret);
+          TBSYS_LOG(DEBUG, "build_reinstate_task fail, family %" PRI64_PREFIX "d, ret: %d", family->get_family_id(), ret);
         }
       }
       return TFS_SUCCESS == ret;
@@ -1479,7 +1479,7 @@ namespace tfs
                 {
                   ret = members[master_index].server_ == INVALID_SERVER_ID ? EXIT_DATASERVER_NOT_FOUND: TFS_SUCCESS;
                   if (TFS_SUCCESS != ret)
-                    TBSYS_LOG(WARN, "all members in family : %"PRI64_PREFIX"d,are lost", family->get_family_id());
+                    TBSYS_LOG(WARN, "all members in family : %" PRI64_PREFIX "d,are lost", family->get_family_id());
                 }
                 if (TFS_SUCCESS == ret)
                 {
@@ -1496,7 +1496,7 @@ namespace tfs
         }
         if (TFS_SUCCESS != ret)
         {
-          TBSYS_LOG(DEBUG, "build_dissolve_task fail, family %"PRI64_PREFIX"d, ret: %d", family->get_family_id(), ret);
+          TBSYS_LOG(DEBUG, "build_dissolve_task fail, family %" PRI64_PREFIX "d, ret: %d", family->get_family_id(), ret);
         }
       }
       return TFS_SUCCESS == ret;
@@ -1796,11 +1796,11 @@ namespace tfs
         {
           ret = get_family_manager().del_family(family_id);
         }
-        TBSYS_LOG(INFO, "del family %"PRI64_PREFIX"d %s for marshalling conflict, ret: %d", family_id,
+        TBSYS_LOG(INFO, "del family %" PRI64_PREFIX "d %s for marshalling conflict, ret: %d", family_id,
             TFS_SUCCESS == ret ? "successful" : "failed", ret);
 
         CLogger& block_log = get_block_log();
-        block_log.logMessage(TBSYS_LOG_LEVEL(INFO), "delete family-%"PRI64_PREFIX"d forcely %s",
+        block_log.logMessage(TBSYS_LOG_LEVEL(INFO), "delete family-%" PRI64_PREFIX "d forcely %s",
             family_id, TFS_SUCCESS == ret ? "successful" : "failed");
       }
       return TFS_SUCCESS == ret;

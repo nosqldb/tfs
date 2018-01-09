@@ -54,7 +54,7 @@ int copy_file(BlockManager& block_manager, const uint64_t block_id, const FileIn
     if (NULL == data)
     {
       ret = EXIT_NO_MEMORY;
-      TBSYS_LOG(ERROR, "new buffer failed, size: %d, blockid: %"PRI64_PREFIX"u, fileid: %"PRI64_PREFIX"u", length, block_id, file_id);
+      TBSYS_LOG(ERROR, "new buffer failed, size: %d, blockid: %" PRI64_PREFIX "u, fileid: %" PRI64_PREFIX "u", length, block_id, file_id);
     }
     else
     {
@@ -62,7 +62,7 @@ int copy_file(BlockManager& block_manager, const uint64_t block_id, const FileIn
       ret = (ret < 0) ? ret: TFS_SUCCESS;// 如果磁盘有问题，读数据时就会检查出并程序core掉
       if (TFS_SUCCESS != ret)
       {
-        TBSYS_LOG(ERROR, "read file fail. blockid: %"PRI64_PREFIX"u, fileid: %"PRI64_PREFIX"u, offset: %d, ret: %d",
+        TBSYS_LOG(ERROR, "read file fail. blockid: %" PRI64_PREFIX "u, fileid: %" PRI64_PREFIX "u, offset: %d, ret: %d",
           block_id, file_id, offset, ret);
       }
       else
@@ -70,7 +70,7 @@ int copy_file(BlockManager& block_manager, const uint64_t block_id, const FileIn
         ret = length == (file_info.size_ - FILEINFO_EXT_SIZE) ? TFS_SUCCESS : EXIT_CHECK_CRC_ERROR; // check file size
         if (TFS_SUCCESS != ret)
         {
-         TBSYS_LOG(ERROR, "file size error. %s, blockid: %"PRI64_PREFIX"u, fileid :%" PRI64_PREFIX "u, read size: %d <> %d",
+         TBSYS_LOG(ERROR, "file size error. %s, blockid: %" PRI64_PREFIX "u, fileid :%"  PRI64_PREFIX  "u, read size: %d <> %d",
                fsname.get_name(), block_id, file_id, length, file_info.size_ - FILEINFO_EXT_SIZE);
         }
         else
@@ -79,7 +79,7 @@ int copy_file(BlockManager& block_manager, const uint64_t block_id, const FileIn
           ret = crc == file_info.crc_ ? TFS_SUCCESS : EXIT_CHECK_CRC_ERROR; // check crc
           if (TFS_SUCCESS != ret)
           {
-            TBSYS_LOG(ERROR, "crc error. %s, blockid: %"PRI64_PREFIX"u, fileid :%" PRI64_PREFIX "u, crc: %u <> %u, size: %d <> %d",
+            TBSYS_LOG(ERROR, "crc error. %s, blockid: %" PRI64_PREFIX "u, fileid :%"  PRI64_PREFIX  "u, crc: %u <> %u, size: %d <> %d",
                     fsname.get_name(), block_id, file_id, crc, file_info.crc_, length, file_info.size_ - FILEINFO_EXT_SIZE);
           }
         }
@@ -104,7 +104,7 @@ int copy_file(BlockManager& block_manager, const uint64_t block_id, const FileIn
           if (write_length != length)
           {
             ret = write_length;
-            TBSYS_LOG(ERROR, "write dest file fail. blockid: %"PRI64_PREFIX"u, fileid: %"PRI64_PREFIX"u, ret: %d", block_id, file_id, ret);
+            TBSYS_LOG(ERROR, "write dest file fail. blockid: %" PRI64_PREFIX "u, fileid: %" PRI64_PREFIX "u, ret: %d", block_id, file_id, ret);
           }
         }
 
@@ -114,14 +114,14 @@ int copy_file(BlockManager& block_manager, const uint64_t block_id, const FileIn
           ret = TfsClientImplV2::Instance()->close(dest_fd, NULL, 0, file_info.status_);//如隐藏文件状态附带过去
           if (TFS_SUCCESS != ret)
           {
-            TBSYS_LOG(ERROR, "close dest tfsfile fail, blockid: %"PRI64_PREFIX"u, fileid :%" PRI64_PREFIX "u, ret: %d", block_id, file_id, ret);
+            TBSYS_LOG(ERROR, "close dest tfsfile fail, blockid: %" PRI64_PREFIX "u, fileid :%"  PRI64_PREFIX  "u, ret: %d", block_id, file_id, ret);
           }
         }
       }
 
       tbsys::gDeleteA(data);
     }
-    TBSYS_LOG(DEBUG, "copy file %s, blockid: %"PRI64_PREFIX"u, fileid: %"PRI64_PREFIX"u, ret: %d", TFS_SUCCESS == ret ? "success" : "failed", block_id, file_id, ret);
+    TBSYS_LOG(DEBUG, "copy file %s, blockid: %" PRI64_PREFIX "u, fileid: %" PRI64_PREFIX "u, ret: %d", TFS_SUCCESS == ret ? "success" : "failed", block_id, file_id, ret);
   }
   return ret;
 }
@@ -138,7 +138,7 @@ int rm_no_replicate_block_from_ns(const char* ns_addr, const uint64_t block_id)
   tbnet::Packet* rsp = NULL;
   if((ret = send_msg_to_server(Func::get_host_ip(ns_addr), client, &req_cc_msg, rsp)) != TFS_SUCCESS)
   {
-    TBSYS_LOG(ERROR, "send remove block from ns command failed. block_id: %"PRI64_PREFIX"u, ret: %d", block_id, ret);
+    TBSYS_LOG(ERROR, "send remove block from ns command failed. block_id: %" PRI64_PREFIX "u, ret: %d", block_id, ret);
   }
   else
   {
@@ -148,18 +148,18 @@ int rm_no_replicate_block_from_ns(const char* ns_addr, const uint64_t block_id)
       StatusMessage* sm = dynamic_cast<StatusMessage*>(rsp);
       if (STATUS_MESSAGE_OK == sm->get_status())
       {
-        TBSYS_LOG(INFO, "remove block from ns success, ns_addr: %s, blockid: %"PRI64_PREFIX"u", ns_addr, block_id);
+        TBSYS_LOG(INFO, "remove block from ns success, ns_addr: %s, blockid: %" PRI64_PREFIX "u", ns_addr, block_id);
       }
       else
       {
-        TBSYS_LOG(ERROR, "remove block from ns fail, ns_addr: %s, blockid: %"PRI64_PREFIX"u, ret: %d",
+        TBSYS_LOG(ERROR, "remove block from ns fail, ns_addr: %s, blockid: %" PRI64_PREFIX "u, ret: %d",
             ns_addr, block_id, sm->get_status());
         ret = sm->get_status();
       }
     }
     else
     {
-      TBSYS_LOG(ERROR, "remove block from ns: %s fail, blockid: %"PRI64_PREFIX"u, unkonw msg type", ns_addr, block_id);
+      TBSYS_LOG(ERROR, "remove block from ns: %s fail, blockid: %" PRI64_PREFIX "u, unkonw msg type", ns_addr, block_id);
       ret = EXIT_UNKNOWN_MSGTYPE;
     }
   }
@@ -285,7 +285,7 @@ int recover_block_from_disk_data(const char* ns_addr, const char* ns_slave_addr,
       uint64_t block_id = blk_meta.block_id_;
       if (blk_meta.size_ > 0 || INVALID_FAMILY_ID != blk_meta.family_info_.family_id_)
       {
-        TBSYS_LOG(DEBUG , "blockid: %"PRI64_PREFIX"u  no need recover, ds_size:%d, family_id: %"PRI64_PREFIX"u",
+        TBSYS_LOG(DEBUG , "blockid: %" PRI64_PREFIX "u  no need recover, ds_size:%d, family_id: %" PRI64_PREFIX "u",
             block_id, blk_meta.size_, blk_meta.family_info_.family_id_);
         no_need_recover_block_list.push_back(block_id);//只要还有副本或者副本丢失但有编组(不考虑退化读恢复)都不用本工具恢复
       }
@@ -295,7 +295,7 @@ int recover_block_from_disk_data(const char* ns_addr, const char* ns_slave_addr,
         if (TFS_SUCCESS != bret)
         {
           fail_block_list.push_back(block_id);
-          TBSYS_LOG(WARN , "remove block %"PRI64_PREFIX"u from ns: %s failed, ret: %d", block_id, ns_addr, bret);
+          TBSYS_LOG(WARN , "remove block %" PRI64_PREFIX "u from ns: %s failed, ret: %d", block_id, ns_addr, bret);
         }
         else
         {
@@ -304,7 +304,7 @@ int recover_block_from_disk_data(const char* ns_addr, const char* ns_slave_addr,
           bret = block_manager.traverse(header, finfos, block_id, block_id);
           if (TFS_SUCCESS != bret)
           {
-            TBSYS_LOG(WARN , "block %"PRI64_PREFIX"u get local file infos failed, ret: %d", block_id, bret);
+            TBSYS_LOG(WARN , "block %" PRI64_PREFIX "u get local file infos failed, ret: %d", block_id, bret);
             tmp_fail_block_list.push_back(block_id);//只有本磁盘读取block的文件index错误，才需要整个block尝试从辅集群恢复
           }
           else
@@ -322,18 +322,18 @@ int recover_block_from_disk_data(const char* ns_addr, const char* ns_slave_addr,
               bret = copy_file(block_manager, block_id, finfos.at(file_index));
               if (TFS_SUCCESS == bret)
               {
-                TBSYS_LOG(DEBUG, "recover block_id: %"PRI64_PREFIX"u, file_id: %"PRI64_PREFIX"u successful!", block_id, file_id);
+                TBSYS_LOG(DEBUG, "recover block_id: %" PRI64_PREFIX "u, file_id: %" PRI64_PREFIX "u successful!", block_id, file_id);
               }
               else
               {// 如果磁盘中该文件数据已经损坏(如crc出错)，则从对等集群(ns_slave_addr)拷贝数据复制
                 bret = copy_file_from_slave_cluster(ns_slave_addr, ns_addr, block_id, finfos.at(file_index));
                 if (TFS_SUCCESS == bret)
                 {
-                  TBSYS_LOG(DEBUG, "recover block_id: %"PRI64_PREFIX"u, file_id: %"PRI64_PREFIX"u successful from slave cluster!", block_id, file_id);
+                  TBSYS_LOG(DEBUG, "recover block_id: %" PRI64_PREFIX "u, file_id: %" PRI64_PREFIX "u successful from slave cluster!", block_id, file_id);
                 }
                 else
                 {
-                  TBSYS_LOG(WARN, "recover block_id: %"PRI64_PREFIX"u, file_id: %"PRI64_PREFIX"u failed from slave cluster, ret: %d!", block_id, file_id, bret);
+                  TBSYS_LOG(WARN, "recover block_id: %" PRI64_PREFIX "u, file_id: %" PRI64_PREFIX "u failed from slave cluster, ret: %d!", block_id, file_id, bret);
                   all_success = false;
                   tmp_fail_block_file_list.insert(pair<uint64_t, uint64_t>(block_id, file_id));
                 }
@@ -349,13 +349,13 @@ int recover_block_from_disk_data(const char* ns_addr, const char* ns_slave_addr,
               success_block_list.push_back(block_id);
               if (0 == copy_file_succ_count)
               {
-                TBSYS_LOG(DEBUG, "recover block_id: %"PRI64_PREFIX"u need to do nothing,"
+                TBSYS_LOG(DEBUG, "recover block_id: %" PRI64_PREFIX "u need to do nothing,"
                     " because the count of files who need to recover is ZERO except DELETE status files!", block_id);
               }
             }
             else if (0 == copy_file_succ_count)// all file(exclude DELETE) fail
             {
-              TBSYS_LOG(WARN, "recover block_id: %"PRI64_PREFIX"u's files failed, copy_file_succ_count is Zero !", block_id);
+              TBSYS_LOG(WARN, "recover block_id: %" PRI64_PREFIX "u's files failed, copy_file_succ_count is Zero !", block_id);
               fail_block_list.push_back(block_id);// for print fail block to out log file at end
             }
             else
@@ -405,11 +405,11 @@ void recover_block_from_slave_cluster(const char* ns_addr, const char* ns_slave_
         if (TFS_SUCCESS == ret)
         {
           ++copy_file_succ_count;
-          TBSYS_LOG(DEBUG, "recover block_id: %"PRI64_PREFIX"u, file_id: %"PRI64_PREFIX"u successful from slave cluster!", block_id, file_id);
+          TBSYS_LOG(DEBUG, "recover block_id: %" PRI64_PREFIX "u, file_id: %" PRI64_PREFIX "u successful from slave cluster!", block_id, file_id);
         }
         else
         {
-          TBSYS_LOG(WARN, "recover block_id: %"PRI64_PREFIX"u, file_id: %"PRI64_PREFIX"u failed from slave cluster, ret: %d", block_id, file_id, ret);
+          TBSYS_LOG(WARN, "recover block_id: %" PRI64_PREFIX "u, file_id: %" PRI64_PREFIX "u failed from slave cluster, ret: %d", block_id, file_id, ret);
           all_success = false;
           tmp_fail_block_file_list.insert(pair<uint64_t, uint64_t>(block_id, file_id));
         }
@@ -587,14 +587,14 @@ int main(int argc,char* argv[])
       static_cast<uint32_t>(success_block_list.size()));
   for (uint32_t i = 0; i < success_block_list.size(); i++)
   {
-    fprintf(stdout, "%"PRI64_PREFIX"u\n", success_block_list.at(i));
+    fprintf(stdout, "%" PRI64_PREFIX "u\n", success_block_list.at(i));
   }
 
   fprintf(stdout, "********************** failed block sum: %u **********************\n",
       static_cast<uint32_t>(fail_block_list.size()));
   for (uint32_t i = 0; i < fail_block_list.size(); i++)
   {
-    fprintf(stdout, "%"PRI64_PREFIX"u\n", fail_block_list.at(i));
+    fprintf(stdout, "%" PRI64_PREFIX "u\n", fail_block_list.at(i));
   }
 
   fprintf(stdout, "*********************************** failed block-file sum : %u ************************************\n",
@@ -603,14 +603,14 @@ int main(int argc,char* argv[])
   for (; mit != fail_block_file_list.end(); mit++)
   {
       FSName fsname(mit->first, mit->second);
-      fprintf(stdout, "block_id: %"PRI64_PREFIX"u, file_id: %"PRI64_PREFIX"u, file_name: %s\n", mit->first, mit->second, fsname.get_name());
+      fprintf(stdout, "block_id: %" PRI64_PREFIX "u, file_id: %" PRI64_PREFIX "u, file_name: %s\n", mit->first, mit->second, fsname.get_name());
   }
 
   fprintf(stdout, "********************************* no need to recover block sum: %u *************************************\n",
           static_cast<uint32_t>(no_need_recover_block_list.size()));
   for (uint32_t i = 0; i < no_need_recover_block_list.size(); i++)
   {
-    fprintf(stdout, "%"PRI64_PREFIX"u\n", no_need_recover_block_list.at(i));
+    fprintf(stdout, "%" PRI64_PREFIX "u\n", no_need_recover_block_list.at(i));
   }
   fprintf(stdout, "********************** recover process finished **********************\n");
 

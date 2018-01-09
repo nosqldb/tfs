@@ -104,7 +104,7 @@ string GcWorkerTest::get_path(const char* path)
     *pos = '!';
   }
   int len = strlen(name);
-  snprintf(name + len, MAX_PATH_LENGTH - len, "!%" PRI64_PREFIX "u", id_);
+  snprintf(name + len, MAX_PATH_LENGTH - len, "!%"  PRI64_PREFIX  "u", id_);
   return name;
 }
 
@@ -118,14 +118,14 @@ template<class T> int GcWorkerTest::test_unlink(T& seg_info, int status)
     int fd = tfs_client_->open(fsname.get_name(), NULL, T_READ);
     if (fd < 0)
     {
-      printf("open file fail, block id: %u, file id: %"PRI64_PREFIX"u", it->block_id_, it->file_id_);
+      printf("open file fail, block id: %u, file id: %" PRI64_PREFIX "u", it->block_id_, it->file_id_);
       return TFS_ERROR;
     }
     FileStat stat_info;
     if (tfs_client_->fstat(fd, &stat_info, FORCE_STAT) != TFS_SUCCESS ||
         stat_info.flag_ != status)
     {
-      printf("test unlink fail, block id: %u, file id: %"PRI64_PREFIX"u, status: %d while expected %d", it->block_id_, it->file_id_, stat_info.flag_, status);
+      printf("test unlink fail, block id: %u, file id: %" PRI64_PREFIX "u, status: %d while expected %d", it->block_id_, it->file_id_, stat_info.flag_, status);
       return TFS_ERROR;
     }
   }

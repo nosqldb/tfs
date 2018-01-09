@@ -324,8 +324,8 @@ int main(int argc, char* argv[])
     fclose(*g_log_fp[i].fp_);
   }
 
-  fprintf(stdout, "total_count: %"PRI64_PREFIX"d, actual_count: %"PRI64_PREFIX"d, "
-      "succ_count: %"PRI64_PREFIX"d, fail_count: %"PRI64_PREFIX"d, unsync_count: %"PRI64_PREFIX"d\n",
+  fprintf(stdout, "total_count: %" PRI64_PREFIX "d, actual_count: %" PRI64_PREFIX "d, "
+      "succ_count: %" PRI64_PREFIX "d, fail_count: %" PRI64_PREFIX "d, unsync_count: %" PRI64_PREFIX "d\n",
       g_sync_stat_.total_count_, g_sync_stat_.actual_count_,
       g_sync_stat_.success_count_, g_sync_stat_.fail_count_, g_sync_stat_.unsync_count_);
   fprintf(stdout, "log and result path: %s\n", log_path.c_str());

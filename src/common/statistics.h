@@ -197,7 +197,7 @@ namespace tfs
       {
         std::string result;
         stat_entry_serialize(result);
-        TBSYS_LOG(INFO,"begin: %"PRI64_PREFIX"d, end: %"PRI64_PREFIX"d, key: %"PRI64_PREFIX"d, %s",
+        TBSYS_LOG(INFO,"begin: %" PRI64_PREFIX "d, end: %" PRI64_PREFIX "d, key: %" PRI64_PREFIX "d, %s",
             begin_us_, end_us_, key_, result.c_str());
         return TFS_SUCCESS;
       }
@@ -318,7 +318,7 @@ namespace tfs
     {
       std::string result;
       stat_entry_serialize(result);
-      TBSYS_LOG(INFO,"begin: %"PRI64_PREFIX"d, end: %"PRI64_PREFIX"d, key: %s, %s",
+      TBSYS_LOG(INFO,"begin: %" PRI64_PREFIX "d, end: %" PRI64_PREFIX "d, key: %s, %s",
           begin_us_, end_us_, key_.c_str(), result.c_str());
       return TFS_SUCCESS;
     }

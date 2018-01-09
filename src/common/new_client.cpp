@@ -68,7 +68,7 @@ namespace tfs
       if (timeout_ms <= 0)
       {
         timeout_ms = common::DEFAULT_NETWORK_CALL_TIMEOUT;
-        TBSYS_LOG(WARN, "timeout_in_ms equal 0, we'll use DEFAULT_NETWORK_CALL_TIMEOUT: %"PRI64_PREFIX"d(ms)",
+        TBSYS_LOG(WARN, "timeout_in_ms equal 0, we'll use DEFAULT_NETWORK_CALL_TIMEOUT: %" PRI64_PREFIX "d(ms)",
           common::DEFAULT_NETWORK_CALL_TIMEOUT);
       }
       tbutil::Monitor<tbutil::Mutex>::Lock lock(monitor_);

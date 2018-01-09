@@ -195,8 +195,8 @@ namespace tfs
         const char* file_path = req_fa_msg->get_file_path();
         const char* new_file_path = req_fa_msg->get_new_file_path();
         common::MetaActionOp action = req_fa_msg->get_action();
-        TBSYS_LOG(DEBUG, "call FilepathActionMessage::do action start. app_id: %"PRI64_PREFIX"d, uid: %"
-            PRI64_PREFIX"d, file_path: %s, new_file_path: %s, action: %d ret: %d",
+        TBSYS_LOG(DEBUG, "call FilepathActionMessage::do action start. app_id: %" PRI64_PREFIX "d, uid: %"
+             PRI64_PREFIX "d, file_path: %s, new_file_path: %s, action: %d ret: %d",
             app_id, uid, file_path, new_file_path, action, ret);
 
         BucketStatus permission = BUCKET_STATUS_NONE;
@@ -260,8 +260,8 @@ namespace tfs
       {
         ReadFilepathMessage* req_rf_msg = dynamic_cast<ReadFilepathMessage*>(packet);
         TBSYS_LOG(DEBUG, "call FilepathActionMessage::do read start."
-                  "app_id: %"PRI64_PREFIX"d, user_id: %"PRI64_PREFIX"d, "
-                  "file_path: %s, offset :%"PRI64_PREFIX"d, size: %"PRI64_PREFIX"d, ret: %d",
+                  "app_id: %" PRI64_PREFIX "d, user_id: %" PRI64_PREFIX "d, "
+                  "file_path: %s, offset :%" PRI64_PREFIX "d, size: %" PRI64_PREFIX "d, ret: %d",
                   req_rf_msg->get_app_id(), req_rf_msg->get_user_id(),
                   req_rf_msg->get_file_path(), req_rf_msg->get_offset(), req_rf_msg->get_size(), ret);
 
@@ -313,7 +313,7 @@ namespace tfs
         WriteFilepathMessage* req_wf_msg = dynamic_cast<WriteFilepathMessage*>(packet);
 
         TBSYS_LOG(DEBUG, "call FilepathActionMessage::do action start. "
-                  "app_id: %"PRI64_PREFIX"d, user_id: %"PRI64_PREFIX"d, file_path: %s, meta_size: %zd ret: %d",
+                  "app_id: %" PRI64_PREFIX "d, user_id: %" PRI64_PREFIX "d, file_path: %s, meta_size: %zd ret: %d",
                   req_wf_msg->get_app_id(), req_wf_msg->get_user_id(), req_wf_msg->get_file_path(),
                   req_wf_msg->get_frag_info().v_frag_meta_.size(), ret);
         PROFILER_BEGIN("check permission");
@@ -362,8 +362,8 @@ namespace tfs
       {
         LsFilepathMessage* req_lf_msg = dynamic_cast<LsFilepathMessage*>(packet);
         TBSYS_LOG(DEBUG, "call FilepathActionMessage::do ls start."
-                  " app_id: %"PRI64_PREFIX"d, user_id: %"PRI64_PREFIX"d,"
-                  " pid: %"PRI64_PREFIX"d, file_path: %s, file_type: %d",
+                  " app_id: %" PRI64_PREFIX "d, user_id: %" PRI64_PREFIX "d,"
+                  " pid: %" PRI64_PREFIX "d, file_path: %s, file_type: %d",
                   req_lf_msg->get_app_id(), req_lf_msg->get_user_id(), req_lf_msg->get_pid(),
                   req_lf_msg->get_file_path(), req_lf_msg->get_file_type());
 
@@ -428,7 +428,7 @@ namespace tfs
           ret = uncompress(dest, &dest_length, (unsigned char*)msg->get_table(), msg->get_table_length());
           if (Z_OK != ret)
           {
-            TBSYS_LOG(ERROR, "uncompress error: ret : %d, version: %"PRI64_PREFIX"d, dest length: %"PRI64_PREFIX"d, lenght: %"PRI64_PREFIX"d",
+            TBSYS_LOG(ERROR, "uncompress error: ret : %d, version: %" PRI64_PREFIX "d, dest length: %" PRI64_PREFIX "d, lenght: %" PRI64_PREFIX "d",
               ret, msg->get_version(), dest_length, msg->get_table_length());
             ret = TFS_ERROR;
           }
@@ -507,7 +507,7 @@ namespace tfs
           {
             if (1 == get_depth(v_name) && NULL == root_node->dir_meta_)
             {
-              TBSYS_LOG(DEBUG, "create top dir. appid: %"PRI64_PREFIX"d, uid: %"PRI64_PREFIX"d, filepath: %s",
+              TBSYS_LOG(DEBUG, "create top dir. appid: %" PRI64_PREFIX "d, uid: %" PRI64_PREFIX "d, filepath: %s",
                   app_id, uid, file_path);
               ret = store_manager_.create_top_dir(app_id, uid, root_node);
             }
@@ -517,7 +517,7 @@ namespace tfs
             ret = get_p_meta_info(root_node, v_name, p_p_dir_node, p_dir_node);
             if (TFS_SUCCESS != ret)
             {
-              TBSYS_LOG(INFO, "get info fail. appid: %"PRI64_PREFIX"d, uid: %"PRI64_PREFIX"d, %s",
+              TBSYS_LOG(INFO, "get info fail. appid: %" PRI64_PREFIX "d, uid: %" PRI64_PREFIX "d, %s",
                   app_id, uid, file_path);
             }
             else
@@ -570,7 +570,7 @@ namespace tfs
             PROFILER_END();
           }
 
-          TBSYS_LOG(DEBUG, "create %s, type: %d, appid: %"PRI64_PREFIX"d, uid: %"PRI64_PREFIX"d, filepath: %s",
+          TBSYS_LOG(DEBUG, "create %s, type: %d, appid: %" PRI64_PREFIX "d, uid: %" PRI64_PREFIX "d, filepath: %s",
               TFS_SUCCESS == ret ? "success" : "fail", type, app_id, uid, file_path);
           store_manager_.revert_root_node( root_node);
         }
@@ -610,7 +610,7 @@ namespace tfs
       {
         if ((ret = parse_file_path(root_node, file_path, p_dir_node, pp_id, name, name_len)) != TFS_SUCCESS)
         {
-          TBSYS_LOG(INFO, "get info fail. appid: %"PRI64_PREFIX"d, uid: %"PRI64_PREFIX"d, %s",
+          TBSYS_LOG(INFO, "get info fail. appid: %" PRI64_PREFIX "d, uid: %" PRI64_PREFIX "d, %s",
               app_id, uid, file_path);
         }
         else
@@ -639,7 +639,7 @@ namespace tfs
           }
         }
 
-        TBSYS_LOG(DEBUG, "rm %s, type: %d, appid: %"PRI64_PREFIX"d, uid: %"PRI64_PREFIX"d, filepath: %s",
+        TBSYS_LOG(DEBUG, "rm %s, type: %d, appid: %" PRI64_PREFIX "d, uid: %" PRI64_PREFIX "d, filepath: %s",
             TFS_SUCCESS == ret ? "success" : "fail", type, app_id, uid, file_path);
         store_manager_.revert_root_node( root_node);
       }
@@ -691,13 +691,13 @@ namespace tfs
         {
           if ((ret = parse_file_path(root_node, file_path, p_dir_node, pp_id, name, name_len)) != TFS_SUCCESS)
           {
-            TBSYS_LOG(INFO, "get info fail. appid: %"PRI64_PREFIX"d, uid: %"PRI64_PREFIX"d, %s",
+            TBSYS_LOG(INFO, "get info fail. appid: %" PRI64_PREFIX "d, uid: %" PRI64_PREFIX "d, %s",
                 app_id, uid, file_path);
           }
           else if ((ret = parse_file_path(root_node, dest_file_path, dest_p_dir_node, dest_pp_id,
                   dest_name, dest_name_len)) != TFS_SUCCESS)
           {
-            TBSYS_LOG(INFO, "parse dest file fail. appid: %"PRI64_PREFIX"d, uid: %"PRI64_PREFIX"d, %s",
+            TBSYS_LOG(INFO, "parse dest file fail. appid: %" PRI64_PREFIX "d, uid: %" PRI64_PREFIX "d, %s",
                 app_id, uid, dest_file_path);
           }
           else
@@ -713,7 +713,7 @@ namespace tfs
         }
         store_manager_.revert_root_node( root_node);
 
-        TBSYS_LOG(DEBUG, "mv %s, type: %d, appid: %"PRI64_PREFIX"d, uid: %"PRI64_PREFIX"d, filepath: %s",
+        TBSYS_LOG(DEBUG, "mv %s, type: %d, appid: %" PRI64_PREFIX "d, uid: %" PRI64_PREFIX "d, filepath: %s",
             TFS_SUCCESS == ret ? "success" : "fail", type, app_id, uid, file_path);
       }
 
@@ -897,7 +897,7 @@ namespace tfs
                 int64_t orig_last_offset = v_meta_info_it->get_last_offset();
                 while(write_frag_meta_it != v_frag_meta.end())//补全空洞
                 {
-                  TBSYS_LOG(DEBUG, "write_frag_meta_it->offset_ %"PRI64_PREFIX"d orig_last_offset %"PRI64_PREFIX"d",
+                  TBSYS_LOG(DEBUG, "write_frag_meta_it->offset_ %" PRI64_PREFIX "d orig_last_offset %" PRI64_PREFIX "d",
                         write_frag_meta_it->offset_, orig_last_offset);
                   if (write_frag_meta_it->offset_ >= orig_last_offset)
                   {
@@ -973,7 +973,7 @@ namespace tfs
       {
         if ((ret = parse_file_path(root_node, file_path, p_dir_node, pp_id, name, name_len)) != TFS_SUCCESS)
         {
-          TBSYS_LOG(INFO, "get info fail. appid: %"PRI64_PREFIX"d, uid: %"PRI64_PREFIX"d, %s",
+          TBSYS_LOG(INFO, "get info fail. appid: %" PRI64_PREFIX "d, uid: %" PRI64_PREFIX "d, %s",
               app_id, uid, file_path);
         }
         else
@@ -1047,7 +1047,7 @@ namespace tfs
         ret = parse_file_path(app_id, uid, file_path, p_meta_info, name, name_len);
         if (TFS_SUCCESS != ret)
         {
-          TBSYS_LOG(INFO, "parse file path fail. appid: %"PRI64_PREFIX"d, uid: %"PRI64_PREFIX"d, %s",
+          TBSYS_LOG(INFO, "parse file path fail. appid: %" PRI64_PREFIX "d, uid: %" PRI64_PREFIX "d, %s",
                     app_id, uid, file_path);
         }
         if (TFS_SUCCESS == ret)
@@ -1351,7 +1351,7 @@ namespace tfs
     {
       while(frag_meta_begin != frag_meta_end)
       {
-        TBSYS_LOG(DEBUG, "last offset = %"PRI64_PREFIX"d %"PRI64_PREFIX"d %d",
+        TBSYS_LOG(DEBUG, "last offset = %" PRI64_PREFIX "d %" PRI64_PREFIX "d %d",
             last_offset, frag_meta_begin->offset_, frag_meta_begin->size_);
         if (-1 == frag_meta_begin->offset_) // new metainfo
         {
@@ -1378,7 +1378,7 @@ namespace tfs
         const char* name, const int32_t name_len, const int64_t last_offset,
         std::vector<MetaInfo>& tmp_v_meta_info)
     {
-      TBSYS_LOG(DEBUG, "add_new_meta_info last_offset = %"PRI64_PREFIX"d", last_offset);
+      TBSYS_LOG(DEBUG, "add_new_meta_info last_offset = %" PRI64_PREFIX "d", last_offset);
       MetaInfo tmp;
       tmp.file_info_.pid_ = pid;
       tmp.frag_info_.cluster_id_ = cluster_id;
@@ -1532,11 +1532,11 @@ namespace tfs
         int64_t last_offset = -1;
         for (size_t i = 0; i < frag_info.v_frag_meta_.size(); i++)
         {
-          TBSYS_LOG(DEBUG, "frag info %zd off_set %"PRI64_PREFIX"d size %d",
+          TBSYS_LOG(DEBUG, "frag info %zd off_set %" PRI64_PREFIX "d size %d",
                 i, frag_info.v_frag_meta_[i].offset_, frag_info.v_frag_meta_[i].size_);
           if (frag_info.v_frag_meta_[i].offset_ < last_offset)
           {
-            TBSYS_LOG(WARN, "frag info have some error, %"PRI64_PREFIX"d < %"PRI64_PREFIX"d",
+            TBSYS_LOG(WARN, "frag info have some error, %" PRI64_PREFIX "d < %" PRI64_PREFIX "d",
                 frag_info.v_frag_meta_[i].offset_, last_offset);
             ret = EXIT_WRITE_EXIST_POS_ERROR;
             break;
@@ -1637,11 +1637,11 @@ namespace tfs
     void MetaServerService::dump_stat()
     {
       TBSYS_LOG(INFO, "cache hit ratio %f", store_manager_.get_cache_hit_ratio());
-      TBSYS_LOG(INFO, "CREATE_DIR %"PRI64_PREFIX"d CREATE_FILE %"PRI64_PREFIX"d "
-          "MV_DIR %"PRI64_PREFIX"d MV_FILE %"PRI64_PREFIX"d "
-          "LS_DIR %"PRI64_PREFIX"d LS_FILE %"PRI64_PREFIX"d "
-          "READ %"PRI64_PREFIX"d WRITE %"PRI64_PREFIX"d "
-          "RM_DIR %"PRI64_PREFIX"d RM_FILE %"PRI64_PREFIX"d ",
+      TBSYS_LOG(INFO, "CREATE_DIR %" PRI64_PREFIX "d CREATE_FILE %" PRI64_PREFIX "d "
+          "MV_DIR %" PRI64_PREFIX "d MV_FILE %" PRI64_PREFIX "d "
+          "LS_DIR %" PRI64_PREFIX "d LS_FILE %" PRI64_PREFIX "d "
+          "READ %" PRI64_PREFIX "d WRITE %" PRI64_PREFIX "d "
+          "RM_DIR %" PRI64_PREFIX "d RM_FILE %" PRI64_PREFIX "d ",
           stat_[STAT_CREATE_DIR], stat_[STAT_CREATE_FILE],
           stat_[STAT_MV_DIR], stat_[STAT_MV_FILE],
           stat_[STAT_LS_DIR], stat_[STAT_LS_FILE],

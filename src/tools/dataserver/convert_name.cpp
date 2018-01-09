@@ -60,6 +60,6 @@ int main(int argc, char** argv)
   }
   FSName fs_name(block_id, file_id, cluster_id, version_id);
   fs_name.set_suffix(suffix.c_str());
-  printf("blockid: %"PRI64_PREFIX "u, fileid: %"PRI64_PREFIX"u, name: %s\n", block_id, file_id, fs_name.get_name());
+  printf("blockid: %" PRI64_PREFIX  "u, fileid: %" PRI64_PREFIX "u, name: %s\n", block_id, file_id, fs_name.get_name());
   return 0;
 }

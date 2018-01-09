@@ -31,8 +31,8 @@ namespace tfs
     }
     void CacheRootNode::dump() const
     {
-      TBSYS_LOG(DEBUG, "CacheRootNode: app_id = %"PRI64_PREFIX"d "
-          "user_id_ = %"PRI64_PREFIX"d ",
+      TBSYS_LOG(DEBUG, "CacheRootNode: app_id = %" PRI64_PREFIX "d "
+          "user_id_ = %" PRI64_PREFIX "d ",
           key_.app_id_, key_.uid_);
       if (NULL != dir_meta_)
         dir_meta_->dump();
@@ -40,7 +40,7 @@ namespace tfs
     }
     void CacheDirMetaNode::dump() const
     {
-      TBSYS_LOG(DEBUG, "CacheDirMetaNode: id_ = %"PRI64_PREFIX"d "
+      TBSYS_LOG(DEBUG, "CacheDirMetaNode: id_ = %" PRI64_PREFIX "d "
           "create_time_ = %d modify_time_ = %d "
           "version_ = %d flag_ = %d",
           id_, create_time_, modify_time_, version_, flag_);
@@ -74,7 +74,7 @@ namespace tfs
     }
     void CacheFileMetaNode::dump() const
     {
-      TBSYS_LOG(DEBUG, "CacheFileMetaNode: size_ = %"PRI64_PREFIX"d "
+      TBSYS_LOG(DEBUG, "CacheFileMetaNode: size_ = %" PRI64_PREFIX "d "
           "create_time_ = %d modify_time_ = %d "
           "version_ = %d",
           size_, create_time_, modify_time_, version_);

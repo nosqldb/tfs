@@ -325,7 +325,7 @@ namespace tfs
             }
           }
           TIMER_END();
-          TBSYS_LOG(INFO, "apply lease from %s, who: %d, cost: %"PRI64_PREFIX"d, ret: %d",
+          TBSYS_LOG(INFO, "apply lease from %s, who: %d, cost: %" PRI64_PREFIX "d, ret: %d",
               tbsys::CNetUtil::addrToString(ns_ip_port_[who]).c_str(), who, TIMER_DURATION(), ret);
         }
 
@@ -375,7 +375,7 @@ namespace tfs
             lease_status_[who] = LEASE_APPLY;
           }
           TIMER_END();
-          TBSYS_LOG(INFO, "renew lease from %s, who: %d, cost: %"PRI64_PREFIX"d, ret: %d",
+          TBSYS_LOG(INFO, "renew lease from %s, who: %d, cost: %" PRI64_PREFIX "d, ret: %d",
               tbsys::CNetUtil::addrToString(ns_ip_port_[who]).c_str(), who, TIMER_DURATION(), ret);
         }
 
@@ -385,7 +385,7 @@ namespace tfs
       TIMER_START();
       ret = giveup(who);
       TIMER_END();
-      TBSYS_LOG(INFO, "giveup lease from %s, who: %d, cost: %"PRI64_PREFIX"d, ret: %d",
+      TBSYS_LOG(INFO, "giveup lease from %s, who: %d, cost: %" PRI64_PREFIX "d, ret: %d",
           tbsys::CNetUtil::addrToString(ns_ip_port_[who]).c_str(), who, TIMER_DURATION(), ret);
     }
 

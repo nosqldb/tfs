@@ -54,7 +54,7 @@ namespace tfs
     {
       if (total_count_ >= interval)
       {
-        TBSYS_LOG(DEBUG, "%s total(%"PRI64_PREFIX"u), timeout(%"PRI64_PREFIX"u), failed(%"PRI64_PREFIX"u), "
+        TBSYS_LOG(DEBUG, "%s total(%" PRI64_PREFIX "u), timeout(%" PRI64_PREFIX "u), failed(%" PRI64_PREFIX "u), "
             "average response(%5.2f)ms, max response:(%5.2f)ms",
             head, total_count_, timeout_count_, failed_count_,
             (double) response_consume_ / (interval * 1000),

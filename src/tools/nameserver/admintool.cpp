@@ -450,7 +450,7 @@ int cmd_add_block(const VSTRING& param)
 
   if (0 == block_id)
   {
-    fprintf(stderr, "block_id: %"PRI64_PREFIX"u\n\n", block_id);
+    fprintf(stderr, "block_id: %" PRI64_PREFIX "u\n\n", block_id);
     return TFS_ERROR;
   }
 
@@ -458,7 +458,7 @@ int cmd_add_block(const VSTRING& param)
 
   int ret = ToolUtil::get_block_ds_list_v2(g_tfs_client->get_server_id(), block_id, ds_list, T_WRITE|T_NEWBLK);
 
-  ToolUtil::print_info(ret, "add block %"PRI64_PREFIX"u", block_id);
+  ToolUtil::print_info(ret, "add block %" PRI64_PREFIX "u", block_id);
 
   return ret;
 
@@ -568,21 +568,21 @@ int cmd_list_block(const VSTRING& param)
 
   if (block_id <= 0)
   {
-    fprintf(stderr, "invalid block id: %"PRI64_PREFIX"u\n", block_id);
+    fprintf(stderr, "invalid block id: %" PRI64_PREFIX "u\n", block_id);
   }
   else
   {
     VUINT64 ds_list;
     ret = ToolUtil::get_block_ds_list_v2(g_tfs_client->get_server_id(), block_id, ds_list);
-    ToolUtil::print_info(ret, "list block %"PRI64_PREFIX"u", block_id);
+    ToolUtil::print_info(ret, "list block %" PRI64_PREFIX "u", block_id);
 
     if (TFS_SUCCESS == ret)
     {
       int32_t ds_size = ds_list.size();
-      fprintf(stdout, "------block: %"PRI64_PREFIX"u, has %d replicas------\n", block_id, ds_size);
+      fprintf(stdout, "------block: %" PRI64_PREFIX "u, has %d replicas------\n", block_id, ds_size);
       for (int32_t i = 0; i < ds_size; ++i)
       {
-        fprintf(stdout, "block: %"PRI64_PREFIX"u, (%d)th server: %s \n", block_id, i, tbsys::CNetUtil::addrToString(ds_list[i]).c_str());
+        fprintf(stdout, "block: %" PRI64_PREFIX "u, (%d)th server: %s \n", block_id, i, tbsys::CNetUtil::addrToString(ds_list[i]).c_str());
       }
     }
   }
@@ -618,7 +618,7 @@ int cmd_compact_block(const VSTRING& param)
   uint64_t block_id = strtoull(param[0].c_str(), NULL, 10);
   if (0 == block_id)
   {
-    fprintf(stderr, "invalid block id: %"PRI64_PREFIX"u\n", block_id);
+    fprintf(stderr, "invalid block id: %" PRI64_PREFIX "u\n", block_id);
     return TFS_ERROR;
   }
 
@@ -628,7 +628,7 @@ int cmd_compact_block(const VSTRING& param)
 
   int32_t status = TFS_ERROR;
   send_msg_to_server(g_tfs_client->get_server_id(), &req_cc_msg, status);
-  ToolUtil::print_info(status, "compactblock %"PRI64_PREFIX"u", block_id);
+  ToolUtil::print_info(status, "compactblock %" PRI64_PREFIX "u", block_id);
 
   return status;
 }
@@ -705,7 +705,7 @@ int cmd_replicate_block(const VSTRING& param)
   int32_t op_type = atoi(param[1].c_str());
   if (0 == block_id || op_type > 7 || op_type < 1)
   {
-    fprintf(stderr, "invalid param. blockid: %"PRI64_PREFIX"u, typeid: %d, blockid > 0, typeid in [1, 7]\n", block_id, op_type);
+    fprintf(stderr, "invalid param. blockid: %" PRI64_PREFIX "u, typeid: %d, blockid > 0, typeid in [1, 7]\n", block_id, op_type);
     return TFS_ERROR;
   }
 
@@ -835,7 +835,7 @@ int cmd_replicate_block(const VSTRING& param)
 
   int32_t status = TFS_ERROR;
   send_msg_to_server(g_tfs_client->get_server_id(), &req_cc_msg, status);
-  ToolUtil::print_info(status, "replicate block %"PRI64_PREFIX"u %"PRI64_PREFIX"u %"PRI64_PREFIX"u", block_id, src_id, dest_id);
+  ToolUtil::print_info(status, "replicate block %" PRI64_PREFIX "u %" PRI64_PREFIX "u %" PRI64_PREFIX "u", block_id, src_id, dest_id);
 
   return status;
 }
@@ -915,7 +915,7 @@ int cmd_access_stat_info(const VSTRING& param)//Discarded function
       const AccessStatInfoMessage::COUNTER_TYPE & m = req_cb_msg->get();
       for (AccessStatInfoMessage::COUNTER_TYPE::const_iterator it = m.begin(); it != m.end(); ++it)
       {
-        printf("%15s : %14" PRI64_PREFIX "u %14s %14" PRI64_PREFIX "u %14s\n",
+        printf("%15s : %14"  PRI64_PREFIX  "u %14s %14"  PRI64_PREFIX  "u %14s\n",
                tbsys::CNetUtil::addrToString(it->first).c_str(),
                it->second.read_file_count_, Func::format_size(it->second.read_byte_).c_str(),
                it->second.write_file_count_, Func::format_size(it->second.write_byte_).c_str());
@@ -1135,7 +1135,7 @@ int cmd_get_file_retry(char*, char*)
 //     int64_t t2 = Func::curr_time();
 //     if (t2 - t1 > 500000)
 //     {
-//       //fprintf(stderr, "filename: %s, time: %" PRI64_PREFIX "d, server: %s, done: %d\n", tfs_name, t2 - t1,
+//       //fprintf(stderr, "filename: %s, time: %"  PRI64_PREFIX  "d, server: %s, done: %d\n", tfs_name, t2 - t1,
 //       //   tbsys::CNetUtil::addrToString(tfs_client->get_last_elect_ds_id()).c_str(), done);
 //       fflush(stderr);
 //     }
@@ -1478,10 +1478,10 @@ int cmd_dump_plan(const VSTRING& param)
         obj_last_update_time = data_buff.readInt64();
         plan_seqno = data_buff.readInt64();
 
-        printf("seqno: %-7"PRI64_PREFIX"d\n", plan_seqno);
+        printf("seqno: %-7" PRI64_PREFIX "d\n", plan_seqno);
         printf("type: %-10s\n", (iter=type_print_map.find(plan_type)) != type_print_map.end() ? iter->second.c_str() : "unknown");
         printf("status: %-10s\n", plan_status == PLAN_STATUS_BEGIN ? "begin" : plan_status == PLAN_STATUS_TIMEOUT ? "timeout" : plan_status == PLAN_STATUS_END ? "finish" : plan_status == PLAN_STATUS_FAILURE ? "failure": "unknown");
-        printf("last_update_time: %-12"PRI64_PREFIX"d\n", obj_last_update_time);
+        printf("last_update_time: %-12" PRI64_PREFIX "d\n", obj_last_update_time);
 
         if(plan_type == PLAN_TYPE_REPLICATE || plan_type == PLAN_TYPE_MOVE || plan_type == PLAN_TYPE_COMPACT)
         {
@@ -1494,7 +1494,7 @@ int cmd_dump_plan(const VSTRING& param)
             runer += tbsys::CNetUtil::addrToString(data_buff.readInt64());
             runer += "/";
           }
-          printf("block_id: %"PRI64_PREFIX"u\n", block_id);
+          printf("block_id: %" PRI64_PREFIX "u\n", block_id);
           printf("runer: %-31s\n\n", runer.c_str());
         }
         else if(plan_type == PLAN_TYPE_EC_REINSTATE || plan_type == PLAN_TYPE_EC_DISSOLVE || plan_type == PLAN_TYPE_EC_MARSHALLING)
@@ -1506,7 +1506,7 @@ int cmd_dump_plan(const VSTRING& param)
           const int32_t member_num = data_member_num + check_member_num;
           int64_t server_id;
           int32_t version, status;
-          printf("family_id: %"PRI64_PREFIX"d\n", family_id);
+          printf("family_id: %" PRI64_PREFIX "d\n", family_id);
           printf("member num: %d, data_member_num: %d, check_data_num: %d\n", member_num, data_member_num, check_member_num);
           for(int32_t index = 0; index < member_num; index++)
           {
@@ -1514,7 +1514,7 @@ int cmd_dump_plan(const VSTRING& param)
             block_id = data_buff.readInt64();
             version = data_buff.readInt32();
             status = data_buff.readInt32();
-            printf("member %d: server:%s, blockid:%"PRI64_PREFIX"u, version:%d, status:%d\n", index, tbsys::CNetUtil::addrToString(server_id).c_str(), block_id, version, status);
+            printf("member %d: server:%s, blockid:%" PRI64_PREFIX "u, version:%d, status:%d\n", index, tbsys::CNetUtil::addrToString(server_id).c_str(), block_id, version, status);
           }
           printf("\n");
         }

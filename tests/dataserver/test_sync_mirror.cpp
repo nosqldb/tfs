@@ -428,7 +428,7 @@ TEST_F(SyncMirrorTest, testSyncToMultiSlaves)
     }
     else
     {
-      sprintf(queue_path, "%s/queue_%"PRI64_PREFIX"u", DIR_MIRROR, Func::get_host_ip(slave_ns_ip.at(i).c_str()));
+      sprintf(queue_path, "%s/queue_%" PRI64_PREFIX "u", DIR_MIRROR, Func::get_host_ip(slave_ns_ip.at(i).c_str()));
       queue_header_path = queue_path;
       queue_header_path += "/header.dat";
     }

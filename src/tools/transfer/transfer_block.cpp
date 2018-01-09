@@ -80,7 +80,7 @@ class WorkThread : public tbutil::Thread
           traffic_ = traffic_ * 3;
           break;
       }
-      TBSYS_LOG(INFO, "reload traffic, flag: %d, traffic: %"PRI64_PREFIX"d", flag, traffic_);
+      TBSYS_LOG(INFO, "reload traffic, flag: %d, traffic: %" PRI64_PREFIX "d", flag, traffic_);
     }
 
     virtual void run()
@@ -94,23 +94,23 @@ class WorkThread : public tbutil::Thread
         // get blockid and dsid
         if ((ret = blk_console_->get_transfer_param(block_id, ds_id)) != TFS_SUCCESS)
         {
-          TBSYS_LOG(ERROR, "get transfer param fail, ret: %d, thread id: %"PRI64_PREFIX"d", ret, id());
+          TBSYS_LOG(ERROR, "get transfer param fail, ret: %d, thread id: %" PRI64_PREFIX "d", ret, id());
           destroy_ = true;
           break;
         }
         else
         {
-          TBSYS_LOG(INFO, "get transfer param succ, blockid: %"PRI64_PREFIX"u, ds: %s, thread id: %"PRI64_PREFIX"d",
+          TBSYS_LOG(INFO, "get transfer param succ, blockid: %" PRI64_PREFIX "u, ds: %s, thread id: %" PRI64_PREFIX "d",
               block_id, tbsys::CNetUtil::addrToString(ds_id).c_str(), id());
           TranBlock tran_block(block_id, dest_ns_addr_, ds_id, traffic_, src_session_, dest_session_);
           if ((ret = tran_block.run()) != TFS_SUCCESS)
           {
-            TBSYS_LOG(ERROR, "tran block run fail, ret: %d, thread id: %"PRI64_PREFIX"d", ret, id());
+            TBSYS_LOG(ERROR, "tran block run fail, ret: %d, thread id: %" PRI64_PREFIX "d", ret, id());
           }
           blk_console_->finish_transfer_block(block_id, ret);
 
           TIMER_END();
-          TBSYS_LOG(INFO, "get transfer param %s, ret: %d, cost time: %"PRI64_PREFIX"d, tran size: %d",
+          TBSYS_LOG(INFO, "get transfer param %s, ret: %d, cost time: %" PRI64_PREFIX "d, tran size: %d",
               TFS_SUCCESS == ret ? "succ" : "fail", ret,
               TIMER_DURATION(), tran_block.get_tran_size());
         }

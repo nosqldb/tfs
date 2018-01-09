@@ -72,7 +72,7 @@ namespace tfs
           now = time(NULL);
           get_block_manager().set_last_check_time(now, block_id);
         }
-        TBSYS_LOG(INFO, "check block %"PRI64_PREFIX"u integrity, cost: %ld, ret: %d",
+        TBSYS_LOG(INFO, "check block %" PRI64_PREFIX "u integrity, cost: %ld, ret: %d",
             block_id, TIMER_DURATION(), ret);
       }
       return checked;

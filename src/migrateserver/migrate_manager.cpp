@@ -114,7 +114,7 @@ namespace tfs
       }
 
       NewClientManager::get_instance().destroy_client(client);
-      TBSYS_LOG(INFO, "get ds: %s info %s, total_capacity: %"PRI64_PREFIX"d, use_capacity: %"PRI64_PREFIX"d, block_count: %d, disk type: %d",
+      TBSYS_LOG(INFO, "get ds: %s info %s, total_capacity: %" PRI64_PREFIX "d, use_capacity: %" PRI64_PREFIX "d, block_count: %d, disk type: %d",
          tbsys::CNetUtil::addrToString(server).c_str(), TFS_SUCCESS == ret ? "success" : "fail",
          info.total_capacity_, info.use_capacity_, info.block_count_, info.type_);
       return ret;
@@ -249,7 +249,7 @@ namespace tfs
         } while (retry_times-- > 0 && TFS_SUCCESS != ret);
 
         TIMER_END();
-        TBSYS_LOG(INFO, "get all index header from dataserver: %s %s, cost: %"PRI64_PREFIX"d, remainder retry times: %d",
+        TBSYS_LOG(INFO, "get all index header from dataserver: %s %s, cost: %" PRI64_PREFIX "d, remainder retry times: %d",
             tbsys::CNetUtil::addrToString(server).c_str(), TFS_SUCCESS == ret ? "success" : "fail", TIMER_DURATION(), retry_times);
       }
       return ret;
@@ -324,12 +324,12 @@ namespace tfs
               {
                 entry.source_addr_ = info.id_;
               }
-              TBSYS_LOG(DEBUG, "system disk max block: %"PRI64_PREFIX"u(%"PRI64_PREFIX"u), "
-                  "full disk min block: %"PRI64_PREFIX"u(%"PRI64_PREFIX"u)", blocks_[0].rbegin()->second.second, system_disk_max_weight,
+              TBSYS_LOG(DEBUG, "system disk max block: %" PRI64_PREFIX "u(%" PRI64_PREFIX "u), "
+                  "full disk min block: %" PRI64_PREFIX "u(%" PRI64_PREFIX "u)", blocks_[0].rbegin()->second.second, system_disk_max_weight,
                   blocks_[1].begin()->second.second, full_disk_min_weight);
             }
             TBSYS_LOG(DEBUG, "dataserver count: %zd, system disk curr_ratio: %.3lf%%, [%.3lf%%, %.3lf%%], "
-                "will do migrate: %s, not full block count: %"PRI64_PREFIX"d, full/system disk block array count: %zd/%zd",
+                "will do migrate: %s, not full block count: %" PRI64_PREFIX "d, full/system disk block array count: %zd/%zd",
                 servers_.size(), curr_ratio * 100.0, (avg_ratio - balance_percent_) * 100.0, avg_ratio * 100.0,
                 (entry.dest_addr_ != INVALID_SERVER_ID || entry.source_addr_ != INVALID_SERVER_ID) ?  "yes":"no",
                 not_full_block_count_, blocks_[1].size(), blocks_[0].size());
@@ -370,7 +370,7 @@ namespace tfs
               {
                 assert(not_full_block_count_ > 0);
                 --not_full_block_count_;
-                TBSYS_LOG(DEBUG, "will migrate not full block: %"PRI64_PREFIX"u, from: %s to : %s",
+                TBSYS_LOG(DEBUG, "will migrate not full block: %" PRI64_PREFIX "u, from: %s to : %s",
                     entry.block_id_, tbsys::CNetUtil::addrToString(entry.source_addr_).c_str(),
                     tbsys::CNetUtil::addrToString(entry.dest_addr_).c_str());
               }
@@ -430,7 +430,7 @@ namespace tfs
         while (retry_times-- > 0 && TFS_SUCCESS != ret
             && EXIT_CANNOT_MIGRATE_BLOCK_ERROR != ret);
       }
-      TBSYS_LOG(INFO, "send migrate message %s, ret: %d, error msg: %s, block: %"PRI64_PREFIX"u, source: %s, dest: %s, ns_vip: %s",
+      TBSYS_LOG(INFO, "send migrate message %s, ret: %d, error msg: %s, block: %" PRI64_PREFIX "u, source: %s, dest: %s, ns_vip: %s",
           TFS_SUCCESS == ret ? "successful" : "failed", ret, msg, current.block_id_, tbsys::CNetUtil::addrToString(current.source_addr_).c_str(),
           tbsys::CNetUtil::addrToString(current.dest_addr_).c_str(), tbsys::CNetUtil::addrToString(ns_vip_port_).c_str());
       return ret;

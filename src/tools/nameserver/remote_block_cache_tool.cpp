@@ -421,7 +421,7 @@ int cmd_lookup_block_cache(const VSTRING& param)
   bool success = g_session->query_remote_block_cache(block_id, ds_list, info);
   if (!success)
   {
-    fprintf(stderr, "lookup block cache fail, blockid: %"PRI64_PREFIX"u\n", block_id);
+    fprintf(stderr, "lookup block cache fail, blockid: %" PRI64_PREFIX "u\n", block_id);
   }
   else
   {

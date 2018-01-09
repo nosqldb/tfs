@@ -504,7 +504,7 @@ int cmd_get_bucket(const VSTRING& param)
   }
 
   //todo show info of objects
-  ToolUtil::print_info(ret, "get bucket %s, %"PRI64_PREFIX"d, %"PRI64_PREFIX"d, take %"PRI64_PREFIX"d MicroSeconds", bucket_name, start, end, end - start);
+  ToolUtil::print_info(ret, "get bucket %s, %" PRI64_PREFIX "d, %" PRI64_PREFIX "d, take %" PRI64_PREFIX "d MicroSeconds", bucket_name, start, end, end - start);
   return ret;
 }
 
@@ -529,7 +529,7 @@ int cmd_head_bucket(const VSTRING& param)
 
   if (TFS_SUCCESS == ret)
   {
-    printf("bucket: %s, create_time: %"PRI64_PREFIX"d, owner_id: %"PRI64_PREFIX"d\n",
+    printf("bucket: %s, create_time: %" PRI64_PREFIX "d, owner_id: %" PRI64_PREFIX "d\n",
         bucket_name, bucket_meta_info.create_time_, bucket_meta_info.owner_id_);
   }
 
@@ -544,7 +544,7 @@ int cmd_put_object(const VSTRING& param)
   const char* object_name = param[1].c_str();
   int64_t owner_id = strtoll(param[2].c_str(), NULL, 10);
   int ret = 0;
-  ToolUtil::print_info(ret, "put object: %s, object: %s owner_id: %"PRI64_PREFIX"d",
+  ToolUtil::print_info(ret, "put object: %s, object: %s owner_id: %" PRI64_PREFIX "d",
       bucket_name, object_name, owner_id);
   UserInfo user_info;
   user_info.owner_id_ = owner_id;
@@ -552,7 +552,7 @@ int cmd_put_object(const VSTRING& param)
 
   ret = tfs::client::KvMetaHelper::do_put_object(new_server_id, bucket_name, object_name, object_info, user_info);
   //ret = g_kv_meta_client.put_object(bucket_name, object_name, local_file, user_info);
-  ToolUtil::print_info(ret, "put object: %s, object: %s owner_id: %"PRI64_PREFIX"d",
+  ToolUtil::print_info(ret, "put object: %s, object: %s owner_id: %" PRI64_PREFIX "d",
       bucket_name, object_name, owner_id);
   return ret;
 }
@@ -638,7 +638,7 @@ int cmd_head_object(const VSTRING& param)
 
   if (TFS_SUCCESS == ret)
   {
-    printf("create_time: %"PRI64_PREFIX"d, modify_time: %"PRI64_PREFIX"d, total_size: %"PRI64_PREFIX"d, owner_id: %"PRI64_PREFIX"d \n",
+    printf("create_time: %" PRI64_PREFIX "d, modify_time: %" PRI64_PREFIX "d, total_size: %" PRI64_PREFIX "d, owner_id: %" PRI64_PREFIX "d \n",
         object_info.meta_info_.create_time_, object_info.meta_info_.modify_time_, object_info.meta_info_.big_file_size_, object_info.meta_info_.owner_id_);
   }
   ToolUtil::print_info(ret, "head bucket: %s, object: %s", bucket_name, object_name);

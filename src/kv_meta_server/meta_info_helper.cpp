@@ -155,7 +155,7 @@ namespace tfs
     int MetaInfoHelper::serialize_key_ex(const std::string &file_name, const int64_t offset, KvKey *key,
         char *key_buff, const int32_t buff_size, int32_t key_type)
     {
-      TBSYS_LOG(DEBUG, "part offset: %"PRI64_PREFIX"d", offset);
+      TBSYS_LOG(DEBUG, "part offset: %" PRI64_PREFIX "d", offset);
 
       int ret = (file_name.size() > 0 && offset >= 0
                  && key != NULL &&  key_buff != NULL ) ? TFS_SUCCESS : TFS_ERROR;
@@ -309,7 +309,7 @@ namespace tfs
 
         if (TFS_SUCCESS != ret)
         {
-          TBSYS_LOG(ERROR, "put bucket_name: %s, file_name: %s, offset: %"PRI64_PREFIX"d part fail",
+          TBSYS_LOG(ERROR, "put bucket_name: %s, file_name: %s, offset: %" PRI64_PREFIX "d part fail",
               bucket_name.c_str(), file_name.c_str(), offset);
           break;
         }
@@ -463,7 +463,7 @@ namespace tfs
       }
 
       //TBSYS_LOG(DEBUG, "will put object, bucekt: %s, object: %s, "
-      //"offset: %"PRI64_PREFIX"d, length: %"PRI64_PREFIX"d",
+      //"offset: %" PRI64_PREFIX "d, length: %" PRI64_PREFIX "d",
       //bucket_name.c_str(), file_name.c_str(), offset, length);
 
       object_info_zero.has_meta_info_ = true;
@@ -608,7 +608,7 @@ namespace tfs
       int64_t length = 0;
       ObjectInfo object_info_zero;
 
-      TBSYS_LOG(DEBUG, "put object:%s to bucket:%s, user_id:%"PRI64_PREFIX"d",
+      TBSYS_LOG(DEBUG, "put object:%s to bucket:%s, user_id:%" PRI64_PREFIX "d",
           file_name.c_str(), bucket_name.c_str(), user_info.owner_id_);
 
       int ret = (bucket_name.size() > 0 && file_name.size() > 0) ? TFS_SUCCESS : TFS_ERROR;
@@ -643,14 +643,14 @@ namespace tfs
           {
             ret = put_object_part(bucket_name, file_name, object_info);
             TBSYS_LOG(DEBUG, "put object part ret: %d, bucekt_name: %s, object_name: %s, "
-                "offset: %"PRI64_PREFIX"d, length: %"PRI64_PREFIX"d",
+                "offset: %" PRI64_PREFIX "d, length: %" PRI64_PREFIX "d",
                 ret, bucket_name.c_str(), file_name.c_str(), offset, length);
           }
         }
         else
         {
           TBSYS_LOG(ERROR, "put object zero failed, ret: %d, bucekt: %s, object: %s, "
-              "offset: %"PRI64_PREFIX"d, length: %"PRI64_PREFIX"d",
+              "offset: %" PRI64_PREFIX "d, length: %" PRI64_PREFIX "d",
               ret, bucket_name.c_str(), file_name.c_str(), offset, length);
         }
       }
@@ -832,8 +832,8 @@ namespace tfs
       int ret = (bucket_name.size() > 0 && file_name.size() > 0 && length > 0
           && offset >= 0 && object_info != NULL && still_have != NULL) ? TFS_SUCCESS : TFS_ERROR;
 
-      TBSYS_LOG(DEBUG, "get object:%s from bucket:%s, offset:%"PRI64_PREFIX"d"
-          "length:%"PRI64_PREFIX"d, user_id:%"PRI64_PREFIX"d",
+      TBSYS_LOG(DEBUG, "get object:%s from bucket:%s, offset:%" PRI64_PREFIX "d"
+          "length:%" PRI64_PREFIX "d, user_id:%" PRI64_PREFIX "d",
           file_name.c_str(), bucket_name.c_str(), offset, length, user_info.owner_id_);
 
       if (TFS_SUCCESS == ret)
@@ -1022,7 +1022,7 @@ namespace tfs
       int ret = (bucket_name.size() > 0 && file_name.size() > 0) ? TFS_SUCCESS : TFS_ERROR;
       *still_have = false;
 
-      TBSYS_LOG(DEBUG, "del object:%s from bucket:%s, user_id:%"PRI64_PREFIX"d",
+      TBSYS_LOG(DEBUG, "del object:%s from bucket:%s, user_id:%" PRI64_PREFIX "d",
           file_name.c_str(), bucket_name.c_str(), user_info.owner_id_);
 
       if (TFS_SUCCESS == ret)
@@ -1451,7 +1451,7 @@ namespace tfs
       }
       if (ret == EXIT_KV_RETURN_DATA_NOT_EXIST)
       {
-        TBSYS_LOG(DEBUG, "owner: %"PRI64_PREFIX"d has not create any bucket", owner_id);
+        TBSYS_LOG(DEBUG, "owner: %" PRI64_PREFIX "d has not create any bucket", owner_id);
         ret = EXIT_NO_BUCKETS;
       }
 
@@ -1475,7 +1475,7 @@ namespace tfs
     {
       int ret = NULL == buckets_result ? TFS_ERROR : TFS_SUCCESS;
 
-      TBSYS_LOG(DEBUG, "list buckets of user_id:%"PRI64_PREFIX"d",
+      TBSYS_LOG(DEBUG, "list buckets of user_id:%" PRI64_PREFIX "d",
           user_info.owner_id_);
 
       if (TFS_SUCCESS == ret)
@@ -1506,7 +1506,7 @@ namespace tfs
             }
             else
             {
-              TBSYS_LOG(ERROR, "bucket: %s has conflict owner_id: %"PRI64_PREFIX"d <=> %"PRI64_PREFIX"d",
+              TBSYS_LOG(ERROR, "bucket: %s has conflict owner_id: %" PRI64_PREFIX "d <=> %" PRI64_PREFIX "d",
                   (*iter).c_str(), bucket_meta_info.owner_id_, user_info.owner_id_);
               continue;
             }
@@ -1526,7 +1526,7 @@ namespace tfs
       }
       else if (EXIT_NO_BUCKETS == ret)
       {
-        TBSYS_LOG(INFO, "owner: %"PRI64_PREFIX"d has not create any buckets", user_info.owner_id_);
+        TBSYS_LOG(INFO, "owner: %" PRI64_PREFIX "d has not create any buckets", user_info.owner_id_);
         ret = TFS_SUCCESS;
       }
 
@@ -1771,7 +1771,7 @@ namespace tfs
     {
       int ret = TFS_SUCCESS;
 
-      TBSYS_LOG(DEBUG, "head bucket:%s, user_id:%"PRI64_PREFIX"d",
+      TBSYS_LOG(DEBUG, "head bucket:%s, user_id:%" PRI64_PREFIX "d",
           bucket_name.c_str(), user_info.owner_id_);
 
       if (TFS_SUCCESS == ret)
@@ -1837,7 +1837,7 @@ namespace tfs
       bucket_meta_info.set_create_time(now_time);
       int ret = TFS_SUCCESS;
 
-      TBSYS_LOG(DEBUG, "put bucket:%s, user_id:%"PRI64_PREFIX"d, acl:%d",
+      TBSYS_LOG(DEBUG, "put bucket:%s, user_id:%" PRI64_PREFIX "d, acl:%d",
           bucket_name.c_str(), user_info.owner_id_, acl);
 
       if (TFS_SUCCESS == ret)
@@ -1866,7 +1866,7 @@ namespace tfs
           if (TFS_SUCCESS == ret && static_cast<int32_t>(s_bucket_list.size()) >= KvDefine::MAX_BUCKETS_COUNT)
           {
             ret = EXIT_OVER_MAX_BUCKETS_COUNT;
-            TBSYS_LOG(ERROR, "owner: %"PRI64_PREFIX"d has %zu buckets, over %d",
+            TBSYS_LOG(ERROR, "owner: %" PRI64_PREFIX "d has %zu buckets, over %d",
                 user_info.owner_id_, s_bucket_list.size(), KvDefine::MAX_BUCKETS_COUNT);
           }
           else if (EXIT_NO_BUCKETS == ret)
@@ -1908,7 +1908,7 @@ namespace tfs
                 if (TFS_SUCCESS == iret && static_cast<int32_t>(s_bucket_list.size()) >= KvDefine::MAX_BUCKETS_COUNT)
                 {
                   ret = EXIT_OVER_MAX_BUCKETS_COUNT;
-                  TBSYS_LOG(ERROR, "owner: %"PRI64_PREFIX"d has %zu buckets, over %d",
+                  TBSYS_LOG(ERROR, "owner: %" PRI64_PREFIX "d has %zu buckets, over %d",
                       user_info.owner_id_, s_bucket_list.size(), KvDefine::MAX_BUCKETS_COUNT);
                   break;
                 }
@@ -1919,7 +1919,7 @@ namespace tfs
               }
               else
               {
-                TBSYS_LOG(ERROR, "get owner: %"PRI64_PREFIX"d's bucket list failed, ret: %d",
+                TBSYS_LOG(ERROR, "get owner: %" PRI64_PREFIX "d's bucket list failed, ret: %d",
                     user_info.owner_id_, iret);
                 break;
               }
@@ -1943,7 +1943,7 @@ namespace tfs
     {
       int ret = TFS_SUCCESS;
 
-      TBSYS_LOG(DEBUG, "get bucket:%s, prefix:%s, start_key:%s, delimiter:%c, user_id:%"PRI64_PREFIX"d",
+      TBSYS_LOG(DEBUG, "get bucket:%s, prefix:%s, start_key:%s, delimiter:%c, user_id:%" PRI64_PREFIX "d",
           bucket_name.c_str(), prefix.c_str(), start_key.c_str(), delimiter, user_info.owner_id_);
 
       ret = check_bucket_acl(bucket_name, user_info, READ);
@@ -1980,7 +1980,7 @@ namespace tfs
       pkey.key_size_ = bucket_name.length();
       pkey.key_type_ = KvKey::KEY_TYPE_BUCKET;
 
-      TBSYS_LOG(DEBUG, "delete bucket:%s, user_id:%"PRI64_PREFIX"d",
+      TBSYS_LOG(DEBUG, "delete bucket:%s, user_id:%" PRI64_PREFIX "d",
           bucket_name.c_str(), user_info.owner_id_);
 
       ret = check_bucket_acl(bucket_name, user_info, WRITE);
@@ -2020,7 +2020,7 @@ namespace tfs
             {
               if (s_tmp_bucket_list.find(bucket_name) == s_tmp_bucket_list.end())
               {
-                TBSYS_LOG(WARN, "owner: %"PRI64_PREFIX"d does not own this bucket: %s", user_info.owner_id_, bucket_name.c_str());
+                TBSYS_LOG(WARN, "owner: %" PRI64_PREFIX "d does not own this bucket: %s", user_info.owner_id_, bucket_name.c_str());
               }
               else
               {
@@ -2032,7 +2032,7 @@ namespace tfs
 
           if (TFS_SUCCESS != ret && EXIT_NO_BUCKETS != ret)
           {
-            TBSYS_LOG(ERROR, "update owner: %"PRI64_PREFIX"d's bucket list failed, ret: %d", user_info.owner_id_, ret);
+            TBSYS_LOG(ERROR, "update owner: %" PRI64_PREFIX "d's bucket list failed, ret: %d", user_info.owner_id_, ret);
           }
         }
 
@@ -2050,7 +2050,7 @@ namespace tfs
 
     void MetaInfoHelper::dump_bucket_list(const int64_t owner_id, const set<string> &s_bucket_list)
     {
-      TBSYS_LOG(DEBUG, "will dump owner: %"PRI64_PREFIX"d's bucket list", owner_id);
+      TBSYS_LOG(DEBUG, "will dump owner: %" PRI64_PREFIX "d's bucket list", owner_id);
       set<string>::iterator iter = s_bucket_list.begin();
       for (; iter != s_bucket_list.end(); iter++)
       {
@@ -2064,7 +2064,7 @@ namespace tfs
       MAP_INT64_INT_ITER iter = acl_map.begin();
       for (; iter != acl_map.end(); iter++)
       {
-        TBSYS_LOG(DEBUG, "user_id: %"PRI64_PREFIX"d, permission: %d", iter->first, iter->second);
+        TBSYS_LOG(DEBUG, "user_id: %" PRI64_PREFIX "d, permission: %d", iter->first, iter->second);
       }
     }
 
@@ -2086,7 +2086,7 @@ namespace tfs
         MAP_INT64_INT_ITER iter = bucket_acl_map.find(user_id);
         if (iter != bucket_acl_map.end())
         {
-          TBSYS_LOG(DEBUG, "user_id: %"PRI64_PREFIX"d is bucket owner, permission: %d", user_id, iter->second);
+          TBSYS_LOG(DEBUG, "user_id: %" PRI64_PREFIX "d is bucket owner, permission: %d", user_id, iter->second);
           if (!(iter->second & per))
           {
             has_permission = false;
@@ -2110,7 +2110,7 @@ namespace tfs
       if (!has_permission)
       {
         ret = EXIT_BUCKET_PERMISSION_DENY;
-        TBSYS_LOG(ERROR, "user_id: %"PRI64_PREFIX"d have no %d permission", user_id, per);
+        TBSYS_LOG(ERROR, "user_id: %" PRI64_PREFIX "d have no %d permission", user_id, per);
       }
 
       return ret;
@@ -2181,7 +2181,7 @@ namespace tfs
     {
       int ret = TFS_SUCCESS;
 
-      TBSYS_LOG(DEBUG, "put bucket acl for bucket:%s, user_id:%"PRI64_PREFIX"d, acl:%d",
+      TBSYS_LOG(DEBUG, "put bucket acl for bucket:%s, user_id:%" PRI64_PREFIX "d, acl:%d",
           bucket_name.c_str(), user_info.owner_id_, acl);
 
       BucketMetaInfo bucket_meta_info;
@@ -2219,7 +2219,7 @@ namespace tfs
       int ret = TFS_SUCCESS;
       BucketMetaInfo bucket_meta_info;
 
-      TBSYS_LOG(DEBUG, "get bucket acl for bucket:%s, user_id:%"PRI64_PREFIX"d",
+      TBSYS_LOG(DEBUG, "get bucket acl for bucket:%s, user_id:%" PRI64_PREFIX "d",
           bucket_name.c_str(), user_info.owner_id_);
 
       if (TFS_SUCCESS == ret)

@@ -515,7 +515,7 @@ namespace tfs
                 {
                   RemoveBlockMessageV2* msg = dynamic_cast<RemoveBlockMessageV2*>(packet);
                   StatusMessage* sm = dynamic_cast<StatusMessage*>(iter->second.second);
-                  TBSYS_LOG(INFO, "remove block: %"PRI64_PREFIX"u %s", msg->get_block_id(),
+                  TBSYS_LOG(INFO, "remove block: %" PRI64_PREFIX "u %s", msg->get_block_id(),
                     STATUS_MESSAGE_OK == sm->get_status() ? "successful" : "failure");
                 }
               }
@@ -561,7 +561,7 @@ namespace tfs
           else
           {
             ret = message->reply_error_packet(TBSYS_LOG_LEVEL(INFO), ret,
-                  "got error, when get block: %"PRI64_PREFIX"u mode: %d, result: %d information, %s",
+                  "got error, when get block: %" PRI64_PREFIX "u mode: %d, result: %d information, %s",
                   block_id, mode, ret,tbsys::CNetUtil::addrToString(ipport).c_str());
           }
         }
@@ -590,7 +590,7 @@ namespace tfs
         if (TFS_SUCCESS == ret)
         {
           reply->set_size(meta.get_array_index());
-          TBSYS_LOG(DEBUG, "batch open return %"PRI64_PREFIX"d blocks meta.", meta.get_array_index());
+          TBSYS_LOG(DEBUG, "batch open return %" PRI64_PREFIX "d blocks meta.", meta.get_array_index());
           ret = message->reply(reply);
         }
         else
@@ -628,7 +628,7 @@ namespace tfs
         bool addnew = UPDATE_BLOCK_INFO_REPL == type ? true : false;
         ret = layout_manager_.update_block_info(info, server_id, Func::get_monotonic_time(), addnew);
         char buf[256] = {'\0'};
-        snprintf(buf, 256, "update block: %"PRI64_PREFIX"u information %s, server: %s, ret: %d",
+        snprintf(buf, 256, "update block: %" PRI64_PREFIX "u information %s, server: %s, ret: %d",
             info.block_id_, TFS_SUCCESS == ret ? "successful" : "failed", tbsys::CNetUtil::addrToString(server_id).c_str(), ret);
         TBSYS_LOG_DW(ret, buf);
         ret = message->reply(new StatusMessage(ret, buf));
@@ -914,7 +914,7 @@ namespace tfs
         {
           reply_msg->free();
           ret = message->reply_error_packet(TBSYS_LOG_LEVEL(INFO), ret,
-              "got error, when get family: %"PRI64_PREFIX"d mode: %d, result: %d information, %s",
+              "got error, when get family: %" PRI64_PREFIX "d mode: %d, result: %d information, %s",
               family_id, mode, ret, tbsys::CNetUtil::addrToString(ipport).c_str());
         }
       }
@@ -945,7 +945,7 @@ namespace tfs
           reply_msg->free();
         }
         TIMER_END();
-        TBSYS_LOG(DEBUG, "dataserver: %s apply block %s consume times: %"PRI64_PREFIX"d(us), ret: %d, need: %d, actual: %"PRI64_PREFIX"d",
+        TBSYS_LOG(DEBUG, "dataserver: %s apply block %s consume times: %" PRI64_PREFIX "d(us), ret: %d, need: %d, actual: %" PRI64_PREFIX "d",
           tbsys::CNetUtil::addrToString(server).c_str(),TFS_SUCCESS == ret ? "successful" : "failed", TIMER_DURATION(),
           ret, MAX_COUNT, output.get_array_index());
       }
@@ -977,7 +977,7 @@ namespace tfs
           reply_msg->free();
         }
         TIMER_END();
-        TBSYS_LOG(DEBUG, "dataserver: %s renew block %s consume times: %"PRI64_PREFIX"d(us), ret: %d, input: %"PRI64_PREFIX"d, output: %"PRI64_PREFIX"d",
+        TBSYS_LOG(DEBUG, "dataserver: %s renew block %s consume times: %" PRI64_PREFIX "d(us), ret: %d, input: %" PRI64_PREFIX "d, output: %" PRI64_PREFIX "d",
           tbsys::CNetUtil::addrToString(server).c_str(),TFS_SUCCESS == ret ? "successful" : "failed", TIMER_DURATION(),
           ret, input.get_array_index(), output.get_array_index());
       }
@@ -1009,7 +1009,7 @@ namespace tfs
           reply_msg->free();
         }
         TIMER_END();
-        TBSYS_LOG(DEBUG, "dataserver: %s apply block for update %s consume times: %"PRI64_PREFIX"d(us), ret: %d, need: %d, actual: %"PRI64_PREFIX"d",
+        TBSYS_LOG(DEBUG, "dataserver: %s apply block for update %s consume times: %" PRI64_PREFIX "d(us), ret: %d, need: %d, actual: %" PRI64_PREFIX "d",
           tbsys::CNetUtil::addrToString(server).c_str(),TFS_SUCCESS == ret ? "successful" : "failed", TIMER_DURATION(),
           ret, MAX_COUNT, output.get_array_index());
       }
@@ -1041,7 +1041,7 @@ namespace tfs
           reply_msg->free();
         }
         TIMER_END();
-        TBSYS_LOG(DEBUG, "dataserver: %s giveup block %s consume times: %"PRI64_PREFIX"d(us), ret: %d, need: %d, actual: %"PRI64_PREFIX"d",
+        TBSYS_LOG(DEBUG, "dataserver: %s giveup block %s consume times: %" PRI64_PREFIX "d(us), ret: %d, need: %d, actual: %" PRI64_PREFIX "d",
           tbsys::CNetUtil::addrToString(server).c_str(),TFS_SUCCESS == ret ? "successful" : "failed", TIMER_DURATION(),
           ret, MAX_COUNT, output.get_array_index());
       }

@@ -87,7 +87,7 @@ int main(int argc, char** argv)
     }
     else
     {
-      printf("global block id: %"PRI64_PREFIX"u\n", read_gloabal_blockid);
+      printf("global block id: %" PRI64_PREFIX "u\n", read_gloabal_blockid);
     }
   }
   else if (4 == argc && 0 == strcmp(argv[2], "set"))
@@ -95,7 +95,7 @@ int main(int argc, char** argv)
     uint64_t write_global_blockid = strtoull(argv[3], NULL, 10);
     if (TFS_SUCCESS == write_ns_meta(fd, write_global_blockid))
     {
-      printf("set meta file: %s to %"PRI64_PREFIX"u success\n", argv[1], write_global_blockid);
+      printf("set meta file: %s to %" PRI64_PREFIX "u success\n", argv[1], write_global_blockid);
     }
     else
     {

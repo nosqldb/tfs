@@ -111,7 +111,7 @@ int block_process(const uint64_t ns_id, const map<uint64_t, int32_t>& family_map
         ret = do_stat(block.info_.size_ / M_UNITS, v_block_size_range);
         if (ret != TFS_SUCCESS)
         {
-          TBSYS_LOG(ERROR, "some error occurs, blockid: %"PRI64_PREFIX"u, size: %d", block.info_.block_id_, block.info_.size_);
+          TBSYS_LOG(ERROR, "some error occurs, blockid: %" PRI64_PREFIX "u, size: %d", block.info_.block_id_, block.info_.size_);
         }
 
         // get big block info
@@ -123,7 +123,7 @@ int block_process(const uint64_t ns_id, const map<uint64_t, int32_t>& family_map
         // count del block range
         if (block.info_.del_size_ < 0)
         {
-          TBSYS_LOG(ERROR, "some error occurs, blockid: %"PRI64_PREFIX"u, del size: %d, size: %d", block.info_.block_id_, block.info_.del_size_, block.info_.size_);
+          TBSYS_LOG(ERROR, "some error occurs, blockid: %" PRI64_PREFIX "u, del size: %d, size: %d", block.info_.block_id_, block.info_.del_size_, block.info_.size_);
         }
         else
         {
@@ -131,7 +131,7 @@ int block_process(const uint64_t ns_id, const map<uint64_t, int32_t>& family_map
           ret = do_stat(percent, v_del_block_range);
           if (ret != TFS_SUCCESS)
           {
-            TBSYS_LOG(ERROR, "some error occurs, blockid: %"PRI64_PREFIX"u, del size: %d, size: %d", block.info_.block_id_, block.info_.del_size_, block.info_.size_);
+            TBSYS_LOG(ERROR, "some error occurs, blockid: %" PRI64_PREFIX "u, del size: %d, size: %d", block.info_.block_id_, block.info_.del_size_, block.info_.size_);
           }
         }
 
@@ -355,13 +355,13 @@ int main(int argc,char** argv)
     set<BlockSize>::reverse_iterator rbiter = s_big_block.rbegin();
     for (; rbiter != s_big_block.rend(); rbiter++)
     {
-      fprintf(fp, "block_id: %"PRI64_PREFIX"u, size: %d\n", rbiter->block_id_, rbiter->file_size_);
+      fprintf(fp, "block_id: %" PRI64_PREFIX "u, size: %d\n", rbiter->block_id_, rbiter->file_size_);
     }
     fprintf(fp, "--------------------------top %d block list-------------------------------\n", top_num);
     set<BlockSize>::reverse_iterator rtiter = s_topn_block.rbegin();
     for (; rtiter != s_topn_block.rend(); rtiter++)
     {
-      fprintf(fp, "block_id: %"PRI64_PREFIX"u, size: %d\n", rtiter->block_id_, rtiter->file_size_);
+      fprintf(fp, "block_id: %" PRI64_PREFIX "u, size: %d\n", rtiter->block_id_, rtiter->file_size_);
     }
   }
   fclose(fp);

@@ -124,13 +124,13 @@ namespace tfs
         fsname.set_file_id(it->file_id_);
         if (TfsClient::Instance()->unlink(file_size, fsname.get_name(), NULL, addr) != common::TFS_SUCCESS)
         {
-          TBSYS_LOG(ERROR, "gc segment fail, blockid: %u, fileid: %"PRI64_PREFIX"u, ret: %d",
+          TBSYS_LOG(ERROR, "gc segment fail, blockid: %u, fileid: %" PRI64_PREFIX "u, ret: %d",
               it->block_id_, it->file_id_, ret);
           ret = common::TFS_ERROR;
         }
         else
         {
-          TBSYS_LOG(DEBUG, "gc segment success, blockid: %u, fileid: %"PRI64_PREFIX"u",
+          TBSYS_LOG(DEBUG, "gc segment success, blockid: %u, fileid: %" PRI64_PREFIX "u",
               it->block_id_, it->file_id_);
         }
       }

@@ -321,7 +321,7 @@ int main(int argc, char* argv[])
     fclose(*g_log_fp[i].fp_);
   }
 
-  fprintf(stdout, "TOTAL COUNT: %"PRI64_PREFIX"d, ACTUAL_COUNT: %"PRI64_PREFIX"d, SUCCESS COUNT: %"PRI64_PREFIX"d, FAIL COUNT: %"PRI64_PREFIX"d\n",
+  fprintf(stdout, "TOTAL COUNT: %" PRI64_PREFIX "d, ACTUAL_COUNT: %" PRI64_PREFIX "d, SUCCESS COUNT: %" PRI64_PREFIX "d, FAIL COUNT: %" PRI64_PREFIX "d\n",
       g_sync_stat_.total_count_, g_sync_stat_.actual_count_, g_sync_stat_.success_count_, g_sync_stat_.fail_count_);
   fprintf(stdout, "LOG FILE: %s\n", log_path);
 
@@ -364,7 +364,7 @@ int get_file_list(const string& log_file, SYNC_FILE_MAP& sync_file_map)
           sync_file_map.insert(make_pair(block_id, name_set));
         }
 
-        TBSYS_LOG(INFO, "block_id: %u, file_id: %"PRI64_PREFIX"u, name: %s\n", block_id, file_id, fs.get_name());
+        TBSYS_LOG(INFO, "block_id: %u, file_id: %" PRI64_PREFIX "u, name: %s\n", block_id, file_id, fs.get_name());
       }
     }
     fclose (fp);

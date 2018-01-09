@@ -313,7 +313,7 @@ namespace tfs
         BlockEntry* entry = get(write_info.block_id_);
         if (NULL == entry)
         {
-          ret = message->reply_error_packet(TBSYS_LOG_LEVEL(ERROR), ret, "failed. blockid: %u, fileid: %" PRI64_PREFIX "u.",
+          ret = message->reply_error_packet(TBSYS_LOG_LEVEL(ERROR), ret, "failed. blockid: %u, fileid: %"  PRI64_PREFIX  "u.",
                 write_info.block_id_, write_info.file_id_);
         }
         else
@@ -335,7 +335,7 @@ namespace tfs
             else
             {
               ret = message->reply_error_packet(TBSYS_LOG_LEVEL(ERROR), ret,
-                  "write data fail to other dataserver (send): blockid: %u, fileid: %" PRI64_PREFIX "u, datalen: %d, ret: %d",
+                  "write data fail to other dataserver (send): blockid: %u, fileid: %"  PRI64_PREFIX  "u, datalen: %d, ret: %d",
                   write_info.block_id_, write_info.file_id_, write_info.length_, ret);
             }
           }
@@ -404,7 +404,7 @@ namespace tfs
         if (NULL == entry)
         {
           ret = message->reply_error_packet(TBSYS_LOG_LEVEL(ERROR), ret,
-              "close write file failed. block is not exist. blockid: %u, fileid: %" PRI64_PREFIX "u.", info.block_id_, info.file_id_);
+              "close write file failed. block is not exist. blockid: %u, fileid: %"  PRI64_PREFIX  "u.", info.block_id_, info.file_id_);
         }
         else
         {
@@ -428,7 +428,7 @@ namespace tfs
             }
             else
             {
-              TBSYS_LOG(ERROR, "dataserver commit fail, block_id: %u, file_id: %"PRI64_PREFIX"u, ret: %d",
+              TBSYS_LOG(ERROR, "dataserver commit fail, block_id: %u, file_id: %" PRI64_PREFIX "u, ret: %d",
                   info.block_id_, info.file_id_, ret);
               ret = message->reply(new StatusMessage(STATUS_MESSAGE_ERROR));
             }
@@ -459,7 +459,7 @@ namespace tfs
         if (NULL == entry)
         {
           ret = message->reply_error_packet(TBSYS_LOG_LEVEL(ERROR), ret,
-              "create file failed. blockid: %u, fileid: %" PRI64_PREFIX "u.", block_id, file_id);
+              "create file failed. blockid: %u, fileid: %"  PRI64_PREFIX  "u.", block_id, file_id);
         }
         else
         {

@@ -704,7 +704,7 @@ PHP_FUNCTION(tfs_client_pread)
       ret = off > 0 ? SUCCESS: FAILURE;
       if (SUCCESS != ret)
       {
-		    php_error(E_ERROR, "tfs_client: read data failed, fd: %ld ret: %"PRI64_PREFIX"d", fd, off);
+		    php_error(E_ERROR, "tfs_client: read data failed, fd: %ld ret: %" PRI64_PREFIX "d", fd, off);
       }
       else
       {

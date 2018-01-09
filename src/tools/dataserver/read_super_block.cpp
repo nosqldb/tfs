@@ -32,7 +32,7 @@ void dump_super_block(const SuperBlockInfo& info)
 {
   printf("%-25s%s\n", "mount_tag:", info.mount_tag_);
   printf("%-25s%s\n", "mount_path:", info.mount_point_);
-  printf("%-25s%"PRI64_PREFIX"d\n", "mount_space:", info.mount_point_use_space_);
+  printf("%-25s%" PRI64_PREFIX "d\n", "mount_space:", info.mount_point_use_space_);
   printf("%-25s%d\n", "mount fs type:", info.mount_fs_type_);
   printf("%-25s%d\n", "sb reserve offset:", info.superblock_reserve_offset_);
   printf("%-25s%d\n", "index reserve offset:", info.block_index_offset_);
@@ -64,7 +64,7 @@ void dump_block_index_header()
 
 void dump_block_index(const BlockIndex& index)
 {
-  printf("%-22"PRI64_PREFIX"u%-10d%-10d%-10d%-10d%-8d%-6d%-6d%-6d\n",
+  printf("%-22" PRI64_PREFIX "u%-10d%-10d%-10d%-10d%-8d%-6d%-6d%-6d\n",
       index.logic_block_id_,
       index.physical_block_id_,
       index.physical_file_name_id_,

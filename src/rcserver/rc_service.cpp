@@ -212,12 +212,12 @@ namespace tfs
         ReqRcLoginMessage* req_login_msg = dynamic_cast<ReqRcLoginMessage*>(packet);
         string session_id;
         BaseInfo base_info;
-        TBSYS_LOG(DEBUG, "call RspRcLoginMessage::login start. app_key: %s, app_ip: %"PRI64_PREFIX"d, ret: %d",
+        TBSYS_LOG(DEBUG, "call RspRcLoginMessage::login start. app_key: %s, app_ip: %" PRI64_PREFIX "d, ret: %d",
             req_login_msg->get_app_key(), req_login_msg->get_app_ip(), ret);
         if ((ret = session_manager_->login(req_login_msg->get_app_key(),
             req_login_msg->get_app_ip(), session_id, base_info)) != TFS_SUCCESS)
         {
-          TBSYS_LOG(ERROR, "call SessionManager::login fail. app_key: %s, app_ip: %"PRI64_PREFIX"d, ret: %d",
+          TBSYS_LOG(ERROR, "call SessionManager::login fail. app_key: %s, app_ip: %" PRI64_PREFIX "d, ret: %d",
               req_login_msg->get_app_key(), req_login_msg->get_app_ip(), ret);
         }
         else
@@ -234,10 +234,10 @@ namespace tfs
             int inner_ret = req_login_msg->reply(rsp_login_msg);
             if (TFS_SUCCESS != inner_ret)
             {
-              TBSYS_LOG(DEBUG, "call RspRcLoginMessage::login fail. app_key: %s, app_ip: %"PRI64_PREFIX"d, inner_ret: %d",
+              TBSYS_LOG(DEBUG, "call RspRcLoginMessage::login fail. app_key: %s, app_ip: %" PRI64_PREFIX "d, inner_ret: %d",
                   req_login_msg->get_app_key(), req_login_msg->get_app_ip(), inner_ret);
             }
-            TBSYS_LOG(DEBUG, "call RspRcLoginMessage::login end. app_key: %s, app_ip: %"PRI64_PREFIX"d, session_id: %s, ret: %d",
+            TBSYS_LOG(DEBUG, "call RspRcLoginMessage::login end. app_key: %s, app_ip: %" PRI64_PREFIX "d, session_id: %s, ret: %d",
                 req_login_msg->get_app_key(), req_login_msg->get_app_ip(), session_id.c_str(), ret);
           }
         }

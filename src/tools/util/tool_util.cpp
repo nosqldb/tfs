@@ -36,7 +36,7 @@ namespace tfs
       int ret = TFS_ERROR;
       if (0 == server_id)
       {
-        TBSYS_LOG(ERROR, "server is is invalid: %"PRI64_PREFIX"u", server_id);
+        TBSYS_LOG(ERROR, "server is is invalid: %" PRI64_PREFIX "u", server_id);
       }
       else
       {
@@ -76,7 +76,7 @@ namespace tfs
       int ret = TFS_ERROR;
       if (0 == server_id)
       {
-        TBSYS_LOG(ERROR, "server id is invalid: %"PRI64_PREFIX"u", server_id);
+        TBSYS_LOG(ERROR, "server id is invalid: %" PRI64_PREFIX "u", server_id);
       }
       else
       {
@@ -165,18 +165,18 @@ namespace tfs
           ret = list_file_v2(ds_server, block_id, block_id, finofs);
           if(TFS_SUCCESS != ret)
           {
-             TBSYS_LOG(WARN, "get blockid: %"PRI64_PREFIX"u files list fail, ds_id:%s, ret:%d", block_id, tbsys::CNetUtil::addrToString(ds_server).c_str(), ret);
+             TBSYS_LOG(WARN, "get blockid: %" PRI64_PREFIX "u files list fail, ds_id:%s, ret:%d", block_id, tbsys::CNetUtil::addrToString(ds_server).c_str(), ret);
           }
         }
         else
         {
           ret = EXIT_TFS_ERROR;//有编组的block丢失,虽然可以继续退化读，但是效率太低，还是不要读了
-          TBSYS_LOG(WARN, "unknown error, get block ds list success, but ds list is empty, only can degrade read, blockid: %"PRI64_PREFIX"u, ns_addr:%s", block_id, tbsys::CNetUtil::addrToString(ns_id).c_str());
+          TBSYS_LOG(WARN, "unknown error, get block ds list success, but ds list is empty, only can degrade read, blockid: %" PRI64_PREFIX "u, ns_addr:%s", block_id, tbsys::CNetUtil::addrToString(ns_id).c_str());
         }
       }
       else
       {
-        TBSYS_LOG(WARN, "get blockid: %"PRI64_PREFIX"u ds list fail, ns_addr:%s, ret:%d", block_id, tbsys::CNetUtil::addrToString(ns_id).c_str(), ret);
+        TBSYS_LOG(WARN, "get blockid: %" PRI64_PREFIX "u ds list fail, ns_addr:%s, ret:%d", block_id, tbsys::CNetUtil::addrToString(ns_id).c_str(), ret);
       }
       return ret;
     }
@@ -430,7 +430,7 @@ namespace tfs
           }
           else
           {
-            TBSYS_LOG(DEBUG, "skip verify block, blockid: %"PRI64_PREFIX"u,", block_id);
+            TBSYS_LOG(DEBUG, "skip verify block, blockid: %" PRI64_PREFIX "u,", block_id);
           }
         }
 
@@ -514,19 +514,19 @@ namespace tfs
         {
           StatusMessage* sm = dynamic_cast<StatusMessage*>(rsp);
           ret = sm->get_status();
-          TBSYS_LOG(WARN, "get family info fail, familyid: %"PRI64_PREFIX"d, error msg: %s, ret: %d",
+          TBSYS_LOG(WARN, "get family info fail, familyid: %" PRI64_PREFIX "d, error msg: %s, ret: %d",
               family_id, sm->get_error(), ret);
         }
         else
         {
           ret = EXIT_UNKNOWN_MSGTYPE;
-          TBSYS_LOG(WARN, "get family info fail, familyid: %"PRI64_PREFIX"d, unknown msg, pcode: %d",
+          TBSYS_LOG(WARN, "get family info fail, familyid: %" PRI64_PREFIX "d, unknown msg, pcode: %d",
               family_id, rsp->getPCode());
         }
       }
       else
       {
-        TBSYS_LOG(WARN, "send GetFamilyInfoMessage fail, familyid: %"PRI64_PREFIX"d, ret: %d", family_id, ret);
+        TBSYS_LOG(WARN, "send GetFamilyInfoMessage fail, familyid: %" PRI64_PREFIX "d, ret: %d", family_id, ret);
       }
       NewClientManager::get_instance().destroy_client(client);
 

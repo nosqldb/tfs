@@ -140,7 +140,7 @@ void print_result(const VUINT64& need_sync_block_list, const VUINT64& lost_block
     fprintf(stdout, "BOTH LOST BLOCK COUNT: %zd\n", lost_block_list.size());
     for (uint32_t i = 0; i < lost_block_list.size(); i++)
     {
-      fprintf(stdout, "%"PRI64_PREFIX"u\n", lost_block_list.at(i));
+      fprintf(stdout, "%" PRI64_PREFIX "u\n", lost_block_list.at(i));
     }
   }
 
@@ -155,7 +155,7 @@ void print_result(const VUINT64& need_sync_block_list, const VUINT64& lost_block
       uint64_t block_id = need_sync_block_list.at(i);
       if (lost_block_set.find(block_id) == lost_block_set.end())
       {
-        fprintf(stdout, "%"PRI64_PREFIX"u\n", block_id);// can sync from slave cluster
+        fprintf(stdout, "%" PRI64_PREFIX "u\n", block_id);// can sync from slave cluster
       }
     }
   }

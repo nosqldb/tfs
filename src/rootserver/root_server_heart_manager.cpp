@@ -221,7 +221,7 @@ namespace tfs
       {
         if (!iter->second.lease_.has_valid_lease(now.toSeconds()))
         {
-          TBSYS_LOG(DEBUG, "%s lease expired: %"PRI64_PREFIX"d, now: %"PRI64_PREFIX"d",
+          TBSYS_LOG(DEBUG, "%s lease expired: %" PRI64_PREFIX "d, now: %" PRI64_PREFIX "d",
             tbsys::CNetUtil::addrToString(iter->second.base_info_.id_).c_str(),
             iter->second.lease_.lease_expired_time_, (int64_t)now.toSeconds());
           servers_.erase(iter++);
@@ -384,7 +384,7 @@ namespace tfs
             iret = uncompress(dest, &dest_length, (unsigned char*)reply->get_table(), reply->get_table_length());
             if (Z_OK != iret)
             {
-              TBSYS_LOG(ERROR, "uncompress error: ret : %d, version: %"PRI64_PREFIX"d", iret, reply->get_version());
+              TBSYS_LOG(ERROR, "uncompress error: ret : %d, version: %" PRI64_PREFIX "d", iret, reply->get_version());
               iret = TFS_ERROR;
             }
             else

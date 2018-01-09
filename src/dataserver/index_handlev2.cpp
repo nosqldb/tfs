@@ -823,7 +823,7 @@ namespace tfs
           mem_header_ = *header;
         }
       }
-      TBSYS_LOG(INFO, "create index %s, ret: %d, file path: %s, block id : %"PRI64_PREFIX"u, max_bucket_size: %d, file_size: %"PRI64_PREFIX"d",
+      TBSYS_LOG(INFO, "create index %s, ret: %d, file path: %s, block id : %" PRI64_PREFIX "u, max_bucket_size: %d, file_size: %" PRI64_PREFIX "d",
           TFS_SUCCESS == ret ? "successful" : "failed", ret, file_op_.get_path().c_str(), logic_block_id, max_bucket_size, file_size);
       return ret;
     }
@@ -868,7 +868,7 @@ namespace tfs
 
         if (TFS_SUCCESS != ret)
         {
-          TBSYS_LOG(WARN, "index corrupt. logic blockid: %"PRI64_PREFIX"u, header blockid: %"PRI64_PREFIX"u, file size: %"PRI64_PREFIX"d, header file size : %"PRI64_PREFIX"d, bucket size: %d",
+          TBSYS_LOG(WARN, "index corrupt. logic blockid: %" PRI64_PREFIX "u, header blockid: %" PRI64_PREFIX "u, file size: %" PRI64_PREFIX "d, header file size : %" PRI64_PREFIX "d, bucket size: %d",
               logic_block_id, header->info_.block_id_, file_size, size, header->file_info_bucket_size_);
         }
       }
@@ -886,7 +886,7 @@ namespace tfs
         mem_header_ = *header;
       }
 
-      TBSYS_LOG(INFO, "load index %s, ret: %d, block id : %"PRI64_PREFIX"u, file_size: %"PRI64_PREFIX"d",
+      TBSYS_LOG(INFO, "load index %s, ret: %d, block id : %" PRI64_PREFIX "u, file_size: %" PRI64_PREFIX "d",
           TFS_SUCCESS == ret ? "successful" : "failed", ret, logic_block_id, file_size);
       return ret;
     }
@@ -1146,7 +1146,7 @@ namespace tfs
               new_header->used_file_info_bucket_size_ = 0;
               new_header->file_info_bucket_size_ = std::min(((new_length - INDEX_HEADER_V2_LENGTH) / FILE_INFO_V2_LENGTH), max_hash_bucket);
               FileInfoV2* old_buckets = reinterpret_cast<FileInfoV2*>(old_data + INDEX_HEADER_V2_LENGTH);
-              TBSYS_LOG(INFO, "index file %s remmap, old_length: %d, bucket_size: %d, used bucket size: %d, new_length: %d, new_bucket size: %d, used bucket size: %u, block id: %"PRI64_PREFIX"u",
+              TBSYS_LOG(INFO, "index file %s remmap, old_length: %d, bucket_size: %d, used bucket size: %d, new_length: %d, new_bucket size: %d, used bucket size: %u, block id: %" PRI64_PREFIX "u",
                   file_op_.get_path().c_str(), old_length, header->file_info_bucket_size_, header->used_file_info_bucket_size_,
                   new_length, new_header->file_info_bucket_size_, new_header->used_file_info_bucket_size_, new_header->info_.block_id_);
               for (uint16_t bucket = 0; bucket < header->file_info_bucket_size_ && TFS_SUCCESS == ret; ++bucket)
@@ -1267,7 +1267,7 @@ namespace tfs
           mem_header_ = *header;
         }
       }
-      TBSYS_LOG(INFO, "create verify block index %s, ret: %d, block id : %"PRI64_PREFIX"u, file_size: %"PRI64_PREFIX"d",
+      TBSYS_LOG(INFO, "create verify block index %s, ret: %d, block id : %" PRI64_PREFIX "u, file_size: %" PRI64_PREFIX "d",
           TFS_SUCCESS == ret ? "successful" : "failed", ret, logic_block_id, file_size);
       return ret;
     }
@@ -1315,7 +1315,7 @@ namespace tfs
         mem_header_ = *header;
       }
 
-      TBSYS_LOG(INFO, "load verify index %s, ret: %d, block id : %"PRI64_PREFIX"u, file_size: %"PRI64_PREFIX"d",
+      TBSYS_LOG(INFO, "load verify index %s, ret: %d, block id : %" PRI64_PREFIX "u, file_size: %" PRI64_PREFIX "d",
           TFS_SUCCESS == ret ? "successful" : "failed", ret, logic_block_id, file_size);
       return ret;
     }
@@ -1650,7 +1650,7 @@ namespace tfs
 
       if (TFS_SUCCESS != ret)
       {
-        TBSYS_LOG(WARN, "free index mem fail. block id: %"PRI64_PREFIX"u, size: %d, offset: %d",
+        TBSYS_LOG(WARN, "free index mem fail. block id: %" PRI64_PREFIX "u, size: %d, offset: %d",
             index.logic_block_id_, index.size_, index.offset_);
       }
       return ret;

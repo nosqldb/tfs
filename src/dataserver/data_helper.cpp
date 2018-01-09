@@ -82,8 +82,8 @@ namespace tfs
         ret = new_remote_block_ex(server_id, block_id, tmp, family_id, index_num, expire_time);
         if (TFS_SUCCESS != ret)
         {
-          TBSYS_LOG(WARN, "new remote block fail. server: %s, blockid: %"PRI64_PREFIX"u, "
-              "tmp: %d, familyid: %"PRI64_PREFIX"u, index_num: %d, ret: %d",
+          TBSYS_LOG(WARN, "new remote block fail. server: %s, blockid: %" PRI64_PREFIX "u, "
+              "tmp: %d, familyid: %" PRI64_PREFIX "u, index_num: %d, ret: %d",
               tbsys::CNetUtil::addrToString(server_id).c_str(), block_id,
               tmp, family_id, index_num, ret);
         }
@@ -103,7 +103,7 @@ namespace tfs
         ret = delete_remote_block_ex(server_id, block_id, tmp);
         if (TFS_SUCCESS != ret)
         {
-          TBSYS_LOG(WARN, "delete remote block fail. server: %s, blockid: %"PRI64_PREFIX"u, tmp: %d, ret: %d",
+          TBSYS_LOG(WARN, "delete remote block fail. server: %s, blockid: %" PRI64_PREFIX "u, tmp: %d, ret: %d",
               tbsys::CNetUtil::addrToString(server_id).c_str(), block_id, tmp, ret);
         }
       }
@@ -129,7 +129,7 @@ namespace tfs
           int64_t now = Func::get_monotonic_time_us();
           int64_t last = get_traffic_control().get_last_mr_traffic_stat_time_us(true);
           int64_t wait_time = last + TRAFFIC_BYTES_STAT_INTERVAL - now;
-          TBSYS_LOG(DEBUG, "read data need wait %"PRI64_PREFIX"d us", wait_time);
+          TBSYS_LOG(DEBUG, "read data need wait %" PRI64_PREFIX "d us", wait_time);
           if (wait_time > 0)
           {
             // after sleep, we think it's ok to send read request, though it maybe not
@@ -161,7 +161,7 @@ namespace tfs
 
       if (TFS_SUCCESS != ret)
       {
-        TBSYS_LOG(WARN, "read raw data fail. server: %s, blockid: %"PRI64_PREFIX"u, "
+        TBSYS_LOG(WARN, "read raw data fail. server: %s, blockid: %" PRI64_PREFIX "u, "
             "length: %d, offset: %d, ret: %d",
             tbsys::CNetUtil::addrToString(server_id).c_str(),
             block_id, length, offset, ret);
@@ -188,7 +188,7 @@ namespace tfs
           int64_t now = Func::get_monotonic_time_us();
           int64_t last = get_traffic_control().get_last_mr_traffic_stat_time_us(false);
           int64_t wait_time = last + TRAFFIC_BYTES_STAT_INTERVAL - now;
-          TBSYS_LOG(DEBUG, "write data need wait %"PRI64_PREFIX"d us", wait_time);
+          TBSYS_LOG(DEBUG, "write data need wait %" PRI64_PREFIX "d us", wait_time);
           if (wait_time > 0)
           {
             usleep(wait_time);
@@ -204,7 +204,7 @@ namespace tfs
 
       if (TFS_SUCCESS != ret)
       {
-        TBSYS_LOG(WARN, "write raw data fail. server: %s, blockid: %"PRI64_PREFIX"u, "
+        TBSYS_LOG(WARN, "write raw data fail. server: %s, blockid: %" PRI64_PREFIX "u, "
             "length: %d, offset: %d, tmp: %d, ret: %d",
             tbsys::CNetUtil::addrToString(server_id).c_str(),
             block_id, length, offset, tmp, ret);
@@ -224,14 +224,14 @@ namespace tfs
         ret = read_index_ex(server_id, block_id, attach_block_id, index_data);
         if (TFS_SUCCESS != ret)
         {
-          TBSYS_LOG(WARN, "read index fail. server: %s, blockid: %"PRI64_PREFIX"u, "
-              "attach blockid: %"PRI64_PREFIX"u, ret: %d",
+          TBSYS_LOG(WARN, "read index fail. server: %s, blockid: %" PRI64_PREFIX "u, "
+              "attach blockid: %" PRI64_PREFIX "u, ret: %d",
               tbsys::CNetUtil::addrToString(server_id).c_str(),
               block_id, attach_block_id, ret);
         }
       }
 
-      TBSYS_LOG(DEBUG, "read index. block_id: %"PRI64_PREFIX"u, finfos size: %zd",
+      TBSYS_LOG(DEBUG, "read index. block_id: %" PRI64_PREFIX "u, finfos size: %zd",
         index_data.header_.info_.block_id_, index_data.finfos_.size());
 
       return ret;
@@ -241,7 +241,7 @@ namespace tfs
         const uint64_t attach_block_id, const common::IndexDataV2& index_data,
         const bool tmp, const bool partial)
     {
-      TBSYS_LOG(DEBUG, "write index. block_id: %"PRI64_PREFIX"u, finfos size: %zd",
+      TBSYS_LOG(DEBUG, "write index. block_id: %" PRI64_PREFIX "u, finfos size: %zd",
         index_data.header_.info_.block_id_, index_data.finfos_.size());
 
       int ret = ((INVALID_SERVER_ID == server_id) || (INVALID_BLOCK_ID == block_id) ||
@@ -252,8 +252,8 @@ namespace tfs
         ret = write_index_ex(server_id, block_id, attach_block_id, index_data, tmp, partial);
         if (TFS_SUCCESS != ret)
         {
-          TBSYS_LOG(WARN, "write index fail. server: %s, blockid: %"PRI64_PREFIX"u, "
-              "attach blockid: %"PRI64_PREFIX"u, tmp: %d, partial: %d, ret: %d",
+          TBSYS_LOG(WARN, "write index fail. server: %s, blockid: %" PRI64_PREFIX "u, "
+              "attach blockid: %" PRI64_PREFIX "u, tmp: %d, partial: %d, ret: %d",
               tbsys::CNetUtil::addrToString(server_id).c_str(),
               block_id, attach_block_id, tmp, partial, ret);
         }
@@ -272,7 +272,7 @@ namespace tfs
          ret = query_ec_meta_ex(server_id, block_id, ec_meta, lock_time);
          if (TFS_SUCCESS != ret)
          {
-           TBSYS_LOG(WARN, "query ec meta fail. server: %s, blockid: %"PRI64_PREFIX"u, ret: %d",
+           TBSYS_LOG(WARN, "query ec meta fail. server: %s, blockid: %" PRI64_PREFIX "u, ret: %d",
                tbsys::CNetUtil::addrToString(server_id).c_str(), block_id, ret);
          }
        }
@@ -290,7 +290,7 @@ namespace tfs
          ret = commit_ec_meta_ex(server_id, block_id, ec_meta, switch_flag, unlock_flag);
          if (TFS_SUCCESS != ret)
          {
-           TBSYS_LOG(WARN, "commit ec meta fail. server: %s, blockid: %"PRI64_PREFIX"u, "
+           TBSYS_LOG(WARN, "commit ec meta fail. server: %s, blockid: %" PRI64_PREFIX "u, "
                "switch_flag: %d, ret: %d",
                tbsys::CNetUtil::addrToString(server_id).c_str(), block_id, switch_flag, ret);
          }
@@ -317,8 +317,8 @@ namespace tfs
               data + offset - off, length, offset, flag);
           if (TFS_SUCCESS != ret)
           {
-            TBSYS_LOG(INFO, "read file fail. server: %s ,blockid: %"PRI64_PREFIX"u, "
-                "attach blockid: %"PRI64_PREFIX"u, fileid: %"PRI64_PREFIX"u, "
+            TBSYS_LOG(INFO, "read file fail. server: %s ,blockid: %" PRI64_PREFIX "u, "
+                "attach blockid: %" PRI64_PREFIX "u, fileid: %" PRI64_PREFIX "u, "
                 "length: %d, offset: %d, ret: %d", tbsys::CNetUtil::addrToString(server_id).c_str(),
                 block_id, attach_block_id, file_id, length, offset, ret);
           }
@@ -357,8 +357,8 @@ namespace tfs
               data + offset, length, offset, lease_id, flag);
           if (TFS_SUCCESS != ret)
           {
-            TBSYS_LOG(WARN, "write file fail. server: %s, blockid: %"PRI64_PREFIX"u, "
-                "attach blockid: %"PRI64_PREFIX"u, fileid: %"PRI64_PREFIX"u, "
+            TBSYS_LOG(WARN, "write file fail. server: %s, blockid: %" PRI64_PREFIX "u, "
+                "attach blockid: %" PRI64_PREFIX "u, fileid: %" PRI64_PREFIX "u, "
                 "length: %d, offset: %d, ret: %d", tbsys::CNetUtil::addrToString(server_id).c_str(),
                 block_id, attach_block_id, file_id, length, offset, ret);
           }
@@ -375,8 +375,8 @@ namespace tfs
         ret = close_file_ex(server_id, block_id, attach_block_id, file_id, lease_id, crc, status, tmp);
         if (TFS_SUCCESS != ret)
         {
-          TBSYS_LOG(WARN, "close file fail. server: %s, blockid: %"PRI64_PREFIX"u, "
-              "attach blockid: %"PRI64_PREFIX"u, fileid: %"PRI64_PREFIX"u, crc: %u, ret: %d",
+          TBSYS_LOG(WARN, "close file fail. server: %s, blockid: %" PRI64_PREFIX "u, "
+              "attach blockid: %" PRI64_PREFIX "u, fileid: %" PRI64_PREFIX "u, crc: %u, ret: %d",
               tbsys::CNetUtil::addrToString(server_id).c_str(),
               block_id, attach_block_id, file_id, crc, ret);
         }
@@ -410,7 +410,7 @@ namespace tfs
         ret = get_block_replicas_ex(ns_id, block_id, servers);
         if (TFS_SUCCESS != ret)
         {
-          TBSYS_LOG(DEBUG, "get block replicas fail. ns: %s, blockid: %"PRI64_PREFIX"u, ret: %d",
+          TBSYS_LOG(DEBUG, "get block replicas fail. ns: %s, blockid: %" PRI64_PREFIX "u, ret: %d",
               tbsys::CNetUtil::addrToString(ns_id).c_str(), block_id, ret);
         }
       }
@@ -1499,7 +1499,7 @@ namespace tfs
           if (crc != finfo->crc_)
           {
             ret = EXIT_CHECK_CRC_ERROR;
-            TBSYS_LOG(WARN, "blockid %"PRI64_PREFIX"u fileid %"PRI64_PREFIX"u crc_error."
+            TBSYS_LOG(WARN, "blockid %" PRI64_PREFIX "u fileid %" PRI64_PREFIX "u crc_error."
                 "data_crc: %u finfo_crc: %u ret: %d", src->id(), finfo->id_, crc, finfo->crc_, ret);
             break;
           }

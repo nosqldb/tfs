@@ -146,18 +146,18 @@ int main(int argc ,char* argv[])
         {
           if(0 == this_error)
           {
-            printf("%"PRI64_PREFIX"d%s:%s:%d\n", i, (*iter).c_str(), "succeed", ret);
+            printf("%" PRI64_PREFIX "d%s:%s:%d\n", i, (*iter).c_str(), "succeed", ret);
           }
           else
           {
-            printf("%"PRI64_PREFIX"d%s:%s:%d\n", i, (*iter).c_str(), "failed", ret);
+            printf("%" PRI64_PREFIX "d%s:%s:%d\n", i, (*iter).c_str(), "failed", ret);
           }
           total_error += this_error;
           this_error = 0;
         }
       }
      }
-     printf("total errors: %"PRI64_PREFIX"d\n", total_error);
+     printf("total errors: %" PRI64_PREFIX "d\n", total_error);
   }
 
   return 0;

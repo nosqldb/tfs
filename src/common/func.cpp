@@ -477,7 +477,7 @@ namespace tfs
       }
       else
       {
-        snprintf      (s, 128, "%" PRI64_PREFIX "d", c);
+        snprintf      (s, 128, "%"  PRI64_PREFIX  "d", c);
       }
       return s;
     }
@@ -510,7 +510,7 @@ namespace tfs
     {
       if (len <= 0 || len > TFS_MALLOC_MAX_SIZE)
       {
-        TBSYS_LOG(ERROR, "allocate to large memory: len: %d > maxlen: %"PRI64_PREFIX"d", len, TFS_MALLOC_MAX_SIZE);
+        TBSYS_LOG(ERROR, "allocate to large memory: len: %d > maxlen: %" PRI64_PREFIX "d", len, TFS_MALLOC_MAX_SIZE);
         return NULL;
       }
       if (data == NULL)
