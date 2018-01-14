@@ -22,7 +22,7 @@
 #endif
 
 #include <list>
-#include <ext/hash_map>
+#include <unordered_map>
 #include "common/internal.h"
 #include "common/error_msg.h"
 #include "common/meta_hash_helper.h"

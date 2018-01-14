@@ -18,7 +18,6 @@
 #include <tbsys.h>
 #include <tbnet.h>
 #include <map>
-#include <ext/hash_map>
 #include <Monitor.h>
 #include <Mutex.h>
 #include "base_packet.h"

@@ -62,7 +62,7 @@ namespace tfs
     class AccessStatInfoMessage: public common::BasePacket
     {
       public:
-        typedef __gnu_cxx ::hash_map<uint32_t, common::Throughput> COUNTER_TYPE;
+        typedef std::unordered_map<uint32_t, common::Throughput> COUNTER_TYPE;
 
         AccessStatInfoMessage();
         virtual ~AccessStatInfoMessage();

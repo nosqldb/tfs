@@ -18,7 +18,7 @@
 #define TFS_COMMON_KV_ROOT_SERVER_DEFINE_H_
 
 #include <map>
-#include <ext/hash_map>
+#include <unordered_map>
 #include <Time.h>
 
 #include "internal.h"

@@ -19,7 +19,7 @@
 
 #include <tbnet.h>
 #include <Mutex.h>
-#include <ext/hash_map>
+#include <unordered_map>
 #include "base_packet.h"
 #include "base_packet_factory.h"
 #include "base_packet_streamer.h"
@@ -34,7 +34,7 @@ namespace tfs
     {
         friend int NewClient::post_request(const uint64_t server, tbnet::Packet* packet, uint8_t& send_id);
         friend bool NewClient::async_wait();
-        typedef __gnu_cxx::hash_map<uint32_t, NewClient*> NEWCLIENT_MAP;
+        typedef std::unordered_map<uint32_t, NewClient*> NEWCLIENT_MAP;
         typedef NEWCLIENT_MAP::iterator NEWCLIENT_MAP_ITER;
         typedef int (*async_callback_func_entry)(NewClient* client, void* args);
       public:

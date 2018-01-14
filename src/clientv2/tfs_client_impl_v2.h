@@ -30,7 +30,6 @@ namespace tfs
   }
   namespace clientv2
   {
-    class tbutil::Mutex;
     class TfsFile;
     typedef std::map<int, TfsFile*> FILE_MAP;
 

@@ -21,7 +21,6 @@
 #include <pthread.h>
 #include <vector>
 #include <string>
-#include <ext/hash_map>
 #include <signal.h>
 #include <Memory.hpp>
 #include "show.h"

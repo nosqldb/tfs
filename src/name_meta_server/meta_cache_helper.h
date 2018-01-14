@@ -15,7 +15,7 @@
 */
 #ifndef TFS_NAMEMETASERVER_META_CACHE_HELPER_H_
 #define TFS_NAMEMETASERVER_META_CACHE_HELPER_H_
-#include <ext/hash_map>
+#include <unordered_map>
 #include "common/define.h"
 #include "meta_cache_info.h"
 namespace tfs

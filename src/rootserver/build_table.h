@@ -14,7 +14,7 @@
  *
  */
 
-#include <ext/hash_map>
+#include <unordered_map>
 
 #ifdef TFS_GTEST
 #include <gtest/gtest.h>

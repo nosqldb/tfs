@@ -21,7 +21,7 @@
 #include <vector>
 #include <list>
 #include <set>
-#include <ext/hash_map>
+#include <unordered_map>
 #include <string.h>
 #include <stdint.h>
 #include <sys/types.h>
@@ -68,27 +68,6 @@
 // debug log on success, warn log on fail
 #define TBSYS_LOG_DW(ret, _fmt_, args...) (TFS_SUCCESS == (ret) ? TBSYS_LOG(DEBUG, _fmt_, ##args) : TBSYS_LOG(WARN, _fmt_, ##args))
 
-#if __WORDSIZE == 32
-namespace __gnu_cxx
-{
-  template<> struct hash<uint64_t>
-  {
-    uint64_t operator()(uint64_t __x) const
-    {
-      return __x;
-    }
-  };
-
-  template<> struct hash<int64_t>
-  {
-    int64_t operator()(int64_t __x) const
-    {
-      return __x;
-    }
-  };
-}
-#endif
-
 namespace tfs
 {
   namespace common
@@ -109,16 +88,16 @@ namespace tfs
     typedef std::map<std::string, std::string> STRING_MAP; // string => string
     typedef STRING_MAP::iterator STRING_MAP_ITER;
 
-    typedef __gnu_cxx ::hash_map<uint32_t, VINT64> INT_VINT64_MAP; // int => vector<int64>
+    typedef std::unordered_map<uint32_t, VINT64> INT_VINT64_MAP; // int => vector<int64>
     typedef INT_VINT64_MAP::iterator INT_VINT64_MAP_ITER;
-    typedef __gnu_cxx ::hash_map<uint64_t, VINT, __gnu_cxx ::hash<int> > INT64_VINT_MAP; // int64 => vector<int>
+    typedef std::unordered_map<uint64_t, VINT> INT64_VINT_MAP; // int64 => vector<int>
     typedef INT64_VINT_MAP::iterator INT64_VINT_MAP_ITER;
-    typedef __gnu_cxx ::hash_map<uint32_t, uint64_t> INT_INT64_MAP; // int => int64
+    typedef std::unordered_map<uint32_t, uint64_t> INT_INT64_MAP; // int => int64
     typedef INT_INT64_MAP::iterator INT_INT64_MAP_ITER;
-    typedef __gnu_cxx ::hash_map<uint64_t, uint32_t, __gnu_cxx ::hash<int> > INT64_INT_MAP; // int64 => int
+    typedef std::unordered_map<uint64_t, uint32_t> INT64_INT_MAP; // int64 => int
     typedef INT64_INT_MAP::iterator INT64_INT_MAP_ITER;
 
-    typedef __gnu_cxx ::hash_map<uint32_t, uint32_t> INT_MAP;
+    typedef std::unordered_map<uint32_t, uint32_t> INT_MAP;
     typedef INT_MAP::iterator INT_MAP_ITER;
 
     // base constant
@@ -1484,9 +1463,9 @@ namespace tfs
     typedef std::vector<CheckBlockInfo>::iterator CheckBlockInfoVecIter;
     typedef std::vector<CheckBlockInfo>::const_iterator CheckBlockInfoVecConstIter;
 
-    typedef __gnu_cxx::hash_map<uint32_t, CheckBlockInfoVec> CheckBlockInfoMap;
-    typedef __gnu_cxx::hash_map<uint32_t, CheckBlockInfoVec>::iterator CheckBlockInfoMapIter;
-    typedef __gnu_cxx::hash_map<uint32_t, CheckBlockInfoVec>::const_iterator CheckBlockInfoMapConstIter;
+    typedef std::unordered_map<uint32_t, CheckBlockInfoVec> CheckBlockInfoMap;
+    typedef std::unordered_map<uint32_t, CheckBlockInfoVec>::iterator CheckBlockInfoMapIter;
+    typedef std::unordered_map<uint32_t, CheckBlockInfoVec>::const_iterator CheckBlockInfoMapConstIter;
 
     static const int32_t FILEINFO_EXT_SIZE = sizeof(FileInfoInDiskExt);
     static const int32_t FILEINFO_SIZE = sizeof(FileInfo);

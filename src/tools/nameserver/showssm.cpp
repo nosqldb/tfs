@@ -17,7 +17,7 @@
 #include <pthread.h>
 #include <vector>
 #include <string>
-#include <ext/hash_map>
+#include <unordered_map>
 #include <signal.h>
 #include <Memory.hpp>
 
@@ -42,7 +42,7 @@ static int32_t max_write_filecount;
 static uint32_t group_mask = 0;
 static INT_MAP group_map;
 static char server_addr[128];
-typedef hash_map<uint64_t, DataServerStatInfo*, hash<int32_t> > DATASERVER_MAP;
+typedef std::unordered_map<uint64_t, DataServerStatInfo*> DATASERVER_MAP;
 typedef DATASERVER_MAP::iterator DATASERVER_MAP_ITER;
 static DATASERVER_MAP ds_map_;
 static const std::string LAST_DS_FILE("%s/.tfs_last_ds");
