@@ -93,7 +93,7 @@ namespace tfs
         DISALLOW_COPY_AND_ASSIGN(DataFile);
     };
 
-       typedef __gnu_cxx::hash_map<uint64_t, DataFile*, __gnu_cxx::hash<int> > DataFileMap;
+       typedef std::unordered_map<uint64_t, DataFile*> DataFileMap;
        typedef DataFileMap::iterator DataFileMapIter;
   }/** end namespace dataserver **/
 }/** end namespace tfs **/

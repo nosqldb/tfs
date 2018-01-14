@@ -17,7 +17,7 @@
 #define TFS_CLIENT_LRU_H_
 
 #include <list>
-#include <ext/hash_map>
+#include <unordered_map>
 #include "client_config.h"
 #include "common/internal.h"
 
@@ -31,7 +31,7 @@ namespace tfs
     public:
       typedef std::list<std::pair<T1, T2> > List;
       typedef typename List::iterator iterator;
-      typedef __gnu_cxx::hash_map<T1, iterator> Map;
+      typedef std::unordered_map<T1, iterator> Map;
 
       lru()
       {

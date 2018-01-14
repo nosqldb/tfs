@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <time.h>
 #include "common/client_manager.h"
 #include "common/new_client.h"

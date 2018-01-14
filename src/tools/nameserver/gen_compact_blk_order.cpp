@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <signal.h>
 #include <list>
-#include <ext/hash_set>
+#include <unordered_set>
 
 #include "message/server_status_message.h"
 #include "tools/nameserver/common.h"
@@ -116,7 +116,7 @@ int fetch_blocks(const uint64_t ns_id, list<BlockBase>& block_list, const int32_
 void arrange_block_order(list<BlockBase>& block_list, const int ds_size, const double rato, vector<uint64_t>& order_list)
 {
   int ds_size_limit = static_cast<int>(ds_size * rato);
-  __gnu_cxx ::hash_set<uint64_t> server_set(ds_size * 2);// busy ds set
+  std::unordered_set<uint64_t> server_set(ds_size * 2);// busy ds set
 
   int last_size = -1;
   int slice_count = 0;

@@ -18,7 +18,7 @@
 #define TFS_COMMON_ROOT_SERVER_DEFINE_H_
 
 #include <map>
-#include <ext/hash_map>
+#include <unordered_map>
 #include <Time.h>
 
 #include "internal.h"
@@ -167,7 +167,7 @@ namespace tfs
     {
       UPDATE_TABLE_PHASE_1 = 0,
       UPDATE_TABLE_PHASE_2 = 1
-    };
+    }UpdateTablePhase;
 
     struct NewTableItem
     {
@@ -243,13 +243,13 @@ namespace tfs
     static const int16_t RTS_RS_RENEW_LEASE_INTERVAL_TIME_DEFAULT = 1;
     static const int16_t RTS_RS_LEASE_EXPIRED_TIME_DEFAULT = 2;
 
-    typedef __gnu_cxx::hash_map<uint64_t, MetaServer> META_SERVER_MAPS;
+    typedef std::unordered_map<uint64_t, MetaServer> META_SERVER_MAPS;
     typedef META_SERVER_MAPS::iterator META_SERVER_MAPS_ITER;
     typedef META_SERVER_MAPS::const_iterator META_SERVER_MAPS_CONST_ITER;
     typedef std::map<uint64_t, NewTableItem> NEW_TABLE;
     typedef NEW_TABLE::iterator NEW_TABLE_ITER;
     typedef NEW_TABLE::const_iterator NEW_TABLE_CONST_ITER;
-    typedef __gnu_cxx::hash_map<uint64_t, RootServerInformation> ROOT_SERVER_MAPS;
+    typedef std::unordered_map<uint64_t, RootServerInformation> ROOT_SERVER_MAPS;
     typedef ROOT_SERVER_MAPS::iterator ROOT_SERVER_MAPS_ITER;
     typedef ROOT_SERVER_MAPS::const_iterator ROOT_SERVER_MAPS_CONST_ITER;
   } /** common **/

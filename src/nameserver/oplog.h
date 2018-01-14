@@ -24,7 +24,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <string>
-#include <ext/hash_map>
+#include <unordered_map>
 #include <errno.h>
 #include <dirent.h>
 #include <Mutex.h>
